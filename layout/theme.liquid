@@ -59,22 +59,21 @@
   <meta name="theme-color" content="{{ settings.color_primary }}">
 
   <!-- CSS ================================================== -->
-  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  <!-- {{ 'slick.css' | asset_url | stylesheet_tag }} -->
   {{ 'slick.scss' | asset_url | stylesheet_tag }}
-  {{ 'slick-theme.scss' | asset_url | stylesheet_tag }}
+  <!-- {{ 'slick-theme.scss' | asset_url | stylesheet_tag }} -->
   {{ 'style.scss.css' | asset_url | stylesheet_tag }}
-  {{ '//fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i' | stylesheet_tag }}
 
 
   <!-- Header hook for plugins ================================================== -->
   {{ content_for_header }}
 
-  {{ '//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js' | script_tag }}
-  {{ 'modernizr.min.js' | asset_url | script_tag }}
+  <!-- {{ '//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js' | script_tag }}
+  {{ 'modernizr.min.js' | asset_url | script_tag }} -->
 
   {% comment %} Component Scripts {% endcomment %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script> -->
 
 
 
@@ -129,7 +128,7 @@
   {% include 'currencies' %}
 
   {{ 'option_selection.js' | shopify_asset_url | script_tag }}
-  {{ 'ira.js' | asset_url | script_tag }}
+  {{ 'ira.min.js' | asset_url | script_tag }}
 
   {% comment %}
     Template-specific js
@@ -143,7 +142,7 @@
     </script>
   {% endif %}
 
-  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  <!-- {{ 'handlebars.min.js' | asset_url | script_tag }} -->
   {% include 'ajax-cart-template' %}
   {{ 'ajax-cart.js' | asset_url | script_tag }}
 

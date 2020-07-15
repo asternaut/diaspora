@@ -351,8 +351,8 @@ var ajaxCart = (function(module, $) {
   var wholesale = wh_customer_tags;
   var spoon = 31985354440786;
   var magnetTrio = 31985351360594;
-  var powderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32135529070674, 32135529037906];
-  //turmeric small, turmeric med, turmeric large, powdered chili, powdered chili M, powdered chili L, turmeric 2, turmeric 10, turmeric 50, big trio, small trio
+  var powderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32135529070674, 32135529037906, 32124805709906, 32124805677138, 32124805644370];
+  //turmeric small, turmeric med, turmeric large, powdered chili, powdered chili M, powdered chili L, turmeric 2, turmeric 10, turmeric 50, big trio, small trio, subscription turmeric 2, subscription turmeric 10, subscription turmeric 50
 
   buildCart = function (cart) {
     // Start with a fresh cart div
@@ -364,7 +364,7 @@ var ajaxCart = (function(module, $) {
     var totalUnderFifty = cart.total_price < 5000 ? true : false;
     var powderQuantity = 0;
     var trioSpice = [32135529070674, 32135529037906]; //big trio, small trio
-    var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369];
+    var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32124805709906, 32124805677138, 32124805644370];
 
     $.each(cart.items, function(index, cartItem) {
       if (powderedSpices.includes(cartItem.variant_id)){
@@ -396,7 +396,7 @@ var ajaxCart = (function(module, $) {
         template = Handlebars.compile(source);
 
     // Add each item to our handlebars.js data
-    $.each(cart.items, function(index, cartItem) {      
+    $.each(cart.items, function(index, cartItem) {
       var itemAdd = cartItem.quantity + 1,
           itemMinus = cartItem.quantity - 1,
           itemQty = cartItem.quantity;
@@ -554,7 +554,7 @@ var ajaxCart = (function(module, $) {
     if (rechargeInCart) {
       $('.js-checkout').addClass('js-recharge-redirect');
     } else {
-      $('.js-checkout').removeClass('js-recharge-redirect');  
+      $('.js-checkout').removeClass('js-recharge-redirect');
     }
   };
 

@@ -20,7 +20,7 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
     {% assign grid_item_width = 'large--one-third medium--one-third one-half' %}
   {% when "fourByThree" %}
     {% assign products_per_page = 50 %}
-    {% assign grid_item_width = 'large--one-quarter medium--one-quarter one-half' %}
+    {% assign grid_item_width = 'large--one-quarter medium--one-third one-half' %}
   {% when "fiveByThree" %}
     {% assign products_per_page = 15 %}
     {% assign grid_item_width = 'large--one-fifth medium--one-fifth one-half' %}
@@ -71,13 +71,7 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
 
 {% if hasFiltersWrapper %}
   <div class="collection-filters-wrapper {% if section.settings.show_collection_header %}has-border{% endif %}">
-{% else %}
-  <div class="breadcrumb-wrapper content-wrapper--squished content-wrapper--half-top medium-down--text-center medium-down--hide">
-{% endif %}
 
-  {% include "breadcrumb" %}
-
-  {% if hasFiltersWrapper %}
     <div class="collection-filters">
       {% if section.settings.enable_collection_filtering and collection.all_tags.size > 0 %}
         <div class="collection-filtering">
@@ -125,8 +119,9 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
         </div>
       {% endif %}
     </div>
-  {% endif %}
-</div>
+  </div>
+{% endif %}
+
 
 {% if collection.all_products_count == 0 %}
   <div class="content-wrapper collection-empty">
@@ -139,7 +134,7 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
 {% paginate collection.products by products_per_page %}
 
   <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} image-gutters--no-offset-top">
-    <h2 class="collection-subhead">Spices</h2>
+    <h2 class="collection-subhead will-animate fade-in">Spices</h2>
     {% for product in collection.products %}
     {% if product.type == 'Spice' %}
       {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
@@ -150,7 +145,7 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
     {% endfor %}
     </div>
     <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} image-gutters--no-offset-top">
-      <h2 class="collection-subhead"> Collaborations </h2>
+      <h2 class="collection-subhead will-animate fade-in"> Collaborations </h2>
       {% for product in collection.products %}
       {% if product.type == 'Collaboration' %}
       {% assign type_collab = true %}
@@ -163,7 +158,7 @@ Four layout options: 2x3, 3x3, 4x3, 5x3
   </div>
     {%comment%}
   <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} image-gutters--no-offset-top">
-      <h2 class="collection-subhead"> Cookbooks </h2>
+      <h2 class="collection-subhead will-animate fade-in"> Cookbooks </h2>
       {% for product in collection.products %}
       {% if product.type == 'Cookbook' %}
       {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}

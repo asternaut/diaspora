@@ -2,7 +2,7 @@
   "current": {
     "color_primary": "#f41f86",
     "color_body_bg": "#ffffff",
-    "color_borders": "#e2e2e2",
+    "color_borders": "#ffde17",
     "color_header": "#222222",
     "color_body_text": "#3a3a3a",
     "color_button_text": "#ffffff",
@@ -54,9 +54,9 @@
           "transparent_header": false,
           "color_transparent_header_icon": "#ffffff",
           "navigation_style": "links",
-          "color_nav_drawer": "#fafafa",
+          "color_nav_drawer": "#f41f86",
           "color_nav_border": "#383838",
-          "color_nav_text": "#222222",
+          "color_nav_text": "#ffffff",
           "nav_linklist": "dev-menu",
           "catalog_dropdowns": false,
           "catalog_menu_image": "",
@@ -706,10 +706,10 @@
           "product_recipies": true
         }
       },
-      "1594140653608": {
+      "1594151474222": {
         "type": "instafeed",
         "settings": {
-          "heading_font": "helvetica_n4",
+          "heading_font": "avenir_next_n7",
           "heading_size": 20,
           "feed_width": 100,
           "html_area": "<!-- -->"
@@ -724,8 +724,8 @@
       "newsletter",
       "featured-products",
       "1553553135575",
-      "1556148712906",
-      "1594140653608"
+      "1594151474222",
+      "1556148712906"
     ]
   },
   "presets": {

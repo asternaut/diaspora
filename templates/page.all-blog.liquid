@@ -17,13 +17,13 @@
       <div class="grid__item one-half">
         <a class="blog-sub-filter" href="/blogs/recipes">
           <h3>Recipes</h3>
-          <span> view all</span>
+          <div class="reveal-view"> <img src="{{'icon-eye.png' | asset_img_url: '200x' }}" alt="view all"> </div>
         </a>
       </div>
       <div class="grid__item one-half">
         <a class="blog-sub-filter second" href="/blogs/journal">
           <h3>Blog</h3>
-          <span> view all</span>
+          <div class="reveal-view"> <img src="{{'icon-eye.png' | asset_img_url: '200x' }}" alt="<span>view all"></div>
         </a>
       </div>
     </div>
@@ -80,7 +80,7 @@
         <a class="large--hide all-posts-link" href="/blogs/recipes"> View all recipes </a>
     </div>
     <div class="grid-item two-by" id="blog">
-      {% for article in blogs.journal.articles limit: 20 %}
+      {% for article in blogs.journal.articles limit: 10 %}
       {% assign remainder = forloop.index0 | modulo:3 %}
 
       <div class="article-wrap">

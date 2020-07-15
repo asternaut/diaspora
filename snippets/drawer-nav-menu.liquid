@@ -1,14 +1,16 @@
 {% if link.links != blank %}
   <li class="mobile-nav__item {% if count != blank %}animation-sequence-{{ count }}{% endif %} {% if link.active %}mobile-nav__item--active{% endif %}" aria-haspopup="true">
     <div class="mobile-nav__has-sublist">
-      <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+      <a href="{{ link.url }}" class="mobile-nav__link">
+        <span>{{ link.title }}</span>
+      </a>
       <button type="button" class="icon-fallback-text mobile-nav__toggle">
         <svg><use xlink:href="#icon-dropdown"></use></svg>
         <span class="fallback-text">See More</span>
       </button>
     </div>
 
-    <ul class="mobile-nav__sublist">
+    <ul class="mobile-nav__sublist wavy-underline">
       {% assign count = 0 %}
       {% for link in link.links %}
         {% include "drawer-nav-menu" %}
@@ -18,7 +20,15 @@
   </li>
 
 {% else %}
-  <li class="mobile-nav__item {% if count != blank %}animation-sequence-{{ count }}{% endif %} {% if link.active %}mobile-nav__item--active{% endif %}">
-    <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+  <li class="mobile-nav__item {% if count != blank %}animation-sequence-{{ count }}{% endif %} {% if link.active %}mobile-nav__item--active{% endif %} {% if link.title contains 'Recipe' or link.title contains 'Blog' %} flex-it {% endif %}">
+    <a href="{{ link.url }}" class="mobile-nav__link">
+      {% if link.title contains 'Recipe' %}
+        <img class="saute" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/icons-food-Thardka.png?v=1578680997" class="dropdown-image" alt="">
+      {% endif %}
+      {% if link.title contains 'Blog' %}
+        <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/elephant.png?v=1592233752" class="dropdown-image" alt="">
+      {% endif %}
+      <span>{{ link.title }}</span>
+    </a>
   </li>
 {% endif %}

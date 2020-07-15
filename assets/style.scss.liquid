@@ -97,7 +97,7 @@ $green: #369988; //emerald green
 
 // Button colors
 $colorBtnPrimary: {{ settings.color_primary }};
-$colorBtnPrimaryHover: darken($colorBtnPrimary, 3%);
+$colorBtnPrimaryHover: #f08c00;
 $colorBtnPrimaryActive: darken($colorBtnPrimaryHover, 3%);
 $colorBtnPrimaryText: {{ settings.color_button_text }};
 $colorInputs: #EAEAEA;
@@ -105,7 +105,7 @@ $colorInputs: #EAEAEA;
 
 // Text link colors
 $colorLink: $colorPrimary;
-$colorLinkHover: lighten($colorPrimary, 15%);
+$colorLinkHover: #f4501f;
 
 // Text colors
 $colorTextBody: {{ settings.color_body_text }};
@@ -229,7 +229,8 @@ $homePageBlockMaxHeight: strip-units($maxMonitorWidth / (100 / $homePageBlockHei
 /*================ Header Sizing Variables ================*/
 
 $headerFontSize: 28px;
-$headerSize: 90px;
+$headerSize: 60px;
+$headerSizeLarge: 90px;
 // $notificationBarHeight: $headerSize / 2;
 $notificationBarHeight: 40px;
 $defaultHoverSpeed : 0.3s;
@@ -1320,7 +1321,6 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-
 .wrapper {
   @include clearfix();
   max-width: $siteWidth;
@@ -1441,6 +1441,13 @@ body {
   display: inline;
 }
 
+/*============================================================================
+#accessibility
+==============================================================================*/
+
+body *:focus {
+  outline-color: $marigold;
+}
 
 
 /*============================================================================
@@ -1881,9 +1888,9 @@ button.drop-shadow {
 }
 
 $textWrapperPadding: 8vw 3em;
-$textWrapperPaddingLarge: 2.5em;
+$textWrapperPaddingLarge: 2.5em 1em;
 .text-wrapper {
-  padding: $textWrapperPadding;
+  padding: $textWrapperPadding ;
 
   @include at-query($min, $postSmall){
     padding: $textWrapperPaddingLarge;
@@ -1970,6 +1977,10 @@ a:hover,
 a:focus,
 .text-link:hover {
   color: $colorLinkHover;
+
+    &:after{
+      width: 100%;
+    }
 }
 
 button {
@@ -2006,6 +2017,7 @@ html input[disabled] {
   &:hover {
     background-color: $colorBtnPrimaryHover;
     color: $colorBtnPrimaryText;
+    border-color: $colorBtnPrimaryHover;
   }
 
   &[disabled], &.disabled {
@@ -2022,6 +2034,7 @@ html input[disabled] {
   @include button;
   background-color: $colorPrimary;
   color: $colorBtnPrimaryText;
+  transition: all 0.2s ease;
 
   &:active, &:focus {
     background-color: $colorBtnPrimaryActive;
@@ -2221,12 +2234,28 @@ img.auto,
   display: block;
   margin: 0 auto;
   position: relative;
+  z-index: 2;
+
+  .image-crossfade span:after {
+    transition: all 0.2s ease;
+    content: '';
+    position: absolute;
+    z-index: 0;
+    background: radial-gradient(rgba(249, 177, 0, 0.90) 8%, transparent 95%);
+    bottom: 20px;
+    left: 15%;
+    width: 70%;
+    height: 20px;
+    border-radius: 100%;
+  }
 
   img {
     display: block;
     margin: 0 auto;
     -webkit-backface-visibility: hidden;
     min-width: 100%;
+    position: relative;
+    z-index: 2;
     @include at-query($min, $medium){
       padding: 20px;
     }
@@ -2234,6 +2263,11 @@ img.auto,
     // Yes this is hacky
     // Removes wierd stroke issue on images
     .grid--story & {min-width: 100.5%;}
+  }
+
+  &:focus, a:focus {
+    outline: 1px solid $marigold;
+    color: $marigold;
   }
 
   @include at-query($max, $small){
@@ -2272,7 +2306,7 @@ video {
 }
 
 @mixin image-placeholder() {
-  background: #e8e8e8;
+  background: $colorPrimary;
 
   img {
     width: 100%;
@@ -2869,13 +2903,13 @@ $headerTransition : "height #{$condenseTransitionTime}, background-color 0.5s, t
 
 @media screen and ( max-width: 841px){
   .header-shop-name {
-    margin-top: 40px;
+  //  margin-top: 20px;
   }
 
   .shopify-section.header {
     position: -webkit-sticky;
     position: sticky;
-    top: -80px;
+    top: -$headerSize;
     z-index: 1000;
   }
 }
@@ -2893,13 +2927,16 @@ $headerTransition : "height #{$condenseTransitionTime}, background-color 0.5s, t
   min-height: $headerSize;
   max-width: $siteMaxWidth;
   @include transition($headerTransition);
-  z-index: 29;
+  z-index: 19;
 
   @include at-query($min, $medium + 1) {
     box-shadow: 0 1px 1px -1px rgba(0,0,0,0.3);
 
+    height: $headerSizeLarge;
+    max-height: $headerSizeLarge;
+    min-height: $headerSizeLarge;
+
     &.has-breadcrumbs.offset-by-announcement-bar:not(.transparent-header) {
-      border-bottom: 1px solid #eee;
       box-shadow: none;
     }
   }
@@ -2947,7 +2984,7 @@ $headerTransition : "height #{$condenseTransitionTime}, background-color 0.5s, t
 @media screen and (min-width: 840px) {
   .sticky-header {
     position: fixed;
-    top: 0px !important;
+    top: -1px !important;
   }
 }
 
@@ -2991,12 +3028,6 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
       border-left: none;
     }
   }
-
-  &.has-breadcrumbs.offset-by-announcement-bar:not(.transparent-header) .site-header-controls {
-    @include at-query($min, $medium + 1) {
-      border-bottom: 1px solid #eee;
-    }
-  }
 }
 
 .site-header-controls {
@@ -3010,9 +3041,10 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
   top: 0;
   @include transition($headerTransition);
 
-  @include at-query($max, $large) {
-    max-height: $headerSize - 10px;
-    min-height: $headerSize - 10px;
+  @include at-query($min, $large) {
+    height: $headerSizeLarge;
+    max-height: $headerSizeLarge;
+    min-height: $headerSizeLarge;
 
     // .js-drawer-open &.medium-down--fixed { top: 80px; }
   }
@@ -3178,7 +3210,7 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
           top: 15px;
           left: 0;
           opacity: 0;
-          color: black;
+          color: $orange;
           @include transition(0s);
         }
 
@@ -3245,7 +3277,7 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
 
   @include at-query($min, $large) {
     display: inline-block;
-    max-height: $headerSize;
+    max-height: $headerSizeLarge;
     text-align: left;
     padding-left: 2.5rem;
     vertical-align: middle;
@@ -3290,13 +3322,17 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
   }
 
   img {
-    max-height: $headerSize - 10px;
+    @include at-query($max, $medium){
+      max-height: $headerSize;
+    }
+    object-fit: contain;
     padding: 0.5rem 0;
     opacity: 1;
     transition: opacity 0.2s ease;
 
     @include at-query($min, $large){
       float: left;
+      height: $headerSizeLarge;
     }
 
     @include at-query($min, $medium + 1) {
@@ -3358,11 +3394,11 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
 .main-content {
   position: relative;
   margin-top: 0px;
-  padding-top: 90px;
+  padding-top: $headerSizeLarge;
   width: 100%;
 
   .respond-to-announcement-bar & {
-    padding-top: 90px;
+    padding-top: $headerSizeLarge;
     // margin-top: 200px;
   }
 
@@ -3383,12 +3419,18 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
     }
   }
 
+  @include at-query($max, $medium) {
+    .respond-to-announcement-bar & {
+      padding-top: 110px !important;
+    }
+  }
+
 
   @include at-query($max, $small){
-    padding-top: 80px;
+    padding-top: $headerSize;
 
     .respond-to-announcement-bar & {
-      padding-top: 150px !important;
+      padding-top: 110px !important;
     }
   }
 }
@@ -3419,7 +3461,7 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
 @include at-query($max, $medium){
   .main-content {
     padding: 0 3em;
-    margin-top: 0px;
+  //  margin-top: 80px;
 
     .template-index &,
     .template-collection &,
@@ -3531,7 +3573,7 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
 
 /*=========================== Notification Bar ==========================*/
 #announcement-bar {
-  background-color: $colorPrimary;
+  background-color: #f08c00;
   &, a {color: $colorBtnPrimaryText;}
   width: 100%;
   position: relative;
@@ -3549,13 +3591,15 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
   letter-spacing: 1px;
   font-size: .7em;
   font-weight: $font-weight-bold;
+  @include at-query($min, $large) {
+    height: 40px;
+  }
 }
 
 //While this class effects the header, conceptually it only exists
 //because of the notification bar.
 .offset-by-announcement-bar {
   position: absolute;
-  top: 40px;
   //top: $notificationBarHeight !important;
   //important is necessary because this class by itself
   //doesn't have enough specificity, but we want it to
@@ -3598,7 +3642,7 @@ body:not(.js-drawer-open).template-collection .transparent-header:not(.js-search
   max-width: 100%;
   white-space: pre-wrap;
   padding: 10px 10px 0 10px;
-  border-bottom: 10px solid #f41f86;
+  border-bottom: 10px solid #f08c00;
 }
 
 .currency-picker-label {
@@ -3751,20 +3795,70 @@ $animation-curve: cubic-bezier(0.57, 0.06, 0.05, 0.95);
   }
 }
 
+
+@keyframes saute {
+  0% {
+    transform: none
+  }
+  15% {
+    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -3deg)
+  }
+  30% {
+    transform: translate3d(2%, 0, 0) rotate3d(0, 0, 1, 5deg)
+  }
+  60% {
+    transform: translate3d(5%, 0, 0) rotate3d(0, 0, 1, 3deg)
+  }
+  100% {
+    transform: none
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: none
+  }
+  15% {
+    transform: translateY(-1%) rotate(1deg)
+  }
+  30% {
+    transform: translateY(6%) rotate(2deg)
+  }
+  60% {
+    transform: translateY(-1%) rotate(1deg)
+  }
+  100% {
+    transform: none
+  }
+}
+
 .main-navigation .dropdown {
   position: absolute;
   z-index: 1;
   left: -30px;
   display: none;
-  min-width: 200px;
-  padding: 25px 30px;
+  min-width: 250px;
+  min-height: 250px;
+  padding: 15px 20px;
   margin-left: 0;
   margin-top: -22px;
-  background-color: $colorPrimary;
-  border-radius: 4px;
+  background-color: #f08c00;
+  border-radius: 100%;
   //box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
-  text-align: left;
+  text-align: center;
   transition: transform 0.15s ease-in, opacity 0.15s ease-in;
+  &:before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    bottom: -65px;
+    right: -35px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url({{'sun-rays.png' | asset_img_url: 'master'}});
+  }
 
   &.visibly-hidden {
     display: flex;
@@ -3781,15 +3875,31 @@ $animation-curve: cubic-bezier(0.57, 0.06, 0.05, 0.95);
   }
 
   &.visible {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 1;
     transform: scale(1);
     transform-origin: top center;
   }
 
+  ul {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+  }
+
   li {
     display: block;
     margin-left: 0;
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+  }
+
+  img {
+    flex-shrink: 0;
+    width: 100px;
   }
 
   a {
@@ -3797,6 +3907,15 @@ $animation-curve: cubic-bezier(0.57, 0.06, 0.05, 0.95);
     opacity: 0;
     transform: translateX(-7px);
     @include backface(hidden);
+    transition: all 0.25s ease;
+    &:hover {
+      img.saute {
+        animation: saute 1s infinite;
+      }
+      img.jump {
+        animation: jump 1s infinite;
+      }
+    }
 
     .template-collection .transparent-header &,
     .template-index .transparent-header & {
@@ -3828,11 +3947,16 @@ $animation-curve: cubic-bezier(0.57, 0.06, 0.05, 0.95);
   transform: none;
 }
 
+.main-navigation a {
+  font-weight: bold;
+}
+
 .dropdown a {
   width: 100%;
   display: block;
   position: relative;
   margin-bottom: 2px;
+  font-size: 1em;
 
   svg {
     position: absolute;
@@ -4008,9 +4132,17 @@ $sublistAnimation : "all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95)";
   display: block;
   padding-top: 0px;
   overflow: hidden;
+  padding-bottom: 1rem;
+  font-size: 20px;
 
   .mobile-nav > &:last-child:after {
     display: none;
+  }
+  svg {
+    height: 24px;
+    display: inline-block;
+    width: 24px;
+    margin-right: 7px;
   }
 }
 
@@ -4093,6 +4225,8 @@ $sublistAnimation : "all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95)";
 
   .mobile-nav--expanded + & {
     max-height: 700px;
+    margin-left: 0;
+    margin-bottom: 20px;
     //the "open" animation
     @include transition("max-height #{$animation-speed} ease-in;");
   }
@@ -4124,6 +4258,35 @@ $sublistAnimation : "all 300ms cubic-bezier(0.57, 0.06, 0.05, 0.95)";
         transition: opacity $animation-speed #{$delay}ms $animation-curve, margin-left $animation-speed #{$delay}ms $animation-curve;
       }
     }
+  }
+  &:after {
+    bottom: -100% !important;
+    height: 102%;
+    width: 105%;
+  }
+}
+
+.mobile-nav__item.flex-it {
+  padding-bottom: 7px;
+  padding-top: 10px;
+  width: calc(50% - 10px);
+  display: inline-flex;
+  &:not(:last-of-type) {
+    padding-right: 10px;
+  }
+  .mobile-nav__link {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-size: 0.9em;
+    color: $marigold;
+  }
+  img {
+    max-width: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
   }
 }
 
@@ -4198,7 +4361,7 @@ $drawerContentTransitionWebkit: -webkit-transform 0s ease 0s, padding-top 0s eas
   z-index: $zindexDrawer;
   @include transition($drawerTransition);
   @include backface(hidden);
-  font-weight: $font-weight;
+  font-weight: $font-weight-bold;
 
   @include at-query($min, $large){
     @include transition($drawerTransitionLarge);
@@ -4313,7 +4476,7 @@ $drawerContentTransitionWebkit: -webkit-transform 0s ease 0s, padding-top 0s eas
   }
 
   .drawer {
-    top: 80px !important;
+    top: $headerSize !important;
   }
 }
 
@@ -4374,7 +4537,7 @@ body:not(.js-drawer-open) .drawer__content {
   overflow-y: scroll;
   overflow-x: hidden;
   z-index: 28;
-  top: 0;
+  top: -1px;
 
   bottom: 0;
   //without this we can't scroll on expanded drawers on mobile bp,
@@ -4490,9 +4653,13 @@ body:not(.js-drawer-open) .drawer__content {
 
 .content-wrapper--title {
   padding: 0 2.5em 4em 2.5em;
-  max-width: $siteWidth;
+  //max-width: $siteWidth;
+  max-width: 50vw;
   margin: 0 auto;
   padding-bottom: 0;
+  @include at-query($max, $small){
+    max-width: 100%;
+  }
 }
 
 .content-wrapper--squished {
@@ -4625,6 +4792,7 @@ body:not(.js-drawer-open) .drawer__content {
   }
   a{
     color: #fff;
+    transition: all 0.2s ease;
   }
 
   &.has-content .footer-wrapper {
@@ -4636,6 +4804,10 @@ body:not(.js-drawer-open) .drawer__content {
   .btn.show-exit-intent {
     margin-top: em(15px);
     margin-bottom: em(15px);
+    &:hover {
+      background-color: $orange;
+      border-color: $gold;
+    }
   }
 
   a:hover,
@@ -4999,6 +5171,15 @@ body:not(.js-drawer-open) .drawer__content {
 /*============================================================================
 #Featured Collection */
 
+@keyframes full360 {
+  0% {
+    transform: rotate(0);
+  }
+  0% {
+    transform: rotate(360deg);
+  }
+}
+
 .featured-products{
   .grid--products {
     background: $orange;
@@ -5018,6 +5199,7 @@ body:not(.js-drawer-open) .drawer__content {
     content: '';
     position: absolute;
     background-repeat: no-repeat;
+    animation: full360 20s ease-in-out forwards infinite;
     @include at-query($max, $small){
       width: 9em;
       height: 8em;
@@ -5028,6 +5210,7 @@ body:not(.js-drawer-open) .drawer__content {
 .featured-products, .collection-pages{
   .grid__item h6 {
     font-size: 1.3em;
+    margin-bottom: 0;
     color: #f41f86;
   }
 
@@ -5041,6 +5224,7 @@ body:not(.js-drawer-open) .drawer__content {
 
 .collection-pages{
   background-color: $orange !important;
+  padding-top: 40px;
   .image-gutters--4{
     padding-bottom: 14px;
     margin-bottom: 14px;
@@ -5766,6 +5950,18 @@ p.h6.light {
   overflow-y: visible !important;
 }
 
+@keyframes sway{
+  0% {
+    transform: rotate(-2deg);
+  }
+  50%{
+    transform: rotate(2deg);
+  }
+  100% {
+    transform: rotate(-2deg);
+  }
+}
+
 .full-width-image.background-illustration{
   position: relative;
   &:before, &:after{
@@ -5777,6 +5973,7 @@ p.h6.light {
     background-size: contain;
     width: 100%;
     height: 100%;
+    animation: sway 5s ease-in-out forwards infinite;
   }
   &:before{
     background-image: url({{ 'il-palm-2.png' | asset_img_url: 'master'}});
@@ -5784,6 +5981,7 @@ p.h6.light {
     background-position: left -5% bottom 0;
     z-index: 10;
     bottom: -17%;
+    transform-origin: bottom left;
   }
   &:after{
     background-image: url({{ 'il-palm-1.png' | asset_img_url: 'master'}});
@@ -5792,6 +5990,19 @@ p.h6.light {
     z-index: 10;
     top: -26%;
     left: 0;
+    transform-origin: top right;
+  }
+}
+
+@keyframes marigoldSway {
+  0% {
+    transform: rotate(7deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(7deg);
   }
 }
 
@@ -5817,12 +6028,15 @@ p.h6.light {
     left: 2%;
     @include at-query($max, $small){
       background-size: 63px auto;
+      top: -6%;
     }
   }
   &:after{
     @include at-query($max, $small){
       display: none;
     }
+    animation: marigoldSway 6s ease-in-out forwards infinite;
+    transform-origin: bottom right;
     background-image: url({{ 'il-marigolds.png' | asset_img_url: 'master'}});
     background-size: 12% auto;
     background-position: right 0% bottom 0%;
@@ -5860,6 +6074,12 @@ p.h6.light {
 
 .product-pages{
   background: $orange;
+  @include at-query($max, $medium) {
+    padding-top: 20px;
+  }
+  @include at-query($max, $small) {
+    padding-top: 0px;
+  }
   .content-wrapper--title{
     padding: 0 0.5em 2em 0.5em;
   }
@@ -5946,6 +6166,7 @@ p.h6.light {
 
 .product-description.product-tab-content{
   overflow-y: visible !important;
+  overflow-x: hidden;
   margin-bottom: 0;
 }
 
@@ -6028,11 +6249,30 @@ p.h6.light {
 .rough-btn{
   border: none;
   background: none;
-  font-size: 1.2em;
+  padding: 0;
+  svg {
+    float: left;
+    @include at-query($max, $small){
+      width: 100%;
+      height: 100%;
+    }
+  }
   &.disabled{
     background: transparent;
+    path {
+      fill: $orange;
+    }
+    text {
+      color:$colorBtnPrimaryHover;
+    }
   }
-
+  path {
+    fill: $colorPrimary;
+  }
+  text {
+    color: white;
+    font-size: 22px;
+  }
 }
 
 .product-single__price-text{
@@ -6047,6 +6287,9 @@ p.h6.light {
   .custom-field--value{
     text-align: right;
     font-size: 16px;
+    @include at-query($max, $small) {
+      font-size: 3.5vw;
+    }
   }
 }
 
@@ -6081,18 +6324,18 @@ p.h6.light {
 
 .product__button-quanity{
   display: flex;
-  //margin-top: 2em;
+
+  button:hover {
+    background-color: transparent;
+  }
   div.organic-background:first-child{
     width: 100%;
-    button:not(.disabled){
-      transform: scale(1);
+    button:not(.disabled) path{
       transition: all 0.2s ease;
     }
     &:hover{
-      button:not(.disabled){
-        background: transparent;
-        transform: scale(1.1);
-        color: white;
+      button:not(.disabled) path{
+        fill: $colorBtnPrimaryHover;
       }
     }
   }
@@ -6109,10 +6352,11 @@ p.h6.light {
     padding: 76px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     .chart-header{
-      max-width: 175px;
+      max-width: 225px;
       width: 100%;
-      margin-right: 7%;
+      margin-right: 5%;
     }
   }
   @include at-query($max, $medium) {
@@ -6283,8 +6527,8 @@ p.h6.light {
 .equity-pledge{
   position: relative;
   background: $marigold;
-  width: calc(100% + 6vw);
-  margin-left: -3vw;
+  width: calc(100% + 8vw);
+  margin-left: -4vw;
   padding: 40px 0;
   margin-top: 40px;
   @include at-query($max, $small) {
@@ -6317,6 +6561,10 @@ p.h6.light {
     padding: 0;
     position: relative;
     z-index: 2;
+    @media screen and (max-width: 1200px) and (min-width: 841px) {
+      margin: 0 50px;
+    }
+
   }
   h2{
     color: #FF7800 !important;
@@ -6329,8 +6577,8 @@ p.h6.light {
   font-weight: bold;
   text-align: center;
   padding: 31px;
-  width: calc(100% + 6vw);
-  margin-left: -3vw;
+  width: calc(100% + 8vw);
+  margin-left: -4vw;
   @include at-query($max, $small) {
     width: 100%;
     margin-left: 0;
@@ -6339,6 +6587,10 @@ p.h6.light {
     background: $marigold;
     color: $colorPrimary;
     margin-top: 14px;
+    &:hover {
+      background: $orange;
+      border-color: $orange;
+    }
   }
 }
 
@@ -6349,6 +6601,7 @@ p.h6.light {
   position: relative;
   z-index: 100;
 }
+
 
 .product-panel-background {
   position: relative;
@@ -6366,31 +6619,47 @@ p.h6.light {
   }
 }
 
+@keyframes leftRotateIn {
+	from { transform: rotate(-8deg) translatex(-59%); }
+	to { transform: rotate(0deg) translatex(0);  }
+}
+
+@keyframes rightRotateIn {
+	from { transform: rotate(8deg) translatex(48%); }
+	to { transform: rotate(0deg) translatex(0);  }
+}
+
 .product-panel-background.turmeric{
   &:before{
+    transform-origin: 0;
     background-image: url({{ 'il-banana-turmeric.png' | asset_img_url: 'master'}});
     background-size: 37% auto;
     background-position: left -16% top 0;
+    animation: leftRotateIn 3s backwards ease;
+    animation-delay: 3s;
     @include at-query($max, $medium){
       background-size: 42% auto;
       background-position: left -8% top 120%;
     }
     @include at-query($max, $small){
       background-size: 82% auto;
-      background-position: left -158% top 20%;
+      background-position: left -158% top 11%;
     }
   }
   &:after{
+    transform-origin: 0;
     background-image: url({{ 'il-banana-right.png' | asset_img_url: 'master'}});
     background-size: 40% auto;
     background-position: right -38% top 60%;
+    animation: rightRotateIn 3s backwards ease;
+    animation-delay: 3s;
     @include at-query($max, $medium){
       background-size: 50% auto;
       background-position: right -48% top 60%;
     }
     @include at-query($max, $small){
       background-size: 80% auto;
-      background-position: right -148% top 27%;
+      background-position: right -148% top 23%;
     }
   }
   .product-form{
@@ -6415,21 +6684,37 @@ p.h6.light {
     }
   }
 }
+
+@keyframes chiliAfter {
+	from { transform: translatex(-57%); }
+	to { transform: translatex(0);  }
+}
+
+@keyframes chiliBefore {
+	from { transform: translatex(57%) scaleX(-1); }
+	to { transform: translatex(0) scaleX(-1);  }
+}
+
 .product-panel-background.chillies{
   &:before, &:after{
     background-size: 21% auto;
     background-position: left -6% bottom 0%;
     @include at-query($max, $small){
       background-size: 61% auto;
-      background-position: left -23% top 26%;
+      background-position: left -23% top 21%;
     }
   }
   &:before{
     background-image: url({{ 'il-chili-plant.png' | asset_img_url: 'master'}});
+    animation: chiliBefore 3s backwards ease;
+    animation-delay: 3s;
     transform: scaleX(-1);
   }
   &:after{
     background-image: url({{ 'il-chili-plant.png' | asset_img_url: 'master'}});
+    animation: chiliAfter 3s backwards ease;
+    animation-delay: 3s;
+
   }
   .product-form{
     &:before{
@@ -6452,13 +6737,42 @@ p.h6.light {
     }
   }
 }
+
+@keyframes palmAfter {
+	from { transform: translatex(57%) rotate(-6deg); }
+	to { transform: translatex(0) rotate(-6deg);  }
+}
+
+@keyframes palmAfterMobile {
+	from { transform: translatex(57%) rotate(0deg); }
+	to { transform: translatex(0) rotate(0deg);  }
+}
+
+
+@keyframes palmBefore {
+	from { transform: translatex(-57%) scaleX(-1); }
+	to { transform: translatex(0) scaleX(-1);  }
+}
+
+@keyframes pepperBefore {
+  from { transform: translate(45%, 45%); }
+	to {transform: translate(0); }
+}
+
+@keyframes pepperAfter {
+	from { transform: translate(-95%, -35%); }
+	to {transform: translate(0); }
+}
+
+
 .product-panel-background.pepper{
   &:before{
     background-image: url({{ 'il-palms.png' | asset_img_url: 'master'}});
     background-size: 37% auto;
     background-position: right -36% top 0;
     transform: scaleX(-1);
-
+    animation: palmBefore 3s backwards ease;
+    animation-delay: 3s;
     @include at-query($max, $small){
       background-size: 82% auto;
       background-position: right -258% top 20%;
@@ -6470,14 +6784,19 @@ p.h6.light {
     background-position: right -24% top 60%;
     transform: rotate(-6deg);
     right: -2%;
+    animation: palmAfter 3s backwards ease;
+    animation-delay: 3s;
 
     @include at-query($max, $small){
       background-size: 82% auto;
       background-position: right -258% top 20%;
       right: 0%;
       transform: rotate(0deg);
+      animation: palmAfterMobile 3s ease;
     }
   }
+
+
   .product_photo {
     img{
       position: relative;
@@ -6496,6 +6815,8 @@ p.h6.light {
       height: 230px;
       left: -10%;
       top: 22%;
+      animation: pepperBefore 3s backwards ease;
+      animation-delay: 3s;
       @include at-query($max, $small){
         height: 230px;
         left: 30%;
@@ -6509,6 +6830,8 @@ p.h6.light {
       height: 230px;
       right: -15%;
       bottom: 15%;
+      animation: pepperAfter 3s backwards ease;
+      animation-delay: 3s;
       @include at-query($max, $small){
         height: 130px;
         right: 35%;
@@ -6518,11 +6841,25 @@ p.h6.light {
     }
   }
 }
+
+@keyframes cardamomBefore {
+  from { transform: rotate(-6deg) translatex(-58%); }
+	to {transform: rotate(0) translate(0); }
+}
+
+@keyframes cardamomAfter {
+	from { transform: rotate(6deg) translatex(58%); }
+	to {transform: rotate(0) translate(0); }
+}
+
+
 .product-panel-background.cardamom{
   &:before{
     background-image: url({{ 'il-card-left.png' | asset_img_url: 'master'}});
     background-size: 29% auto;
     background-position: left -10% top 0;
+    animation: cardamomBefore 3s backwards ease;
+    animation-delay: 3s;
     @include at-query($max, $medium){
       background-position: left -12% top 14%;
     }
@@ -6535,6 +6872,8 @@ p.h6.light {
     background-image: url({{ 'il-card-right.png' | asset_img_url: 'master'}});
     background-size: 25% auto;
     background-position: right -8% top 60%;
+    animation: cardamomAfter 3s backwards ease;
+    animation-delay: 3s;
     @include at-query($max, $small){
       background-size: 60% auto;
       background-position: right -48% top 27%;
@@ -6547,6 +6886,9 @@ p.h6.light {
     background-image: url({{ 'il-all-left.png' | asset_img_url: 'master'}});
     background-size: 35% auto;
     background-position: left -33% top 23%;
+    animation: cardamomBefore 3s backwards ease;
+    animation-delay: 3s;
+
     @include at-query($max, $medium){
       background-size: 52% auto;
       background-position: left -68% top -90%;
@@ -6561,6 +6903,9 @@ p.h6.light {
     background-image: url({{ 'il-all-right.png' | asset_img_url: 'master'}});
     background-size: 24% auto;
     background-position: right -15% bottom 76%;
+    animation: cardamomAfter 3s backwards ease;
+    animation-delay: 3s;
+
     @include at-query($max, $medium){
       background-size: 42% auto;
       background-position: right -30% top 60%;
@@ -6663,12 +7008,23 @@ p.h6.light {
   }
   .featured-blog__caption{
     background: $marigold;
+    max-height: 120px;
     height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
-    a h4{ color: $colorPrimary; font-weight: 500;}
+    border-radius: 0 0 5px 5px;
+    a h4{
+      color: $colorPrimary;
+      font-weight: 600;
+      @include at-query($max, $medium) {
+        font-size: 1.4em;
+      }
+      @include at-query($max, $small) {
+        font-size: 1.2em;
+      }
+    }
   }
   @include at-query($min, $large){
     .image-gutters--4 .grid__item{
@@ -6696,15 +7052,15 @@ p.h6.light {
   }
 }
 
-.product-related h2{
-  color: $colorPrimary;
-  font-size: 2.2em;
-}
 .product-related .grid--products{
   background-image: url({{'long-yellow-wave.png' | asset_img_url: 'master' }});
   background-repeat: repeat-x;
   background-size: contain;
   background-position: top 40% right;
+  @include at-query($max, $small) {
+    background-size: 280%;
+    background-position: top 30% right;
+  }
 }
 
 .product-related .spr-icon, .product__panel-item .spr-icon{
@@ -6873,7 +7229,7 @@ p.h6.light {
   display: block;
   font-size: $font-size * 2;
   @include at-query($min, $large){
-    width: 595px;
+    max-width: 595px;
   }
 
   &:hover .product-lightbox-button.open {
@@ -7022,8 +7378,9 @@ p.h6.light {
   }
 
   .product-tab.inactive & {
-    height: 0 !important;
+    // height: 0 !important;
     margin-bottom: 0;
+    opacity: 0;
   }
 }
 
@@ -7033,12 +7390,15 @@ p.h6.light {
   transition: all 0.1s ease;
 
   .product-tab.inactive & {
-    height: 0 !important;
+    // height: 0 !important;
     margin-bottom: 0;
+    opacity: 0;
+
   }
 
   .product-tab.active &.truncated {
     // height: 400px !important;
+    opacity: 1;
 
     &::after {
       opacity: 1;
@@ -7181,8 +7541,9 @@ p.h6.light {
     position: absolute;
     content: '';
     background-image: url({{'dropdown-arrow.svg' | asset_url}});
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
     width: 18px;
     height: 9px;
     top: 62%;
@@ -7217,7 +7578,9 @@ p.h6.light {
   padding-top: 3em;
   h2 {
     margin-top: em(20px);
-    margin-bottom: em(18px);
+    margin-bottom: 0;
+    color: $colorPrimary;
+    font-size: 2.2em;
   }
   img{
     padding: 2em;
@@ -7252,7 +7615,7 @@ p.h6.light {
     }
 
     @include at-query($min, $large){
-      width: 460px;
+      width: 420px;
     }
 
     @include at-query($max, $medium){
@@ -7375,6 +7738,7 @@ p.h6.light {
 #Cart Page
 ==============================================================================*/
 .cart-message{
+  color: $colorPrimary;
   .message-container{
     display: none;
     position: absolute;
@@ -7394,6 +7758,7 @@ p.h6.light {
 .ajax-cart-message{
   .gift-message{
     width: 100%;
+    background: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -7441,7 +7806,7 @@ p.h6.light {
   height: 1em;
   width: 1em;
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid $colorPrimary;
 }
 
 .check-checkmark.large{
@@ -7461,13 +7826,13 @@ p.h6.light {
   width: 1.1em;
   left: 50%;
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid $colorPrimary;
   box-sizing: border-box; }
 
 /* When the checkbox is checked, add a blue background */
 .check-container .check-checkbox:checked ~ .check-radio,
 .check-container .check-checkbox:checked ~ .check-checkmark {
-  background-color: black; }
+  background-color: $colorPrimary; }
 
 /* Create the check-checkmark/indicator (hidden when not checked) */
 .check-checkmark:after {
@@ -7489,7 +7854,9 @@ p.h6.light {
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
-  transform: rotate(45deg); }
+  transform: rotate(45deg);
+
+}
 
 .cart__row {
   position: relative;
@@ -7581,12 +7948,17 @@ p.h6.light {
 }
 
 .ajaxcart__row {
+  border-color: $marigold !important;
   > .grid {
     margin-left: -$gutter / 2;
 
     > .grid__item {
       padding-left: $gutter / 2;
     }
+  }
+  .remove {
+    font-size: 13px;
+    font-weight: 500;
   }
 }
 
@@ -7655,6 +8027,11 @@ p.h6.light {
     top: -$gutter;
     z-index: -1;
   }
+  p {
+    font-weight: 500;
+    line-height: 1.2em;
+    color: $colorTextBody;
+  }
 }
 
 .promo__item{
@@ -7685,14 +8062,16 @@ p.h6.light {
 }
 
 .gift__text{
-  font-size: 0.9em;
+  line-height: 1em;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .promo__product-title{
   font-weight: bold;
   font-size: 1.05em;
   color: $colorPrimary;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   line-height: 1.2em;
 }
 
@@ -7710,7 +8089,7 @@ p.h6.light {
     z-index: -1;
     content: '';
     position: absolute;
-    background: #fafafa;
+    background: $marigold;
     top: -($gutter);
     bottom: -($gutter);
     left: -$gutter - 10px;
@@ -7722,11 +8101,11 @@ p.h6.light {
 .ajaxcart__footer:before, .cart__bottom:before {
   content: " ";
   width: calc(100% + #{$gutter * 2} + 20px);
-height: 1px;
-position: absolute;
-left: -($gutter + 10px);
-top: -($gutter);
-background: $colorTextBody;
+  height: 1px;
+  position: absolute;
+  left: -($gutter + 10px);
+  top: -($gutter);
+  background: #f08c00;
 }
 
 .ajaxcart__product-image {
@@ -7749,10 +8128,16 @@ background: $colorTextBody;
 .ajaxcart__product-meta,
 .ajaxcart__product-price {
   display: block;
+  font-size: small;
+  font-weight: 500;
 }
 
 .cart-text{
   margin-bottom: 0;
+  color: $colorTextBody;
+  a {
+    color: $colorPrimary !important;
+  }
   @include at-query($min, $medium){
     margin-right: 20px;
   }
@@ -7790,6 +8175,7 @@ background: $colorTextBody;
   position: absolute;
   display: block;
   top: 0;
+  color: $colorTextBody;
   bottom: 0;
   border: 0 none;
   padding: 0 8px;
@@ -7810,12 +8196,12 @@ background: $colorTextBody;
 
 .js-qty__adjust--plus {
   right: 0;
-  border-left: 1px solid $colorBorder;
+  //border-left: 1px solid $colorBorder;
 }
 
 .js-qty__adjust--minus {
   left: 0;
-  border-right: 1px solid $colorBorder;
+  //border-right: 1px solid $colorBorder;
 }
 
 /*================ Quantity Selectors in Ajax Cart ================*/
@@ -7887,8 +8273,6 @@ background: $colorTextBody;
   }
 
   h3 { margin-bottom: .5em; }
-
-
 
   .table--full-height {
     width: 100%;
@@ -8048,6 +8432,7 @@ background: $colorTextBody;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   width: 100%;
   z-index: 10;
 
@@ -8062,6 +8447,38 @@ background: $colorTextBody;
       width: calc(100% + 1px);
       max-width: none;
       background-color: $colorBody;
+    }
+  }
+  & * {
+    transition: 0.3s ease;
+    transform: none;
+  }
+  a:hover {
+    transform: translateY(-2px);
+   .image-crossfade span:after {
+      width: 60%;
+      left: 20%;
+    }
+    h6 {
+    //     position: relative;
+    //     z-index: 10;
+    //     &:after{
+    //       content: '';
+    //       background-image: url({{'medium-wave-pink.png' | asset_url}} );
+    //       background-size: contain;
+    //       background-repeat: no-repeat;
+    //       height: 100%;
+    //       width: 100%;
+    //       position: absolute;
+    //       z-index: -1;
+    //       bottom: -1em;
+    //       left: 0;
+    //       transform: none;
+    //       transition: all 0.3s ease;
+    //     }
+    }
+    img {
+      transform: scale(1.05) translatey(-6px);
     }
   }
 }
@@ -8890,13 +9307,14 @@ $blogTextColor: $colorTextBody;
 }
 
 .collection-subhead{
+  text-align: center;
   display: block;
   position: relative;
   width: 100%;
   margin-top: 10px;
   padding-left: 25px;
   color: $colorPrimary;
-  font-size: 2.2em;
+  font-size: 3.2em;
 }
 
 
@@ -9640,9 +10058,6 @@ body:not(.ios) .shopify-section.features {
 #shopify-product-reviews {
   margin: 0 !important;
   background: white;
-  a {
-    text-decoration: underline;
-  }
 
   .spr-header {
     border-bottom: none !important;
@@ -9753,7 +10168,6 @@ body:not(.ios) .shopify-section.features {
   }
 
   .spr-review-header-title {
-    padding-top: 6px;
     font-weight: 600;
     font-size: 19px;
     margin-bottom: 5px;
@@ -9788,10 +10202,10 @@ body:not(.ios) .shopify-section.features {
   }
 
   .spr-pagination {
-    color: $colorBorder;
     padding: 40px 0;
     margin-bottom: -20px;
     font-size: 1.4em;
+    border-top: none;
 
     .spr-pagination-page {
       padding: 4px;
@@ -9924,9 +10338,6 @@ body:not(.ios) .shopify-section.features {
 }
 
 .wavy-underline{
-  // text-decoration-line: underline;
-  // text-decoration-style: wavy;
-  // text-decoration-color: $gold;
   position: relative;
   &:after{
     content: '';
@@ -9944,7 +10355,7 @@ body:not(.ios) .shopify-section.features {
 }
 
 .icon-grid{
-  padding:  3vw 30px calc(8vw - 50px);
+  padding:  3vw 30px 30px;
   max-width: 950px;
   margin: 0 auto;
   text-align: center;
@@ -9995,6 +10406,7 @@ body:not(.ios) .shopify-section.features {
   }
   @media screen and (max-width: 699px){
     .two-column{
+      display: block;
       grid-template-columns: 100%;
       grid-gap: 0;
     }
@@ -10011,11 +10423,11 @@ body:not(.ios) .shopify-section.features {
     }
     h2{
       text-align: center;
-      font-size: 5vw;
+      font-size: 6vw;
       letter-spacing: 0.2rem;
     }
     .btn{
-      margin-bottom: 30%;
+      margin-bottom: 30px;
     }
   }
 }
@@ -10043,7 +10455,7 @@ body:not(.ios) .shopify-section.features {
   align-items: center;
   position: relative;
   &:before{
-    background-position: right -16px bottom 10%;
+    background-position: right -16px bottom 20px;
     background-size: 25%;
   }
 }
@@ -10065,6 +10477,9 @@ div.about-split:nth-child(2){
 .about-img{
   width: 100% !important;
   height: 100%;
+  @media screen and (max-width: 768px){
+    height: 50vh;
+  }
   img{
     width: 100%;
     height: 100%;
@@ -10394,13 +10809,13 @@ div.rc_block__type{
     &:after{
       content: '';
       position: absolute;
-      display: none;
-      top: 2px;
-      left: 2px;
-      width: 14px;
-      height: 14px;
+      background: none;
+      transition: all 0.2s ease;
+      top: 4px;
+      left: 4px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: $colorPrimary;
     }
   }
   &:hover input[type="radio"]:checked ~ .checkmark{
@@ -10411,8 +10826,16 @@ div.rc_block__type{
     background: transparent;
     border: 2px solid $colorPrimary;
   }
+  input[type="radio"]:checked ~ label{
+    font-weight: bold;
+  }
+
   input[type="radio"]:checked ~ .checkmark:after{
-    display: block;
+    background: $colorPrimary;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
   }
   label.rc_label{
     margin-left: 0px;
@@ -10535,7 +10958,6 @@ select.rc_select {
       height: 270px;
       top: -85px;
       left: -100px;
-      transform: rotate(105deg);
     }
     width: 170px;
     height: 170px;
@@ -10629,14 +11051,14 @@ article.recipe{
     margin-bottom: 0.6em;
     position: relative;
     &:before {
-      content: "\2022";  
+      content: "\2022";
       position: absolute;
       cursor: pointer;
       color: $colorPrimary;
-      font-weight: bold; 
-      display: inline-block; 
-      width: 1em; 
-      margin-left: -1em; 
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
     }
   }
   a{
@@ -10651,6 +11073,7 @@ article.recipe{
   .check-container{
     display: table-row;
     top: 0px;
+    color: $colorPrimary;
   }
   .check-container span{
     margin-left: 5px;
@@ -10659,16 +11082,24 @@ article.recipe{
     border: none;
     background: none;
     width: 100%;
+    padding: 0;
+    margin-left: -10px;
+    @include at-query($max, $small) {
+      transform: scale(0.9);
+    }
+    svg {
+      width: 100%;
+      path {
+        fill: $colorPrimary;
+        transition: all 0.2s ease;
+      }
+    }
     &:hover{
       background: none;
-      color: $marigold;
+      path {
+        fill: $orange;
+      }
     }
-  }
-  .organic-background{
-    max-width: 300px;
-  }
-  .organic-background img{
-    width: 100%;
   }
 }
 
@@ -10797,21 +11228,19 @@ article.recipe{
 .journal-header{
   display: grid;
   grid-template-columns: 64% 36% ;
-  padding: 60px 30px 10px;
+  padding: 60px 30px 30px;
   @media screen and (max-width: 650px){
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
-    padding: 30px 30px 0;
+    padding: 30px;
   }
 }
 
 .blog-sub-filter{
   background: $marigold;
-  border-top: 1px solid $colorPrimary;
-  border-bottom: 1px solid $colorPrimary;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10825,13 +11254,11 @@ article.recipe{
     margin: 0;
   }
   @include at-query($min, $large){
-    margin-bottom: 24px;
+    margin-bottom: -5px;
   }
   @media screen and (max-width: 768px){
     text-align: center;
-    h3{
-      margin: 0 auto;
-    }
+    justify-content: center;
     padding: 10px 30px;
   }
   &.active{
@@ -10840,25 +11267,53 @@ article.recipe{
       color: white;
     }
   }
-  &:hover{
-    span{
-      text-decoration: underline;
+  img{
+    width: 30px;
+    margin: 0 5px;
+    position: relative;
+    z-index: 4;
+    left: 0;
+    transition: all 0.3s ease;
+  }
+  .reveal-view {
+    position: relative;
+    &:after {
+      content: 'view all';
+      position: absolute;
+      width: 70px;
+      left: 0px;
+      transition: all 0.3s ease;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 2em;
+      background: $marigold;
+      z-index: 1;
+      transition: all 0.3s ease;
     }
   }
-}
-
-
-
-
-.blog-sub-filter.second{
-  border-left: 1px solid $colorPrimary;
+  &:hover{
+    .reveal-view{
+      img {
+        left: -40px;
+      }
+      &:before {
+        width: 0;
+      }
+      &:after {
+        left: 0px;
+      }
+    }
+  }
 }
 
 .combo-blog-layout{
   position: relative;
   @include at-query($min, $large){
+    background: $marigold;
     display: grid;
-    //grid-template-columns:  66.666% 33.333%;
     grid-template-columns:  50% 50%;
     padding: 0 10px;
 
@@ -10872,10 +11327,11 @@ article.recipe{
       width: 12px;
       height: 100%;
       left: calc(50% - 6px);
-      top: -24px;
+      top: -86px;
     }
   }
   .featured-blog__caption{
+    max-height: 150px;
     height: 150px;
     text-align: center;
   }
@@ -10961,6 +11417,7 @@ article.recipe{
   }
 }
 
+
 .blog-header{
     margin: 30px 0 15px;
   @include at-query($min, $large){
@@ -10976,3 +11433,75 @@ article.recipe{
   font-weight: bold;
   font-size: 1.1em;
 }
+
+
+.cart-drawer {
+  background-color: #fff !important;
+  color: $colorTextBody;
+  @include at-query($min, $large) {
+    border-left: 1px solid #ff7800;
+  }
+}
+
+// AA: Animation modules (fade in, fade out, slide up, slide down)
+// these are built to be very subtle animations to use with the animation function in theme.js
+
+.will-animate {
+  &.fade-in {
+    opacity: 0;
+  }
+
+  &.slide-up {
+    transform: translate(0,20px);
+  }
+
+  transition: all .3s ease-in;
+}
+
+.animate {
+  &.fade-in {
+    opacity: 1;
+  }
+
+  &.slide-up {
+    transform: translate(0,0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0, 6px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  75% {
+    transform: translate(0, -6px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes floatAndRotate {
+  0% {
+    transform: translate(0, 0) rotate(-2deg);
+  }
+  25% {
+    transform: translate(0, 10px) rotate(-1deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate(0, -10px) rotate(1deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(2deg);
+  }
+}
+
+// END ANIMATIONS

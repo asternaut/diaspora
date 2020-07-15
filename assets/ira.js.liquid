@@ -1,7 +1,7 @@
 $(document).on('submit', '.js-checkout', function(e) {
   var $target = $(this);
   e.preventDefault();
-  
+
   if ($target.hasClass('js-recharge-redirect')){
     var url = reChargeProcessCart(e);
     location.href = url;
@@ -862,9 +862,9 @@ ira.stickyHeader = function(options){
         ie8Styles.styleSheet.cssText = ".offset-by-announcement-bar {top: "+ ira.cache.$notificationBar.height() +"px}";
 
       }
-      else {
+      <!-- else {
         sheet.innerHTML = ".offset-by-announcement-bar {top: "+ ira.cache.$notificationBar.height() +"px} @media (max-width: 839px) { :not(.js-drawer-open) .sm-offset-by-announcement-bar {top: " + ira.cache.$notificationBar.height() +"px}}";
-      }
+      } -->
 
 
       document.body.appendChild(sheet);
@@ -1436,7 +1436,7 @@ ira.productPage = function (container, options) {
       // Sold out, disable the submit button, change text, hide quantity elements
       $addToCart.addClass('disabled').prop('disabled', true);
       $quantityInput.addClass('disabled').prop('disabled', true);
-      $addToCartText.html({{ 'products.product.sold_out' | t | json }});
+      $addToCartText.html("Sold Out");
       $quantityElements.hide();
       $cartBackground.hide();
     }
@@ -1473,7 +1473,7 @@ ira.productPage = function (container, options) {
     // To only show available variants, implement linked product options:
     //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
     $addToCart.addClass('disabled').prop('disabled', true);
-    $addToCartText.html({{ 'products.product.unavailable' | t | json }});
+    $addToCartText.html("Sold Out");
     $quantityElements.hide();
   }
 };
@@ -2748,3 +2748,42 @@ $('.article-ingredients a[href*="diaspora"]').each(function(index, anchor) {
 if (shoppableIngredients){
   $('.cart-icon').css('opacity', '1');
 }
+
+//ANIMATIONS
+var animations = function(){
+  var classes = {
+    willAnimate: '.will-animate',
+    isAnimating: 'animate'
+  }
+
+  var windowHeight = window.screen.availHeight;
+
+  var checkForAnimations = function(e){
+    var $animateableElements = $(classes.willAnimate);
+    $animateableElements.each(function(index, element){
+      var elementY = element.getBoundingClientRect().y;
+      if ((elementY < windowHeight) && (elementY >= 0)) {
+        // Element is in view!
+        if (element.dataset.delay){
+          var delay = parseInt(element.dataset.delay);
+          setTimeout(function(){
+            element.classList.add(classes.isAnimating);
+          }, delay);
+        } else {
+          element.classList.add(classes.isAnimating);
+        }
+      } else {
+        element.classList.remove(classes.isAnimating);
+      }
+    })
+  }
+
+  var init = function(){
+    var interval = setInterval(checkForAnimations, 300);
+  }
+  init();
+}
+
+$(document).ready(function(){
+  animations();
+})

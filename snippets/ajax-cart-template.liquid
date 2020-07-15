@@ -70,7 +70,7 @@
                     <br />
                   {{/unless}} -->
 
-                  <a class='accent bold pointer js-remove-from-cart' data-id="{{id}}" data-line="{{line}}" href="javascript:void(0);">{% endraw %}{{ 'cart.general.remove' | t}}{% raw %}</a>
+                  <a class='accent remove pointer js-remove-from-cart' data-id="{{id}}" data-line="{{line}}" href="javascript:void(0);">{% endraw %}{{ 'cart.general.remove' | t}}{% raw %}</a>
                   </p>
                 </div>
               </div>
@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="promo__text">
-                  <div class="gift__text">{{description}}</div>
                   <div class="promo__product-title">{{title}}</div>
+                  <div class="gift__text">{{description}}</div>
                   <input name="id" type="hidden" value="{{variantId}}">
                   <input type="hidden" id="Quantity" name="quantity" value="1">
                   <input class="btn btn-secondary js addToCart" type="submit" value="Add to Order - Free" style="visibility: visible;">

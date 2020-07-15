@@ -29,7 +29,6 @@
 
 {% unless related_items == blank %}
 <section class="product-recipes">
-
   {% assign counts = 0 %}
   {% for article in blogs.recipes.articles %}
     {% if article.tags contains product.handle %}
