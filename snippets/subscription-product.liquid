@@ -68,7 +68,7 @@
 		{% if widget_settings.show_poweredby == 'false' %}
 			{% assign show_poweredby = false %}
 		{% else %}
-			{% assign show_poweredby = true %}
+			{% assign show_poweredby = false %}
 		{% endif %}
     	{% comment %}Custom styling{% endcomment %}
     	{% assign widget_label_color = widget_settings.font_color | default: "#000000" %}

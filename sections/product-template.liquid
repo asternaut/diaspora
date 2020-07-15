@@ -79,7 +79,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
 <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-<div class="product-panel-background background-illustration {{product.handle}} {{spice}} {% if product.type != 'Spice' %} default-background {% endif %}">
+<div class="product-panel-background background-illustration {{product.handle}} {{spice}} {% if product.type != 'Spice' or product.handle == 'the-trio' %} default-background {% endif %}">
 <div class="grid--inline product-single {% if section.settings.margins %}margins{% endif %}">
 
   <div class="product__panel-item">
@@ -165,6 +165,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
         </div>
       </div>
       {% endif %}
+
     </div>
 
     {% comment %}
@@ -185,7 +186,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
         {% assign image_url = output %}
 
         <img
-        data-src="{{ image | product_img_url: 'master' }}"
+        data-src="{{ image | product_img_url: '1000x' }}"
         data-sizes="auto"
         class="lazyload lazyload-fade"
         alt="{{ image.alt | escape }}"
@@ -225,7 +226,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 
         <div id="AddToCartForm" class="product-form form-vertical {% if product.type == "Spice" %}form-with-bg{% else %} general-form {% endif %}">
           {% if product.type == "Spice" %}
-          <img src="{{'product-panel-bg.png' | asset_img_url: 'master' }}" alt="" class="lazyload lazyload-fade">
+          <img  data-src="{{'product-panel-bg.png' | asset_img_url: 'master' }}" alt="" class="lazyload lazyload-fade">
           {% endif %}
 
           {% form 'product', product, data-productid: product.id %}
@@ -265,26 +266,28 @@ data-product-variants-first="{{ product.variants.first.title }}">
           {% endcomment %}
 
           <div class="product-selectors">
+
             <!-- Begin ReCharge code -->
             {% if product.available %}{% include 'subscription-product' %}{% endif %}
             <!-- End ReCharge code -->
 
-            <div class="{% if product.has_only_default_variant %} {% else %} select-wrapper {% endif %}">
+
+            <div class="   {% if product.has_only_default_variant %} {% else %} select-wrapper {% endif %}">
               <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="product-single__variants">
 
                 {% for variant in product.variants %}
                 {% include 'wh_variant' with variant, in_loop: true %}
-                  {% if variant.available %}
-                  {% comment %}
-                  Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                  {% endcomment %}
+                {% if variant.available %}
+                {% comment %}
+                Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                {% endcomment %}
 
-                  <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
-                  {% else %}
-                  <option disabled="disabled" value="{{ variant.id }}">
-                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                  </option>
-                  {% endif %}
+                <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
+                {% else %}
+                <option disabled="disabled">
+                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                </option>
+                {% endif %}
                 {% endfor %}
               </select>
             </div>
@@ -300,38 +303,32 @@ data-product-variants-first="{{ product.variants.first.title }}">
 
             <div class="product__button-quanity">
               <div class="organic-background">
-             {% if in_stock == true %}
-               <img src="{{'rough-button-bg.png' | asset_img_url: 'master' }}" alt="" class="in__stock ">
-              {% elsif product.type == 'Spice' and in_stock == false %}
-               <img src="{{'sold-out-button.png' | asset_img_url: 'master' }}" alt="" class="spice-sold-out">
-              {% else %}
-               <img src="{{'sold-out-button-default.png' | asset_img_url: 'master' }}" alt="" class="other-sold-out">
-              {% endif %}
+                <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart  {% if in_stock == false %} disabled {% endif %}"
+                  {% if customer.tags.size > 0 %} onclick="setTimeout("window.location.href='/cart';", 50);"{% endif %}  >
 
-              <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart"
-                {% if customer.tags.size > 0 %} onclick="setTimeout("window.location.href='/cart';", 50);"{% endif %}  >
-
-                {% for variant in product.variants %}
-                  <span data-add-to-cart-text data-variant="{{variant.id}}" class="add_to_cart_text {% if current_variant == variant %}active{% endif %}">
-                    {%- if variant.available -%}
-                      {% if variant.metafields.custom_fields["pre-order"] == 1 %}
-                        Pre-Order
+                  <svg width="259" height="61.538" viewBox="0 0 259 61.538">
+                    <defs>
+                      <clipPath id="clip-path">
+                        <rect width="259" height="61.538" fill="#f41f86"/>
+                      </clipPath>
+                    </defs>
+                    <g id="atc-button" transform="translate(5077 444)">
+                      <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
+                      <text  data-add-to-cart-text id="Add_To_Cart" data-name="Add To Cart" transform="translate(-5000 -405)"><tspan>{% if product.metafields.custom_fields["add_to_cart_button_text"] != blank %} {{ product.metafields.custom_fields["add_to_cart_button_text"] }}
                       {% else %}
                         {{ 'products.product.add_to_cart' | t }}
-                      {% endif %}
-                    {%- else -%}
-                      {{ 'products.product.sold_out' | t }}
-                    {%- endif -%}
-                  </span>
-                {% endfor %}
-              </button>
-            </div>
+                      {% endif %}</tspan></text>
+                    </g>
+                  </svg>
+                </button>
+              </div>
             <div class=" quantity-input js organic-background">
-              <img  src="{{'quantity-bg.png' | asset_img_url: 'master' }}" alt="" class=" {% unless product.type == 'Spice' %} not-spice {% endunless %}">
+              <img  data-src="{{'quantity-bg.png' | asset_img_url: 'master' }}" alt="" class=" {% unless product.type == 'Spice' %} not-spice {% endunless %} lazyload lazyload-fade">
               <input type='button' value='-' class='qtyminus qtyadjust' field='quantity' />
               <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector js-quantityInput" autocomplete="off">
               <input type='button' value='+' class='qtyplus qtyadjust' field='quantity' />
             </div>
+
 
             {% if section.settings.enable_payment_button %}
             {{ form | payment_button }}
@@ -339,14 +336,13 @@ data-product-variants-first="{{ product.variants.first.title }}">
           </div>
         </div>
         {% endform %}
-
       </div>
-      {% if product.metafields.custom_fields["pre-order"] == 1 %}
-        <div style=" font-weight: 500; font-size: 0.9em;">You'll receive your <strong>preorder</strong> of the 2020 harvest in late June, though this is subject to change due to the pandemic! We'll keep you regularly updated and make every effort to get you your spices sooner. Your preorder allows us to keep paying our partner farms during this crisis, and to ensure healthcare to our 50+ farm laborers across India that are most vulnerable right now.</div>
+      {% if product.metafields.custom_fields["add_to_cart_button_text"] != blank and in_stock == true %}
+      <div style=" font-weight: 500; font-size: 0.9em;">You'll receive your <strong>preorder</strong> of the 2020 harvest in early June, though this is subject to change due to the pandemic! We'll keep you regularly updated and make every effort to get you your spices sooner. Your preorder allows us to keep paying our partner farms during this crisis, and to ensure healthcare to our 50+ farm laborers across India that are most vulnerable right now.</div>
       {% endif %}
     </div>
 
-    </div>
+  </div>
     </div>
   </div>
 </div>
@@ -370,7 +366,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
           <div data-product-tab-content-inner>
             {{product.description}}
           </div>
-          <img class="little-wave" src="{{ 'medium-wave-pink.png' | asset_img_url: 'master' }}">
+          <!-- <img class="little-wave" src="{{ 'medium-wave-pink.png' | asset_img_url: 'master' }}"> -->
           {% if product.metafields.custom_fields["product_description_image"] != blank %}
           <div class="full-width-image">
             {{ product.metafields.custom_fields["product_description_image"] }}
@@ -451,7 +447,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 
   <!-- DESKTOP -->
   <section class="medium-down--hide" >
-    <div class="product-desc-harvest wrapper">
+    <div class="product-desc-harvest wrapper will-animate fade-in">
       <div class="product-description" >
         <div >
           {{product.description}}
@@ -518,9 +514,9 @@ data-product-variants-first="{{ product.variants.first.title }}">
 
   {% if product.metafields.custom_fields["equity_pledge_image"] != blank %}
   <div class="background-illustration equity_pledge_illustrations">
-  <div class="equity-pledge  ">
+  <div class="equity-pledge ">
     <div class="wrapper charts">
-      <div class="chart-header">
+      <div class="chart-header will-animate fade-in ">
         <h2> Our Equity Pledge </h2>
         <div class="custom-field--value">
           {{ product.metafields.custom_fields["spice_card_details"] }}
@@ -555,29 +551,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 <div id="shopify-product-reviews"  data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
 {% endif %}
 
-{% if section.settings.divider %}
-<div class="product-divider">
-  {% if spice == 'cardamom' %}
-  <img src="{{ 'Cardamom.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'turmeric' %}
-  <img src="{{ 'Turmeric.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'chillies' %}
-  <img src="{{ 'Chilli.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'pepper' %}
-  <img src="{{ 'Pepper.png' | asset_img_url: '200x200' }}">
-  {% else %}
-  {% endif %}
-</div>
-{% endif %}
-
-
-{% if section.settings.product_recipies %}
-{% include "product-recipes" %}
-{% endif %}
-
-{% if section.settings.product_related %}
-{% include "product-related" %}
-{% endif %}
+{% include 'recipes-and-related' %}
 
 </div>
 

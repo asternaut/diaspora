@@ -7,7 +7,7 @@
     <div class="slider_item">
         <div class="slider_img_wrap">
             <a target="_blank" href="{{ block.settings.slide_link }}">
-          <img src="{{ block.settings.slide_img | img_url: 'original' }}" alt="diaspora co" class="slider_img">
+          <img data-src="{{ block.settings.slide_img | img_url: 'original' }}" alt="{{block.settings.slid_img.alt}}" class="slider_img lazyload lazyload-fade">
         </a>
         </div>
       <div class="content_wrap">

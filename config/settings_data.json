@@ -2,7 +2,7 @@
   "current": {
     "color_primary": "#f41f86",
     "color_body_bg": "#ffffff",
-    "color_borders": "#e2e2e2",
+    "color_borders": "#ffde17",
     "color_header": "#222222",
     "color_body_text": "#3a3a3a",
     "color_button_text": "#ffffff",
@@ -54,9 +54,9 @@
           "transparent_header": false,
           "color_transparent_header_icon": "#ffffff",
           "navigation_style": "links",
-          "color_nav_drawer": "#fafafa",
+          "color_nav_drawer": "#f41f86",
           "color_nav_border": "#383838",
-          "color_nav_text": "#222222",
+          "color_nav_text": "#ffffff",
           "nav_linklist": "dev-menu",
           "catalog_dropdowns": false,
           "catalog_menu_image": "",
@@ -65,10 +65,10 @@
           "logo_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
           "logo_max_width": "280",
           "logo_transparent_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
-          "show_announcement_bar": false,
+          "show_announcement_bar": true,
           "notification_bar_enable_currency": false,
           "notification_bar_enable_social": false,
-          "notification_bar_text": "Free Economy usa Shipping on all Preorders $50+ using the code 'FREEHIPPO'",
+          "notification_bar_text": "We ship across the USA, UK, EUROPE, AUSTRALIA AND CANADA! CUSTOMS AND DUTIES APPLY! WORLDWIDE SOON!",
           "notification_bar_link": ""
         }
       },
@@ -151,7 +151,7 @@
         "type": "rich-text",
         "settings": {
           "title": "",
-          "text": "<p>Building a better spice trade.&nbsp;<\/p>\n<p><\/p>\n<p>We are here to put money, equity and power into the hands of small, organic spice farmers that are leading the way in sustainability, regenerative&nbsp;agriculture and truly delicious spices.<\/p>\n<p><\/p>\n<p>Proudly grown in India, always.&nbsp;<\/p>",
+          "text": "<p>Decolonizing your spices.&nbsp;<\/p>\n<p><\/p>\n<p>We are a queer, WOC-led business&nbsp;here to put money, equity and power into the hands of small, organic spice farmers that are leading the way in sustainability, regenerative&nbsp;agriculture and truly delicious spices.<\/p>\n<p><\/p>\n<p>Proudly grown in India.&nbsp;<\/p>",
           "link": "shopify:\/\/collections\/all",
           "linkText": ""
         }
@@ -317,12 +317,6 @@
           "featured_rows": "1"
         }
       },
-      "instagram": {
-        "type": "instagram",
-        "settings": {
-          "instagram_grid_API": "5665685553.1677ed0.339431a1cd7241a8af7d9f1305c4956e"
-        }
-      },
       "popup": {
         "type": "popup",
         "settings": {
@@ -433,7 +427,7 @@
             "settings": {
               "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_1_f120d939-ddb5-43cc-a69a-6444688a0afe.jpg",
               "title": "Fresh",
-              "subtitle": "Guaranteed same-year harvest.",
+              "subtitle": "Guaranteed same-year harvest",
               "paragraph": "versus spices that can be up to five years old, still sitting on a grocery store shelf."
             }
           },
@@ -442,7 +436,7 @@
             "settings": {
               "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_2_ac5291fc-51b8-42a7-8745-dd96bb0c0be5.jpg",
               "title": "Potent",
-              "subtitle": "100% pure heirloom variety",
+              "subtitle": "100% pure heirloom varieties",
               "paragraph": "versus conventional spices, made of a blend of varieties chosen solely for yield and storability."
             }
           },
@@ -460,7 +454,7 @@
             "settings": {
               "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_ac6fb24e-23a4-4131-8763-5d74928ce36f.jpg",
               "title": "EQUITABLE",
-              "subtitle": "Direct-trade, upto 6x premium",
+              "subtitle": "Direct-trade, upto 10x premium",
               "paragraph": "versus conventional supply chains with farmers getting less than 2% of the final revenue."
             }
           }
@@ -474,7 +468,7 @@
         "settings": {
           "header": "Our Spices Are",
           "linkText": "Read More",
-          "url": ""
+          "url": "https:\/\/www.diasporaco.com\/pages\/supply-chain"
         }
       },
       "1556148712906": {
@@ -672,7 +666,7 @@
           "orange-text": "Diaspora Co. was founded in 2017 to create a radically new, and equitable vision of the spice trade, decolonizing a commodity back into a seasonal crop, and a broken system into an equal exchange. <br>\n<br>Beyond highlighting gorgeous, indigenous spice varieties, it's also about creating a business for us, by us. Complicating and deepening what “Made in India” means, and how we tell our own stories of freedom, struggle, and diaspora through food.",
           "orange-image": "shopify:\/\/shop_images\/Photo_Jan_15_11_04_54_PM.jpg",
           "pink-image": "shopify:\/\/shop_images\/IMG_1767.JPG",
-          "pink-text": "Today, we work in close partnership with the Indian Council of Agricultural Research to identify and provide ongoing support to our partner farmers, all of whom are on the cutting edge of regenerative, and sustainable agriculture. <br>\n<br>Mr. Chacko in Kerala developed his own heirloom cardamom variety! Mr. Kasaraneni in Andhra Pradesh taught himself organic turmeric farming solely via Youtube and WhatsApp! Smt. Ioe Tang took over her family farm and made it profitable for the first time in generations! <br>\n<br>Our partner farmers are our heroes, and the future of farming is bright (and spicy)!"
+          "pink-text": "Today, we work in close partnership with the Indian Council of Agricultural Research to identify and provide ongoing support to our partner farmers, all of whom are on the cutting edge of regenerative, and sustainable agriculture. <br>\n<br>Mr. Chacko in Kerala developed his own heirloom cardamom variety! Mr. Kasaraneni in Andhra Pradesh taught himself organic farming via Youtube and WhatsApp, the first in his entire village to go chemical-free! Our partner farmers are our heroes. <br>\n<br>The future of our food system is BIPOC-led, equitable AF, and decolonizing every step of the way. Get on board. <br>\n<br> - Sana Javeri Kadri, Founder & CEO"
         }
       },
       "supply-chain": {
@@ -698,6 +692,28 @@
           "color_overlay_color": "#031207",
           "color_text": "#ffffff"
         }
+      },
+      "blog-filter": {
+        "type": "blog-filter",
+        "settings": {
+          "blog": "recipes"
+        }
+      },
+      "article-recipe-template": {
+        "type": "article-recipe-template",
+        "settings": {
+          "product_related": true,
+          "product_recipies": true
+        }
+      },
+      "1594151474222": {
+        "type": "instafeed",
+        "settings": {
+          "heading_font": "avenir_next_n7",
+          "heading_size": 20,
+          "feed_width": 100,
+          "html_area": "<!-- -->"
+        }
       }
     },
     "content_for_index": [
@@ -708,7 +724,7 @@
       "newsletter",
       "featured-products",
       "1553553135575",
-      "instagram",
+      "1594151474222",
       "1556148712906"
     ]
   },

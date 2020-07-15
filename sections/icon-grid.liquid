@@ -1,6 +1,6 @@
 <!-- icon-grid -->
-<div class='grid--full icon-grid'>
-  <h2 class="wavy-underline">{{ section.settings.header }} </h2>
+<div class='grid--full icon-grid '>
+  <h2 class="wavy-underline will-animate fade-in">{{ section.settings.header }} </h2>
   <div class='two-column'>
 
 
@@ -14,7 +14,7 @@
           <p>{{block.settings.paragraph}}</p>
         </div>
         <div>
-          <img src="{{block.settings.image | img_url: 'master'}}" alt="diaspora co">
+          <img data-src="{{block.settings.image | img_url: '300x'}}" alt="" class="lazyload">
         </div>
       </div>
           {% endif %}
@@ -32,7 +32,7 @@
             <p>{{block.settings.paragraph}}</p>
           </div>
           <div>
-            <img src="{{block.settings.image | img_url: 'master'}}" alt="diaspora co">
+            <img data-src="{{block.settings.image | img_url: '300x'}}" alt="" class="lazyload">
           </div>
         </div>
         {% endif %}

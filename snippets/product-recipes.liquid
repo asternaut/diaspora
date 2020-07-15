@@ -5,38 +5,40 @@
 
 {% capture related_items %}
 {% for product in collection.products %}
-{% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
-{% unless product.handle == current_product.handle %}
-{% assign hover_class = "grid__image--caption" %}
-{% assign fit_image_class = 'grid__item--variable-height grid__image' %}
-{% include 'product-grid-item' %}
-{% assign counter = counter | plus: 1 %}
-{% if counter == break_at %}
-{% break %}
-{% endif %}
-{% endunless %}
+  {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
+  {% unless product.handle == current_product.handle %}
+    {% assign hover_class = "grid__image--caption" %}
+    {% assign fit_image_class = 'grid__item--variable-height grid__image' %}
+    {% include 'product-grid-item' %}
+    {% assign counter = counter | plus: 1 %}
+    {% if counter == break_at %}
+      {% break %}
+    {% endif %}
+  {% endunless %}
 {% endfor %}
 {% endcapture %}
+
 {% assign count = 0 %}
 {% for article in blogs.recipes.articles %}
-{% if article.tags contains product.handle %}
-{% assign count = count | plus: 1 %}
-{% endif %}{% endfor %}
+  {% if article.tags contains product.handle %}
+  {% assign count = count | plus: 1 %}
+  {% endif %}
+{% endfor %}
 
 {% assign related_items = related_items | trim %}
 
 {% unless related_items == blank %}
 <section class="product-recipes">
-      {% assign counts = 0 %}
+  {% assign counts = 0 %}
   {% for article in blogs.recipes.articles %}
-  {% if article.tags contains product.handle %}
-  {% assign counts = counts | plus: 1 %}
-  {% if counts > 1 %}
-  {% break %}
-  {% else %}
-  <h2 class="text-center">Related Recipes</h2>
-  {% endif %}
-  {% endif %}
+    {% if article.tags contains product.handle %}
+      {% assign counts = counts | plus: 1 %}
+      {% if counts > 1 %}
+        {% break %}
+      {% else %}
+        <h2 class="text-center">Related Recipes</h2>
+      {% endif %}
+    {% endif %}
   {% endfor %}
   <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} {% if count > 4 %}slick-slider {% endif %}">
     {% for article in blogs.recipes.articles %}
@@ -81,20 +83,3 @@
   </div>
 </section>
 {% endunless %}
-<script>
-$(document).ready(function(){
-    $('.slick-slider').slick({
-      slidesToShow: 2,
-      infinite: true,
-      slidesToScroll: 1,
-      arrows: true,
-      mobileFirst:true,
-      responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4
-        }
-      }]
-    });
-});
-</script>

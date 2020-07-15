@@ -16,22 +16,17 @@
       {% assign mainMenu = section.settings.nav_linklist %}
       {% if linklists[mainMenu].links.size != 0 %}
         {% assign usePlaceholderNavbar = false %}
-        <div class="mobile-nav__header">{{ linklists[mainMenu].title }}</div>
+        <!-- <div class="mobile-nav__header">{{ linklists[mainMenu].title }}</div> -->
         <ul class="mobile-nav">
           {% for link in linklists[mainMenu].links %}
             {% include "drawer-nav-menu" %}
-            {% if forloop.last %}
-              {% if linklists[section.settings.nav_linklist_2].links.size != 0 or linklists[section.settings.nav_linklist_2].links.size == 0 and linklists[section.settings.nav_linklist_3].links.size != 0  %}
-              <hr class='medium-down--show large--hide'>
-              {% endif %}
-            {% endif %}
           {% endfor %}
         </ul>
       {% endif %}
 
       {% if linklists[section.settings.nav_linklist_2].links.size != 0 %}
         {% assign usePlaceholderNavbar = false %}
-        <div class="mobile-nav__header">{{ linklists[section.settings.nav_linklist_2].title }}</div>
+        <!-- <div class="mobile-nav__header">{{ linklists[section.settings.nav_linklist_2].title }}</div> -->
         <ul class="mobile-nav">
           {% for link in linklists[section.settings.nav_linklist_2].links %}
             {% include "drawer-nav-menu" %}
@@ -42,7 +37,7 @@
 
       {% if linklists[section.settings.nav_linklist_3].links.size != 0 %}
         {% assign usePlaceholderNavbar = false %}
-        <div class="mobile-nav__header">{{ linklists[section.settings.nav_linklist_3].title }}</div>
+        <!-- <div class="mobile-nav__header">{{ linklists[section.settings.nav_linklist_3].title }}</div> -->
         <ul class="mobile-nav">
           {% for link in linklists[section.settings.nav_linklist_3].links %}
             {% include "drawer-nav-menu" %}
@@ -53,11 +48,13 @@
       {% if shop.customer_accounts_enabled %}
         {% assign usePlaceholderNavbar = false %}
         <li class="mobile-nav__item">
-          <hr class='medium-down--show large--hide'>
-          <div class="mobile-nav__header">{{ 'customer.account.title' | t }}</div>
+          <!-- <div class="mobile-nav__header">{{ 'customer.account.title' | t }}</div> -->
           <ul class="mobile-nav">
             {% if customer %}
               <li class="mobile-nav__item">
+                <span class="icon account-svg" tabindex="-1">
+                  <svg><use xlink:href="#icon-account"></use></svg>
+                </span>
                 {% if customer.first_name != blank %}
                   {% capture first_name %}{{ customer.first_name }}{% endcapture %}
                   <a href="/account">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
@@ -65,18 +62,25 @@
                   <a href="/account">{{ 'layout.customer.account' | t }}</a>
                 {% endif %}
               </li>
+              {% comment %}
               <li class="mobile-nav__item">
                 {{ 'layout.customer.log_out' | t | customer_logout_link }}
               </li>
+              {% endcomment %}
             {% else %}
               <li class="mobile-nav__item">
+                <span class="icon account-svg" tabindex="-1">
+                  <svg><use xlink:href="#icon-account"></use></svg>
+                </span>
                 {{ 'layout.customer.log_in' | t | customer_login_link }}
               </li>
+              {% comment %}
               {% if shop.customer_accounts_enabled %}
                 <li class="mobile-nav__item">
                   {{ 'layout.customer.create_account' | t | customer_register_link }}
                 </li>
               {% endif %}
+              {% endcomment %}
             {% endif %}
           </ul>
         </li>

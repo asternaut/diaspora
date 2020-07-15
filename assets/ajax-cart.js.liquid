@@ -34,7 +34,6 @@ function attributeToString(attribute) {
 /*============================================================================
 API Functions
 ==============================================================================*/
-
 ShopifyAPI.onCartUpdate = function(cart) {
   console.info('There are now ' + cart.item_count + ' items in the cart.');
 };
@@ -103,6 +102,28 @@ ShopifyAPI.addItem = function(variant_id, quantity, callback) {
     type: 'POST',
     url: '/cart/add.js',
     data:  'quantity='+quantity+'&id='+variant_id,
+    dataType: 'json',
+    success: function(line_item) {
+      if ((typeof callback) === 'function') {
+        callback(line_item);
+      }
+      else {
+        ShopifyAPI.onItemAdded(line_item);
+      }
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      ShopifyAPI.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
+
+ShopifyAPI.addItems = function(items, callback) {
+  var params = {
+    type: 'POST',
+    url: '/cart/add.js',
+    data: items,
     dataType: 'json',
     success: function(line_item) {
       if ((typeof callback) === 'function') {
@@ -270,6 +291,17 @@ var ajaxCart = (function(module, $) {
 
       ShopifyAPI.addItemFromForm(evt.target, itemAddedCallback, itemErrorCallback);
     });
+
+    $('.js-article-submit').on('click', function(e){
+      e.preventDefault();
+      var checkboxes = $('.js-recipe-checkbox:checked');
+      var items = {items: []};
+      checkboxes.each( function(index, checkbox){
+        var item = {quantity: 1, id: checkbox.value};
+        items.items.push(item);
+      })
+      ShopifyAPI.addItems(items, itemAddedCallback)
+    })
   };
 
   itemAddedCallback = function (product) {
@@ -319,28 +351,23 @@ var ajaxCart = (function(module, $) {
   var wholesale = wh_customer_tags;
   var spoon = 31985354440786;
   var magnetTrio = 31985351360594;
-  var powderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32135529070674, 32135529037906];
-  //turmeric small, turmeric med, turmeric large, powdered chili, powdered chili M, powdered chili L, turmeric 2, turmeric 10, turmeric 50, big trio, small trio
+  var powderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32135529070674, 32135529037906, 32124805709906, 32124805677138, 32124805644370];
+  //turmeric small, turmeric med, turmeric large, powdered chili, powdered chili M, powdered chili L, turmeric 2, turmeric 10, turmeric 50, big trio, small trio, subscription turmeric 2, subscription turmeric 10, subscription turmeric 50
 
   buildCart = function (cart) {
     // Start with a fresh cart div
     $cartContainer.empty();
-    var cartHasSubscription = false;
     var cartHasPowderedSpice = false;
     var cartHasOnlyPromos = true;
     var hasCard = false;
     var totalUnderFifty = cart.total_price < 5000 ? true : false;
     var powderQuantity = 0;
     var trioSpice = [32135529070674, 32135529037906]; //big trio, small trio
-    var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369];
+    var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32124805709906, 32124805677138, 32124805644370];
 
     $.each(cart.items, function(index, cartItem) {
       if (powderedSpices.includes(cartItem.variant_id)){
         cartHasPowderedSpice = true;
-      }
-
-      if (cartItem.properties && cartItem.properties.subscription_id) {
-        cartHasSubscription = true;
       }
       // tally number of spoons to add to cart
       if (notTrioPowderedSpices.includes(cartItem.variant_id)){
@@ -507,7 +534,6 @@ var ajaxCart = (function(module, $) {
       checked: cart.items.find(function(item){
         return item.id === 29581924859969;
       }),
-      cartHasSubscription: cartHasSubscription,
       totalPrice: Shopify.formatMoney(cart.total_price, settings.moneyFormat)
     }
 

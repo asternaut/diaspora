@@ -30,7 +30,15 @@
 
           <li class="animation-sequence-{{ count }}" data-index="{{ forloop.index0 }}">
             <a href="{{ link.url }}">
-              {{ link.title }}
+              {% if link.title contains 'Recipe' %}
+                <img class="saute" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/icons-food-Thardka.png?v=1578680997" class="dropdown-image" alt="">
+              {% endif %}
+              {% if link.title contains 'Blog' %}
+                <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/elephant.png?v=1592233752" class="dropdown-image" alt="">
+              {% endif %}
+              <span>
+                {{ link.title }}
+              </span>
             </a>
 
             {% if dropdown %}
