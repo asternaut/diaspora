@@ -34,7 +34,6 @@ function attributeToString(attribute) {
 /*============================================================================
 API Functions
 ==============================================================================*/
-
 ShopifyAPI.onCartUpdate = function(cart) {
   console.info('There are now ' + cart.item_count + ' items in the cart.');
 };
@@ -103,6 +102,28 @@ ShopifyAPI.addItem = function(variant_id, quantity, callback) {
     type: 'POST',
     url: '/cart/add.js',
     data:  'quantity='+quantity+'&id='+variant_id,
+    dataType: 'json',
+    success: function(line_item) {
+      if ((typeof callback) === 'function') {
+        callback(line_item);
+      }
+      else {
+        ShopifyAPI.onItemAdded(line_item);
+      }
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      ShopifyAPI.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
+
+ShopifyAPI.addItems = function(items, callback) {
+  var params = {
+    type: 'POST',
+    url: '/cart/add.js',
+    data: items,
     dataType: 'json',
     success: function(line_item) {
       if ((typeof callback) === 'function') {
@@ -270,6 +291,17 @@ var ajaxCart = (function(module, $) {
 
       ShopifyAPI.addItemFromForm(evt.target, itemAddedCallback, itemErrorCallback);
     });
+
+    $('.js-article-submit').on('click', function(e){
+      e.preventDefault();
+      var checkboxes = $('.js-recipe-checkbox:checked');
+      var items = {items: []};
+      checkboxes.each( function(index, checkbox){
+        var item = {quantity: 1, id: checkbox.value};
+        items.items.push(item);
+      })
+      ShopifyAPI.addItems(items, itemAddedCallback)
+    })
   };
 
   itemAddedCallback = function (product) {
@@ -325,7 +357,7 @@ var ajaxCart = (function(module, $) {
   buildCart = function (cart) {
     // Start with a fresh cart div
     $cartContainer.empty();
-    var cartHasSubscription = false;
+    var rechargeInCart = false
     var cartHasPowderedSpice = false;
     var cartHasOnlyPromos = true;
     var hasCard = false;
@@ -337,10 +369,6 @@ var ajaxCart = (function(module, $) {
     $.each(cart.items, function(index, cartItem) {
       if (powderedSpices.includes(cartItem.variant_id)){
         cartHasPowderedSpice = true;
-      }
-
-      if (cartItem.properties && cartItem.properties.subscription_id) {
-        cartHasSubscription = true;
       }
       // tally number of spoons to add to cart
       if (notTrioPowderedSpices.includes(cartItem.variant_id)){
@@ -360,18 +388,18 @@ var ajaxCart = (function(module, $) {
 
     // Handlebars.js cart layout
     var items = [],
-    item = {},
-    promotions = getPromotions(),
-    promo = {},
-    data = {},
-    source = $("#CartTemplate").html(),
-    template = Handlebars.compile(source);
+        item = {},
+        promotions = getPromotions(),
+        promo = {},
+        data = {},
+        source = $("#CartTemplate").html(),
+        template = Handlebars.compile(source);
 
     // Add each item to our handlebars.js data
-    $.each(cart.items, function(index, cartItem) {
+    $.each(cart.items, function(index, cartItem) {      
       var itemAdd = cartItem.quantity + 1,
-      itemMinus = cartItem.quantity - 1,
-      itemQty = cartItem.quantity;
+          itemMinus = cartItem.quantity - 1,
+          itemQty = cartItem.quantity;
       var  itemShouldRender = true;
 
       /* Hack to get product image thumbnail
@@ -387,7 +415,7 @@ var ajaxCart = (function(module, $) {
       }
 
       var prodName = cartItem.product_title,
-      prodVariation = cartItem.variant_title;
+          prodVariation = cartItem.variant_title;
 
       if (prodVariation == 'Default Title') {
         prodVariation = false;
@@ -396,6 +424,7 @@ var ajaxCart = (function(module, $) {
       if (cartItem.product_type !== "Cart Promo") {
         cartHasOnlyPromos = false;
       }
+
       // Create item's data object and add to 'items' array
       item = {
         id: cartItem.variant_id,
@@ -416,7 +445,10 @@ var ajaxCart = (function(module, $) {
         wholesale: wh_customer_tags
       };
 
-      console.log(item);
+
+      if (item.properties && item.properties.shipping_interval_frequency) {
+        rechargeInCart = true;
+      }
 
       //remove magnet from cart if price is less than $50
       if ( item.id === magnetTrio && totalUnderFifty ){
@@ -507,7 +539,6 @@ var ajaxCart = (function(module, $) {
       checked: cart.items.find(function(item){
         return item.id === 29581924859969;
       }),
-      cartHasSubscription: cartHasSubscription,
       totalPrice: Shopify.formatMoney(cart.total_price, settings.moneyFormat)
     }
 
@@ -517,6 +548,13 @@ var ajaxCart = (function(module, $) {
 
     if (wholesale === true){
       $('.js-total-price p').html('Price shown at checkout');
+    }
+
+    //recharge
+    if (rechargeInCart) {
+      $('.js-checkout').addClass('js-recharge-redirect');
+    } else {
+      $('.js-checkout').removeClass('js-recharge-redirect');  
     }
   };
 
@@ -567,7 +605,7 @@ var ajaxCart = (function(module, $) {
     var checked = e.target.checked;
 
     if (checked) {
-     ShopifyAPI.addItem(cardProduct, 1, adjustCartCallback);
+      ShopifyAPI.addItem(cardProduct, 1, adjustCartCallback);
     } else {       //removes card
       ShopifyAPI.changeItem(cardProduct, 0, line, adjustCartCallback);
     }
@@ -599,10 +637,10 @@ var ajaxCart = (function(module, $) {
     // Add or remove from the quantity
     $body.on('click', '.ajaxcart__qty-adjust', function() {
       var el = $(this),
-      id = el.data('id'),
-      line = el.data('line'),
-      qtySelector = el.siblings('.ajaxcart__qty-num'),
-      qty = parseInt(qtySelector.val().replace(/\D/g, ''));
+          id = el.data('id'),
+          line = el.data('line'),
+          qtySelector = el.siblings('.ajaxcart__qty-num'),
+          qty = parseInt(qtySelector.val().replace(/\D/g, ''));
 
       var qty = validateQty(qty);
 
@@ -626,9 +664,9 @@ var ajaxCart = (function(module, $) {
     // Update quantity based on input on change
     $body.on('change', '.ajaxcart__qty-num', function() {
       var el = $(this),
-      id = el.data('id'),
-      line = el.data('line'),
-      qty = parseInt(el.val().replace(/\D/g, ''));
+          id = el.data('id'),
+          line = el.data('line'),
+          qty = parseInt(el.val().replace(/\D/g, ''));
 
       var qty = validateQty(qty);
 
@@ -678,20 +716,20 @@ var ajaxCart = (function(module, $) {
     if ($('input[type="number"]', $cartContainer).length) {
       $('input[type="number"]', $cartContainer).each(function() {
         var el = $(this),
-        currentQty = el.val();
+            currentQty = el.val();
 
         var itemAdd = currentQty + 1,
-        itemMinus = currentQty - 1,
-        itemQty = currentQty;
+            itemMinus = currentQty - 1,
+            itemQty = currentQty;
 
         var source   = $("#AjaxQty").html(),
-        template = Handlebars.compile(source),
-        data = {
-          id: el.data('id'),
-          itemQty: itemQty,
-          itemAdd: itemAdd,
-          itemMinus: itemMinus
-        };
+            template = Handlebars.compile(source),
+            data = {
+              id: el.data('id'),
+              itemQty: itemQty,
+              itemAdd: itemAdd,
+              itemMinus: itemMinus
+            };
 
         // Append new quantity selector then remove original
         el.after(template(data)).remove();
@@ -714,24 +752,24 @@ var ajaxCart = (function(module, $) {
     if (numInputs.length) {
       numInputs.each(function() {
         var el = $(this),
-        currentQty = el.val(),
-        inputName = el.attr('name'),
-        inputId = el.attr('id');
+            currentQty = el.val(),
+            inputName = el.attr('name'),
+            inputId = el.attr('id');
 
         var itemAdd = currentQty + 1,
-        itemMinus = currentQty - 1,
-        itemQty = currentQty;
+            itemMinus = currentQty - 1,
+            itemQty = currentQty;
 
         var source   = $("#JsQty").html(),
-        template = Handlebars.compile(source),
-        data = {
-          id: el.data('id'),
-          itemQty: itemQty,
-          itemAdd: itemAdd,
-          itemMinus: itemMinus,
-          inputName: inputName,
-          inputId: inputId
-        };
+            template = Handlebars.compile(source),
+            data = {
+              id: el.data('id'),
+              itemQty: itemQty,
+              itemAdd: itemAdd,
+              itemMinus: itemMinus,
+              inputName: inputName,
+              inputId: inputId
+            };
 
         // Append new quantity selector then remove original
         el.after(template(data)).remove();
@@ -740,10 +778,10 @@ var ajaxCart = (function(module, $) {
       // Setup listeners to add/subtract from the input
       $('.js-qty__adjust').on('click', function() {
         var el = $(this),
-        id = el.data('id'),
-        line = el.data('line'),
-        qtySelector = el.siblings('.js-qty__num'),
-        qty = parseInt(qtySelector.val().replace(/\D/g, ''));
+            id = el.data('id'),
+            line = el.data('line'),
+            qtySelector = el.siblings('.js-qty__num'),
+            qty = parseInt(qtySelector.val().replace(/\D/g, ''));
 
         var qty = validateQty(qty);
 

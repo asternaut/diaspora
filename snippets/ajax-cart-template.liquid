@@ -139,8 +139,8 @@
           </div>
         </div>
 
-        <form action="/cart" method="post" novalidate class="cart {{#if cartHasSubscription }}js-recharge-redirect{{/if}}">
-          <input type="submit" name="checkout" class="btn btn--full cart__checkout" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} - {{{totalPrice}}}" {{#unless items.length}}disabled{{/unless}}>
+        <form action="/cart" method="post" novalidate class="cart js-checkout">
+          <input type="submit" name="checkout" class="btn btn--full cart__checkout {{#if cartHasSubscription }}js-recharge-redirect{{/if}}" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} - {{{totalPrice}}}" {{#unless items.length}}disabled{{/unless}}>
         </form>
          <!-- {% endraw %}
         <div class="cart__checkout-additional">{{ content_for_additional_checkout_buttons }}</div>{% raw %} -->

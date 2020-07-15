@@ -60,6 +60,7 @@
 		{% else %}
 			{% assign show_widget_icon = true %}
 		{% endif %}
+{%comment%}
 		{% if widget_settings.show_learnmore == 'false' %}
 			{% assign show_learnmore = false %}
 		{% else %}
@@ -70,6 +71,8 @@
 		{% else %}
 			{% assign show_poweredby = true %}
 		{% endif %}
+{%endcomment%}
+
     	{% comment %}Custom styling{% endcomment %}
     	{% assign widget_label_color = widget_settings.font_color | default: "#000000" %}
     	{% assign widget_active_color = widget_settings.active_color | default: "#676767" %}
@@ -85,7 +88,7 @@
     	{% assign popup_text_color = widget_settings.popup_text_color | default: "#FFFFFF" %}
     	{% assign popup_link_color = widget_settings.popup_link_color | default: "#4DD6B7" %}
     	{% assign recharge_custom_css = widget_settings.custom_css | defalut: "" %}
-		{% comment %}Learn more link{% endcomment %}
+		{% comment %}Learn more link
 		{% if widget_settings.learnmore_url %}
 			{% if widget_settings.learnmore_url contains "rechargepayments.com/subscribe-with-recharge" %}
 				{% capture learnmore_url %}http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&utm_medium=customer%20link&utm_campaign=Shopify%20store%20back%20link&shop_name={{ shop.name | url_param_escape }}&shop={{ shop.permanent_domain }}{% endcapture %}
@@ -105,6 +108,7 @@
 		{% else %}
 			{% capture poweredby_url %}http://rechargepayments.com/subscribe-with-recharge?utm_source=shopify%20store&utm_medium=customer%20link&utm_campaign=Shopify%20store%20back%20link&shop_name={{ shop.name | url_param_escape }}&shop={{ shop.permanent_domain }}{% endcapture %}
 		{% endif %}
+{% endcomment %}
 	<!-- Subscriptions Powered by ReCharge Payments: CSS -->
 	<link href="//rechargeassets-bootstrapheroes-rechargeapps.netdna-ssl.com/static/css/rcWidget.css" rel="stylesheet" type="text/css">
 	<style>

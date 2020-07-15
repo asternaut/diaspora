@@ -8,6 +8,9 @@
 {% comment %}
   Looking for a relevant collection.
 {% endcomment %}
+{%- if template contains 'article' -%}
+  {% assign collection = collections.all %}
+{%- endif -%}
 
 {% assign found_a_collection = false %}
 {% if collection and collection.all_products_count > 1 %}
@@ -36,7 +39,7 @@
 
   {% capture related_items %}
     {% for product in collection.products %}
-{% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
+    {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
       {% unless product.handle == current_product.handle %}
         {% assign hover_class = "grid__image--caption" %}
         {% assign fit_image_class = 'grid__item--variable-height grid__image' %}

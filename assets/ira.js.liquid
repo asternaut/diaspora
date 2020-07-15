@@ -1,3 +1,35 @@
+$(document).on('submit', '.js-checkout', function(e) {
+  var $target = $(this);
+  e.preventDefault();
+  
+  if ($target.hasClass('js-recharge-redirect')){
+    var url = reChargeProcessCart(e);
+    location.href = url;
+  } else {
+    location.href = '/checkout';
+  }
+
+});
+
+//ReCharge Redirect past store cart
+function reChargeProcessCart(e) {
+ function get_cookie(name){ return( document.cookie.match('(^|; )'+name+'=([^;]*)')||0 )[2] }
+ do {
+   token=get_cookie('cart');
+ }
+ while(token == undefined);
+ var myshopify_domain = Shopify.shop
+ try {
+   var ga_linker = ga.getAll()[0].get('linkerParam')
+ } catch(err) {
+   var ga_linker = '' ;
+ }
+ var customer_param = '{% if customer %}customer_id={{customer.id}}&customer_email={{customer.email}}{% endif %}'
+ return "https://checkout.rechargeapps.com/r/checkout?myshopify_domain="+myshopify_domain+"&cart_token="+token+"&"+ga_linker+"&"+customer_param;
+}
+
+
+
 /* Jonathan Snook - MIT License - https://github.com/snookca/prepareTransition */
 (function(a){a.fn.prepareTransition=function(){return this.each(function(){var b=a(this);b.one("TransitionEnd webkitTransitionEnd transitionend oTransitionEnd",function(){b.removeClass("is-transitioning")});var c=["transition-duration","-moz-transition-duration","-webkit-transition-duration","-o-transition-duration"];var d=0;a.each(c,function(a,c){d=parseFloat(b.css(c))||d});if(d!=0){b.addClass("is-transitioning");b[0].offsetWidth}})}})(jQuery);
 
@@ -1391,24 +1423,20 @@ ira.productPage = function (container, options) {
       $addToCartText = container.find('[data-add-to-cart-text]');
 
   if (variant) {
+
     // Select a valid variant if available
     if (variant.available) {
       // Available, enable the submit button, change text, show quantity elements
       $addToCart.removeClass('disabled').prop('disabled', false);
       $quantityInput.removeClass('disabled').prop('disabled', false);
-      // @arren, updates the button text with variant specific pre-order or add to cart
-      $addToCartText.removeClass('active');
-      $addToCartText.closest('[data-variant="' + variant.id + '"]').addClass('active');
-      // $addToCartText.closest('[data-variant="' + variant.id + '"]').html({{ 'products.product.add_to_cart' | t | json }});
+      //$addToCartText.html({{ 'products.product.add_to_cart' | t | json }});
       $quantityElements.show();
       $cartBackground.show();
     } else {
       // Sold out, disable the submit button, change text, hide quantity elements
       $addToCart.addClass('disabled').prop('disabled', true);
       $quantityInput.addClass('disabled').prop('disabled', true);
-      $addToCartText.removeClass('active');
-      $addToCartText.closest('[data-variant="' + variant.id + '"]').addClass('active');
-      // $addToCartText.html({{ 'products.product.sold_out' | t | json }});
+      $addToCartText.html({{ 'products.product.sold_out' | t | json }});
       $quantityElements.hide();
       $cartBackground.hide();
     }
@@ -2659,32 +2687,64 @@ $(document)
   $(this).parent('.quantity-input').find('.js-quantityInput').val(qty).change();
 });
 
-$(document).on('submit', '.js-recharge-redirect', function(e){
-  var $target = $(e.target);
-  console.log('form submitted');
-  if ($target.hasClass('js-recharge-redirect')){
-    e.preventDefault();
-    var url = reChargeProcessCart();
-    console.log(url);
-    location.href = url;
-  } else {
-    return true;
+<!-- BLOG PAGE CUSTOM JS -->
+
+var getProduct = function(url, callback) {
+  var params = {
+    type: 'GET',
+    url: url,
+    dataType: 'json',
+    async: false,
+    success: callback,
+    error: function(XMLHttpRequest, textStatus) {
+      console.log(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+}
+
+var shoppableIngredients = false;
+
+$('.article-ingredients a[href*="diaspora"]').each(function(index, anchor) {
+  shoppableIngredients = true;
+
+  var url = anchor.href;
+  if (url.includes('?')){
+    var splitURL = url.split('?');
+    url = splitURL[0];
+    if(splitURL[1].includes('variant=')){
+      var variantId = splitURL[1].split('variant=')[1];
+    }
   }
+  url += '.js';
+  var parentContainer = $(this).parent();
+
+  var addCheckbox = function(product){
+    var variant = product.variants.find( function(variant){
+      if(variantId){
+        return parseInt(variantId) === variant.id
+      } else {
+        return variant.available
+      }
+    })
+
+    if(variant && variant.available){
+      parentContainer.prepend('<label class="check-container" ><input type="checkbox" class="check-checkbox js-recipe-checkbox" value="' + variant.id + '" >  <span class="check-checkmark large pink-check"></span> <span class="add-to-cart-notice"> add to cart </span>');
+      parentContainer.append('</label>');
+    }
+  }
+  getProduct(url, addCheckbox);
 });
 
-function reChargeProcessCart(e) {
-	function get_cookie(name){ return( document.cookie.match('(^|; )'+name+'=([^;]*)')||0 )[2] }
+  $('.js-article-button').hide();
+  $('.js-recipe-checkbox').on('change', function(){
+    if ($('.js-recipe-checkbox').is(':checked')){
+      $('.js-article-button').show();
+    } else {
+      $('.js-article-button').hide();
+    }
+  })
 
-	do {
-    token=get_cookie('cart');
-	}
-  while(token == undefined);
-  var myshopify_domain = Shopify.shop
-  try {
-    var ga_linker = ga.getAll()[0].get('linkerParam')
-  } catch(err) {
-    var ga_linker = '' ;
-  }
-  var customer_param = '{% if customer %}customer_id={{customer.id}}&customer_email={{customer.email}}{% endif %}'
-	return "https://checkout.rechargeapps.com/r/checkout?myshopify_domain="+myshopify_domain+"&cart_token="+token+"&"+ga_linker+"&"+customer_param;
+if (shoppableIngredients){
+  $('.cart-icon').css('opacity', '1');
 }

@@ -165,6 +165,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
         </div>
       </div>
       {% endif %}
+
     </div>
 
     {% comment %}
@@ -225,7 +226,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 
         <div id="AddToCartForm" class="product-form form-vertical {% if product.type == "Spice" %}form-with-bg{% else %} general-form {% endif %}">
           {% if product.type == "Spice" %}
-          <img src="{{'product-panel-bg.png' | asset_img_url: 'master' }}" alt="" class="lazyload lazyload-fade">
+          <img  src="{{'product-panel-bg.png' | asset_img_url: 'master' }}" alt="" class="lazyload lazyload-fade">
           {% endif %}
 
           {% form 'product', product, data-productid: product.id %}
@@ -265,26 +266,28 @@ data-product-variants-first="{{ product.variants.first.title }}">
           {% endcomment %}
 
           <div class="product-selectors">
+
             <!-- Begin ReCharge code -->
             {% if product.available %}{% include 'subscription-product' %}{% endif %}
             <!-- End ReCharge code -->
 
-            <div class="{% if product.has_only_default_variant %} {% else %} select-wrapper {% endif %}">
+
+            <div class="   {% if product.has_only_default_variant %} {% else %} select-wrapper {% endif %}">
               <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="product-single__variants">
 
                 {% for variant in product.variants %}
                 {% include 'wh_variant' with variant, in_loop: true %}
-                  {% if variant.available %}
-                  {% comment %}
-                  Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                  {% endcomment %}
+                {% if variant.available %}
+                {% comment %}
+                Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                {% endcomment %}
 
-                  <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
-                  {% else %}
-                  <option disabled="disabled" value="{{ variant.id }}">
-                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                  </option>
-                  {% endif %}
+                <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
+                {% else %}
+                <option disabled="disabled">
+                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                </option>
+                {% endif %}
                 {% endfor %}
               </select>
             </div>
@@ -301,29 +304,21 @@ data-product-variants-first="{{ product.variants.first.title }}">
             <div class="product__button-quanity">
               <div class="organic-background">
              {% if in_stock == true %}
-               <img src="{{'rough-button-bg.png' | asset_img_url: 'master' }}" alt="" class="in__stock ">
+               <img  src="{{'rough-button-bg.png' | asset_img_url: 'master' }}" alt="" class="in__stock ">
               {% elsif product.type == 'Spice' and in_stock == false %}
-               <img src="{{'sold-out-button.png' | asset_img_url: 'master' }}" alt="" class="spice-sold-out">
+               <img  src="{{'sold-out-button.png' | asset_img_url: 'master' }}" alt="" class="spice-sold-out">
               {% else %}
-               <img src="{{'sold-out-button-default.png' | asset_img_url: 'master' }}" alt="" class="other-sold-out">
+               <img  src="{{'sold-out-button-default.png' | asset_img_url: 'master' }}" alt="" class="other-sold-out">
               {% endif %}
 
-              <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart"
+              <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart  {% if in_stock == false %} disabled {% endif %}"
                 {% if customer.tags.size > 0 %} onclick="setTimeout("window.location.href='/cart';", 50);"{% endif %}  >
-
-                {% for variant in product.variants %}
-                  <span data-add-to-cart-text data-variant="{{variant.id}}" class="add_to_cart_text {% if current_variant == variant %}active{% endif %}">
-                    {%- if variant.available -%}
-                      {% if variant.metafields.custom_fields["pre-order"] == 1 %}
-                        Pre-Order
-                      {% else %}
-                        {{ 'products.product.add_to_cart' | t }}
-                      {% endif %}
-                    {%- else -%}
-                      {{ 'products.product.sold_out' | t }}
-                    {%- endif -%}
-                  </span>
-                {% endfor %}
+                <span data-add-to-cart-text>
+                  {% if product.metafields.custom_fields["add_to_cart_button_text"] != blank %} {{ product.metafields.custom_fields["add_to_cart_button_text"] }}
+                  {% else %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% endif %}
+                </span>
               </button>
             </div>
             <div class=" quantity-input js organic-background">
@@ -333,20 +328,20 @@ data-product-variants-first="{{ product.variants.first.title }}">
               <input type='button' value='+' class='qtyplus qtyadjust' field='quantity' />
             </div>
 
+
             {% if section.settings.enable_payment_button %}
             {{ form | payment_button }}
             {% endif %}
           </div>
         </div>
         {% endform %}
-
       </div>
-      {% if product.metafields.custom_fields["pre-order"] == 1 %}
-        <div style=" font-weight: 500; font-size: 0.9em;">You'll receive your <strong>preorder</strong> of the 2020 harvest in late June, though this is subject to change due to the pandemic! We'll keep you regularly updated and make every effort to get you your spices sooner. Your preorder allows us to keep paying our partner farms during this crisis, and to ensure healthcare to our 50+ farm laborers across India that are most vulnerable right now.</div>
+      {% if product.metafields.custom_fields["add_to_cart_button_text"] != blank and in_stock == true %}
+      <div style=" font-weight: 500; font-size: 0.9em;">You'll receive your <strong>preorder</strong> of the 2020 harvest in late July, though this is subject to change due to the pandemic! We'll keep you regularly updated and make every effort to get you your spices sooner. Your preorder allows us to keep paying our partner farms during this crisis, and to ensure healthcare to our 50+ farm laborers across India that are most vulnerable right now.</div>
       {% endif %}
     </div>
 
-    </div>
+  </div>
     </div>
   </div>
 </div>
@@ -555,29 +550,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 <div id="shopify-product-reviews"  data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
 {% endif %}
 
-{% if section.settings.divider %}
-<div class="product-divider">
-  {% if spice == 'cardamom' %}
-  <img src="{{ 'Cardamom.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'turmeric' %}
-  <img src="{{ 'Turmeric.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'chillies' %}
-  <img src="{{ 'Chilli.png' | asset_img_url: '200x200' }}">
-  {% elsif spice == 'pepper' %}
-  <img src="{{ 'Pepper.png' | asset_img_url: '200x200' }}">
-  {% else %}
-  {% endif %}
-</div>
-{% endif %}
-
-
-{% if section.settings.product_recipies %}
-{% include "product-recipes" %}
-{% endif %}
-
-{% if section.settings.product_related %}
-{% include "product-related" %}
-{% endif %}
+{% include 'recipes-and-related' %}
 
 </div>
 
