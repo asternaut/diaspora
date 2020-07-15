@@ -1,0 +1,170 @@
+<!-- /snippets/ajax-cart-template.liquid -->
+{% comment %}
+
+  This snippet provides the default handlebars.js templates for
+  the ajax cart plugin. Use the raw liquid tags to keep the
+  handlebar.js template tags as available hooks.
+
+{% endcomment %}
+  <script id="CartTemplate" type="text/template">
+  {% raw %}
+
+      <div class="ajaxcart__inner">
+        {% endraw %}
+        <div class='clearfix ajaxcart__header'>
+          <span class='floatL mobile-nav__header'>{{ 'cart.general.cart' | t }}</span>
+        </div>
+        {% raw %}
+        {{#items}}
+        <div class="ajaxcart__product">
+          <div class="ajaxcart__row" data-id="{{id}}" data-line="{{line}}">
+            <div class="grid">
+              <div class="grid__item one-third">
+                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+              </div>
+              <div class="grid__item two-thirds table--full-height">
+
+                {{!-- We use one <p> tag here because we want the styling of one
+                multi-line paragraph, not three paragraphs.  It keeps our CSS much
+                more consistent to not make custom paragraph rules for the cart.--}}
+
+                <div class='display-table-cell '>
+                  <div class="cart-flex">
+                    <p class="cart-text"><a href="{{url}}" class='bold ajaxcart__product-title'>{{name}}</a>
+
+                    <span class="ajaxcart__product-price">
+                      {{#if priceZero}}
+                        {{#if description}} {{description}} {{ else }} Free {{/if}}
+                      {{ else }}
+                        {{#if wholesale}} Price shown at checkout {{ else }} {{{price}}} {{/if}}
+                      {{/if}}
+                    </span>
+
+                    {{#if variation}}
+                      <span class="ajaxcart__product-meta">{{variation}}</span>
+                    {{/if}}
+                    {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                      <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                    {% endraw %}{% endif %}{% raw %}
+
+                    {{#if promotion}}
+                    <div class="ajaxcart__qty">
+                      <input  class='faded' value={{itemQty}} disabled>
+                    </div>
+                    {{else}}
+                    <div class="ajaxcart__qty">
+                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemMinus}}">&minus;</button>
+                      <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{id}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemAdd}}">+</button>
+                    </div>
+                    {{/if}}
+                  </div>
+             <!--     {{#if properties}}
+                      {{#each properties}}
+                        {{@key}}: {{this}}
+                        <br />
+                      {{/each}}
+                  {{/if}}
+
+                  {{# unless properties}}
+                    <br />
+                  {{/unless}} -->
+
+                  <a class='accent bold pointer js-remove-from-cart' data-id="{{id}}" data-line="{{line}}" href="javascript:void(0);">{% endraw %}{{ 'cart.general.remove' | t}}{% raw %}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/items}}
+
+        {{#unless items.length}}
+          {% endraw %}
+            <div class="ajaxcart__empty">
+              {{ 'cart.general.empty' | t }}
+            </div>
+          {% raw %}
+        {{/unless}}
+
+      </div>
+
+      <div class="ajaxcart__footer">
+
+        <div class="ajaxcart__promo">
+          {{#if promotions}} <h2 class="text-center">We appreciate you!</h2> <p class="text-center"> <small>  So now you can add these "optional" must-haves to your order for free! Go on, we know how cute our spice map would look on your fridge! :)</small></p>  {{/if}}
+          {{#promotions}}
+            <form method="post" action="/cart/add" data-productid="{{product}}" class="shopify-product-form">
+              <div class="promo__item">
+                <div class="promo__img">
+                  <img data-src="{{img}}" class="lazyload" alt="">
+                </div>
+
+                <div class="promo__text">
+                  <div class="gift__text">{{description}}</div>
+                  <div class="promo__product-title">{{title}}</div>
+                  <input name="id" type="hidden" value="{{variantId}}">
+                  <input type="hidden" id="Quantity" name="quantity" value="1">
+                  <input class="btn btn-secondary js addToCart" type="submit" value="Add to Order - Free" style="visibility: visible;">
+                </div>
+              </div>
+            </form>
+          {{/promotions}}
+        </div>
+
+      <div class="cart__bottom">
+        <div class="grid--full">
+          <!-- <div class="grid__item two-thirds">
+            <p><strong>{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</strong></p>
+          </div>
+          <div class="grid__item one-third text-right js-total-price">
+            <p><strong> {{{totalPrice}}}</strong></p>
+          </div> -->
+          <div class=" cart-message grid__item">
+            <label class="check-container">
+              <span>Would you like to add a handwritten limited edition card for $4 more?</span>
+
+              {{#if checked}}
+              <input type="checkbox" class="check-checkbox js-card" checked="checked">
+              <span class="check-checkmark"></span>
+              <div class=" js-message js-gift-toggle lead-half ajax-cart-message">
+                <textarea id="CartSpecialInstructions" class="gift-message js-message-string" name="note" placeholder="Your message (365 characters max)" maxlength="365" required>{{ cart.note }}</textarea>
+              </div>
+              {{else}}
+                <input type="checkbox" class="check-checkbox js-card" >
+                <span class="check-checkmark"></span>
+              {{/if}}
+
+            </label>
+          </div>
+        </div>
+
+        <form action="/cart" method="post" novalidate class="cart {{#if cartHasSubscription }}js-recharge-redirect{{/if}}">
+          <input type="submit" name="checkout" class="btn btn--full cart__checkout" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} - {{{totalPrice}}}" {{#unless items.length}}disabled{{/unless}}>
+        </form>
+         <!-- {% endraw %}
+        <div class="cart__checkout-additional">{{ content_for_additional_checkout_buttons }}</div>{% raw %} -->
+
+
+        {% endraw %}
+        </script>
+        <script id="AjaxQty" type="text/template">
+        {% raw %}
+          <div class="ajaxcart__qty">
+            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemMinus}}">&minus;</button>
+            <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{id}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+            <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemAdd}}">+</button>
+          </div>
+        {% endraw %}
+        </script>
+        <script id="JsQty" type="text/template">
+        {% raw %}
+          <div class="js-qty">
+            <button type="button" class="js-qty__adjust js-qty__adjust--minus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemMinus}}">&minus;</button>
+            <input type="text" class="js-qty__num" value="{{itemQty}}" min="1" data-id="{{id}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+            <button type="button" class="js-qty__adjust js-qty__adjust--plus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemAdd}}">+</button>
+          </div>
+        {% endraw %}
+        </script>
+      </div>
+  </div>

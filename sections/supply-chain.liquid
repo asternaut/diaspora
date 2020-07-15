@@ -1,0 +1,67 @@
+<div class="grid--full orange supply-chain">
+  <h1 class="wavy-underline">Our Supply Chain</h1>
+  <div class="supply-grid">
+
+    <div class="supply-aside">
+      <h3>{{section.settings.maintext}}</h3>
+    </div>
+
+    <div class="supply-diaspora supply-model">
+      <div class="">
+        <h4 class="uneven-box">Diaspora Co. Model</h4>
+        <img src="{{ 'diaspora-model.svg' | asset_url }}">
+        <img style="padding-top: 20px;" src="{{ 'Tiger.png' | asset_img_url: 'master' }}">
+      </div>
+      <div class="mobile">
+      </div>
+    </div>
+
+    <div class="supply-trad supply-model">
+      <div class="desktop">
+        <h4 class="uneven-box">Traditional Commodity Model</h4>
+        <img src="{{ 'trad-model.svg' | asset_url }}">
+      </div>
+      <div class="mobile">
+        <h4 class="uneven-box">Traditional Commodity Model</h4>
+        <img src="{{ 'trad-model-mobile.svg' | asset_url }}">
+      </div>
+    </div>
+
+    <div class="supply-bottom wavy-overline">
+      <div>{{section.settings.bottomtextleft}}</div>
+      <div>{{section.settings.bottomtextright}}</div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Supply Chain",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Main Text"
+      },
+      {
+        "type": "textarea",
+        "id": "maintext",
+        "label": "Text"
+      },
+      {
+        "type": "header",
+        "content": "Bottom Text"
+      },
+      {
+        "type": "textarea",
+        "id": "bottomtextleft",
+        "label": "Left Text"
+      },
+      {
+        "type": "textarea",
+        "id": "bottomtextright",
+        "label": "Right Text"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,1790 @@
+{
+  "current": {
+    "color_primary": "#f41f86",
+    "color_body_bg": "#ffffff",
+    "color_borders": "#e2e2e2",
+    "color_header": "#222222",
+    "color_body_text": "#3a3a3a",
+    "color_button_text": "#ffffff",
+    "color_image_cta_background": "#ffffff",
+    "color_image_cta_text": "#3a3a3a",
+    "image_gutter": 4,
+    "enable_max_width_container": false,
+    "max_width_container_background_color": "#ffffff",
+    "type_logo": "pt_sans_n4",
+    "type_header": "avenir_next_n4",
+    "type_base": "avenir_next_n4",
+    "favicon_image": "shopify:\/\/shop_images\/Diaspora_Co_Logo_HiRes_RGB.jpg",
+    "cart_notes_enable": false,
+    "cart_vendor_enable": false,
+    "social_twitter_link": "https:\/\/twitter.com\/diaspora_co",
+    "social_facebook_link": "https:\/\/www.facebook.com\/diasporaco\/",
+    "social_pinterest_link": "https:\/\/www.pinterest.com\/diasporaco\/boards\/",
+    "social_instagram_link": "https:\/\/www.instagram.com\/diasporaco\/",
+    "social_tumblr_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "show_multiple_currencies": true,
+    "currency_format": "money_format",
+    "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+    "default_currency": "USD",
+    "password_page_title": "Opening Soon",
+    "password_page_subtitle": "<p>Find out when we open:<\/p>",
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify:\/\/shop_images\/DiasporaCo_Logos-04.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#f41f86",
+    "checkout_button_color": "#f41f86",
+    "checkout_error_color": "#e32c2b",
+    "color_transparent_header_icon": "#fff",
+    "button_rounding_px": "2",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "sticky_header": true,
+          "transparent_header": false,
+          "color_transparent_header_icon": "#ffffff",
+          "navigation_style": "links",
+          "color_nav_drawer": "#fafafa",
+          "color_nav_border": "#383838",
+          "color_nav_text": "#222222",
+          "nav_linklist": "dev-menu",
+          "catalog_dropdowns": false,
+          "catalog_menu_image": "",
+          "nav_linklist_2": "",
+          "nav_linklist_3": "",
+          "logo_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
+          "logo_max_width": "280",
+          "logo_transparent_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
+          "show_announcement_bar": false,
+          "notification_bar_enable_currency": false,
+          "notification_bar_enable_social": false,
+          "notification_bar_text": "Free Economy usa Shipping on all Preorders $50+ using the code 'FREEHIPPO'",
+          "notification_bar_link": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-0": {
+            "type": "store_description",
+            "settings": {
+              "title": "About",
+              "description_text": "<p>We're building a better spice trade, equitably and deliciously.<\/p>\n<p>We source India's freshest, heirloom, and single-origin spices, directly from our partner farms to bring you next level flavor and fragrance!<\/p>\n<p><\/p>\n<p><\/p>"
+            }
+          },
+          "footer-1": {
+            "type": "footer_menu",
+            "settings": {
+              "menu_link_list": "footer"
+            }
+          },
+          "footer-2": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Newsletter",
+              "newsletter_text": "<p>We write a pretty great newsletter.<\/p>\n<p>Seasonal reading lists, highly cookable recipes, feelings-filled harvest reports, and lots more.<\/p>\n<p>Plus, we hella respect your privacy.<\/p>",
+              "newsletter_button_text": "Subscribe now"
+            }
+          },
+          "footer-3": {
+            "type": "social_media",
+            "settings": {}
+          }
+        },
+        "block_order": [
+          "footer-0",
+          "footer-1",
+          "footer-2",
+          "footer-3"
+        ],
+        "settings": {
+          "enable_payment_icons": false,
+          "enable_shop_name": false,
+          "color_footer_header": "#ffffff",
+          "color_footer_text": "#ffffff",
+          "color_footer_bg": "#f08c00",
+          "color_footer_HR": "#ffffff"
+        }
+      },
+      "slideshow": {
+        "type": "slideshow",
+        "blocks": {
+          "slideshow-0": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify:\/\/shop_images\/diasporashopify31.jpg",
+              "text_position": "align-center-bottom",
+              "button_position": "align-center-button",
+              "heading_text": "",
+              "page_text": "",
+              "button_cta": "Shop spices",
+              "button_link": "shopify:\/\/collections\/all"
+            }
+          }
+        },
+        "block_order": [
+          "slideshow-0"
+        ],
+        "settings": {
+          "enable_ken_burns": false,
+          "enable_progress_bar": true,
+          "enable_dropshadow": false,
+          "color_overlay_opacity": "0",
+          "color_overlay_color": "#000000",
+          "progress_bar_color": "#ffffff",
+          "enable_color": true,
+          "heading_color": "#ffffff",
+          "controls_color": "#ffffff"
+        }
+      },
+      "rich-text": {
+        "type": "rich-text",
+        "settings": {
+          "title": "",
+          "text": "<p>Building a better spice trade.&nbsp;<\/p>\n<p><\/p>\n<p>We are here to put money, equity and power into the hands of small, organic spice farmers that are leading the way in sustainability, regenerative&nbsp;agriculture and truly delicious spices.<\/p>\n<p><\/p>\n<p>Proudly grown in India, always.&nbsp;<\/p>",
+          "link": "shopify:\/\/collections\/all",
+          "linkText": ""
+        }
+      },
+      "featured-collection": {
+        "type": "collection-list",
+        "disabled": true,
+        "blocks": {
+          "featured-collection-0": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "subheading": "",
+              "buttonStyle": "2",
+              "textAlignment": "center"
+            }
+          },
+          "featured-collection-1": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "subheading": "",
+              "buttonStyle": "2",
+              "textAlignment": "center"
+            }
+          },
+          "featured-collection-2": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "subheading": "",
+              "buttonStyle": "2",
+              "textAlignment": "center"
+            }
+          }
+        },
+        "block_order": [
+          "featured-collection-0",
+          "featured-collection-1",
+          "featured-collection-2"
+        ],
+        "settings": {
+          "collectionlist_title": "",
+          "homepage_collection_block_perrow": "3",
+          "enable_animation": false
+        }
+      },
+      "grid": {
+        "type": "grid",
+        "disabled": true,
+        "blocks": {
+          "grid-0": {
+            "type": "grid-item",
+            "settings": {
+              "image": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "heading": "",
+              "subheading": "",
+              "link": "",
+              "linkText": "",
+              "buttonStyle": "2",
+              "textAlignment": "bottom right"
+            }
+          },
+          "grid-1": {
+            "type": "grid-item",
+            "settings": {
+              "image": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "heading": "",
+              "subheading": "",
+              "link": "",
+              "linkText": "",
+              "buttonStyle": "2",
+              "textAlignment": "center left"
+            }
+          },
+          "grid-2": {
+            "type": "grid-item",
+            "settings": {
+              "image": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "heading": "",
+              "subheading": "",
+              "link": "",
+              "linkText": "",
+              "buttonStyle": "2",
+              "textAlignment": "center"
+            }
+          },
+          "grid-3": {
+            "type": "grid-item",
+            "settings": {
+              "image": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "heading": "",
+              "subheading": "",
+              "link": "",
+              "linkText": "",
+              "buttonStyle": "2",
+              "textAlignment": "center left"
+            }
+          },
+          "grid-4": {
+            "type": "grid-item",
+            "settings": {
+              "image": "",
+              "overlayOpacity": "0.3",
+              "overlayColor": "#000000",
+              "textColor": "#ffffff",
+              "heading": "",
+              "subheading": "",
+              "link": "",
+              "linkText": "",
+              "buttonStyle": "2",
+              "textAlignment": "top left"
+            }
+          }
+        },
+        "block_order": [
+          "grid-0",
+          "grid-1",
+          "grid-2",
+          "grid-3",
+          "grid-4"
+        ],
+        "settings": {
+          "enable_animation": false
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "disabled": true,
+        "settings": {
+          "homepage_newsletter_title": "Join our newsletter",
+          "homepage_newsletter_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "collection": "2019-harvest-spices",
+          "collection_title": false,
+          "collection_style": "grid__image--caption",
+          "featured_products_per_row": "4",
+          "featured_rows": "1"
+        }
+      },
+      "instagram": {
+        "type": "instagram",
+        "settings": {
+          "instagram_grid_API": "5665685553.1677ed0.339431a1cd7241a8af7d9f1305c4956e"
+        }
+      },
+      "popup": {
+        "type": "popup",
+        "settings": {
+          "enable_exit_intent": true,
+          "title": "Let's be email friends?",
+          "exit_intent_body": "<p>We write a pretty great newsletter.<\/p>\n<p>First dibs on&nbsp;the latest spice harvests, seasonal reading lists, highly cookable recipes, and very emotional harvest reports! We do it all!&nbsp;<\/p>\n<p>Plus, we hella respect your privacy.<\/p>",
+          "exit_intent_image": ""
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "enable_collection_filtering": true,
+          "enable_collection_sorting": true,
+          "collection_style": "grid__image--caption",
+          "collection_layout_style": "twoByThree",
+          "show_collection_header": false,
+          "show_collection_description": false,
+          "enable_dropshadow": false,
+          "image_alignment": "center",
+          "color_overlay_opacity": "0.8",
+          "color_overlay_color": "#031207",
+          "color_text": "#ffffff"
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "blocks": {
+          "1578340071005": {
+            "type": "tab",
+            "settings": {
+              "product_tab_page": "supply-chain"
+            }
+          }
+        },
+        "block_order": [
+          "1578340071005"
+        ],
+        "settings": {
+          "product-image-background": "#ffc600",
+          "margins": true,
+          "product_related": true,
+          "product_recipies": true,
+          "product_reviews": true,
+          "enable_payment_button": false,
+          "image_layout_style": "stacked_images",
+          "expand_first_tab": true,
+          "divider": true
+        }
+      },
+      "icon-grid": {
+        "type": "icon-grid",
+        "blocks": {
+          "1553544773916": {
+            "type": "block-1",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Web__Icon-Fresh.png",
+              "title": "Fresh",
+              "subtitle": "Guaranteed same-year harvest, milled every 3 months",
+              "paragraph": "versus powders that can be up to five years old, still sitting on a grocery store shelf. Our turmeric has a floral fragrance due to its freshness."
+            }
+          },
+          "1553544810394": {
+            "type": "block-1",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Web__Icon-Potent_8d93dbde-017c-44eb-b85c-298ce164ce6b.png",
+              "title": "Potent",
+              "subtitle": "100% pure heirloom variety",
+              "paragraph": "versus conventional turmeric, made of a blend of multiple low-quality varieties. ½ tsp of our turmeric equals 1 tsp of conventional turmeric in flavor and strength."
+            }
+          },
+          "1553544837747": {
+            "type": "block-2",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Web__Icon-Sustainable.png",
+              "title": "Sustainable",
+              "subtitle": "Organically farmed",
+              "paragraph": "versus industrial spice farming sprayed with chemicals, and grown for yield + storability. Our turmeric is grown for the best flavor + fragrance, and reverses soil depletion."
+            }
+          },
+          "1553544904078": {
+            "type": "block-2",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Web__Icon-Equitable.png",
+              "title": "Equitable",
+              "subtitle": "Directly traded and farmers paid up to 6x the commodity price",
+              "paragraph": "versus spices passed through several traders in an unjust supply chain before arriving to the consumer. Traditional spice trading pays farmers 2% or less of revenue."
+            }
+          }
+        },
+        "block_order": [
+          "1553544773916",
+          "1553544810394",
+          "1553544837747",
+          "1553544904078"
+        ],
+        "settings": {
+          "header": "Our Turmeric Is",
+          "linkText": "",
+          "url": ""
+        }
+      },
+      "1553553135575": {
+        "type": "icon-grid",
+        "blocks": {
+          "1553553161242": {
+            "type": "block-1",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_1_f120d939-ddb5-43cc-a69a-6444688a0afe.jpg",
+              "title": "Fresh",
+              "subtitle": "Guaranteed same-year harvest.",
+              "paragraph": "versus spices that can be up to five years old, still sitting on a grocery store shelf."
+            }
+          },
+          "1553553321136": {
+            "type": "block-1",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_2_ac5291fc-51b8-42a7-8745-dd96bb0c0be5.jpg",
+              "title": "Potent",
+              "subtitle": "100% pure heirloom variety",
+              "paragraph": "versus conventional spices, made of a blend of varieties chosen solely for yield and storability."
+            }
+          },
+          "1553553341502": {
+            "type": "block-2",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_3_0a7ec7d3-4574-4233-9ae8-d8d7cbb5583f.jpg",
+              "title": "Sustainable",
+              "subtitle": "Organically farmed",
+              "paragraph": "versus industrial spice farming sprayed with chemicals, and pesticides."
+            }
+          },
+          "1553553369201": {
+            "type": "block-2",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_ac6fb24e-23a4-4131-8763-5d74928ce36f.jpg",
+              "title": "EQUITABLE",
+              "subtitle": "Direct-trade, upto 6x premium",
+              "paragraph": "versus conventional supply chains with farmers getting less than 2% of the final revenue."
+            }
+          }
+        },
+        "block_order": [
+          "1553553161242",
+          "1553553321136",
+          "1553553341502",
+          "1553553369201"
+        ],
+        "settings": {
+          "header": "Our Spices Are",
+          "linkText": "Read More",
+          "url": ""
+        }
+      },
+      "1556148712906": {
+        "type": "slider",
+        "blocks": {
+          "1556148721394": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Forbes-logo.png",
+              "slide_link": "https:\/\/www.forbes.com\/sites\/mollysprayregen\/2018\/11\/19\/how-sana-javeri-kadri-founder-of-diaspora-co-is-reforming-the-turmeric-industry\/?ss=womenatforbes#7450a6464b3f"
+            }
+          },
+          "1556148730979": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/healthyish-logo.png",
+              "slide_link": "https:\/\/www.bonappetit.com\/story\/wellness-influencers-indian-food"
+            }
+          },
+          "1556809642807": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/stratdropcap.png",
+              "slide_link": "http:\/\/nymag.com\/strategist\/2017\/11\/unique-gifts-that-give-back-for-giving-tuesday-2017.html"
+            }
+          },
+          "1556809681892": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/e3cd1cb9-f04c-4c5e-90df-b0241b8a8dfb--Screen_Shot_2013-07-11_at_5.58.26_PM.png",
+              "slide_link": "https:\/\/food52.com\/blog\/21678-this-turmeric-business-wants-to-help-farmers-in-india"
+            }
+          },
+          "1556809687531": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/new-york-times-logo-png-transparent.png",
+              "slide_link": "https:\/\/www.nytimes.com\/guides\/gifts\/2018-holiday-gift-guide?category=Food+%26+Drink"
+            }
+          },
+          "1564431190154": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/buzzfeed-logo-transparent.png",
+              "slide_link": "https:\/\/www.buzzfeed.com\/jesseszewczyk\/sana-javeri-kadri-diaspora-interview"
+            }
+          },
+          "1564431459392": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/cooking-light-logo.png",
+              "slide_link": "https:\/\/www.cookinglight.com\/cooking-101\/essential-ingredients\/turmeric-for-back-pain-arthritis"
+            }
+          },
+          "1564431484741": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/vice-logo-transparent.png",
+              "slide_link": "https:\/\/www.vice.com\/en_us\/article\/paqz37\/this-24-year-old-started-her-own-turmeric-business-to-help-indian-farmers"
+            }
+          },
+          "1564431711045": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-06_at_1.16.27_PM.png",
+              "slide_link": ""
+            }
+          },
+          "1564431777572": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/3e5078f807f345886c3fa25618875a5d.w3150.h825.jpg",
+              "slide_link": "https:\/\/www.epicurious.com\/ingredients\/its-time-to-start-buying-fair-trade-spices-article"
+            }
+          },
+          "1564431835074": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Unknown-4.png",
+              "slide_link": "https:\/\/civileats.com\/2018\/02\/01\/a-queer-female-entrepreneur-is-taking-back-turmeric-for-indian-farmers\/"
+            }
+          },
+          "1564498588725": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-11_at_11.26.28_PM.png",
+              "slide_link": "https:\/\/www.bonappetit.com\/story\/sana-javeri-kadri"
+            }
+          },
+          "1564499037208": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-06_at_1.50.13_PM.png",
+              "slide_link": "http:\/\/www.grubstreet.com\/2017\/12\/stephen-satterfield-grub-street-diet.html"
+            }
+          },
+          "1564499159253": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/mw1bfcqefre6jtf8r1aalid81k7s2-c4d2f236d677b00f8e834e4cc08321ba.jpg",
+              "slide_link": "https:\/\/www.foodandwine.com\/cooking-techniques\/meet-makers-sana-javeri-kadri"
+            }
+          },
+          "1564500715213": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/VOGUE_logo_logotype.png",
+              "slide_link": ""
+            }
+          },
+          "1564513405248": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Unknown_9cea6e35-6131-431d-a223-d70cd12f81da.png",
+              "slide_link": "https:\/\/www.thekitchn.com\/sana-javeri-kadri-diaspora-co-interview-268139"
+            }
+          },
+          "1564514704937": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/best-oakland-dog-boarding-award.png",
+              "slide_link": "https:\/\/www.eastbayexpress.com\/oakland\/best-decolonized-food-company\/BestOf?oid=18391884"
+            }
+          },
+          "1564514835807": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Unknown_7291ef80-70a9-4023-84b0-b5013169e5d8.png",
+              "slide_link": "https:\/\/coolhunting.com\/buy\/diaspora-co-tumeric\/"
+            }
+          },
+          "1568675910227": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Unknown_dd0095de-a633-44dc-bb9b-fa48339195ed.png",
+              "slide_link": "https:\/\/www.domino.com\/content\/sana-javeri-kadri-nighttime-routine\/"
+            }
+          },
+          "1579806034415": {
+            "type": "slide",
+            "settings": {
+              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2020-01-23_at_8.00.08_PM.png",
+              "slide_link": "https:\/\/www.youtube.com\/watch?v=pdF2Zc3SLEQ"
+            }
+          }
+        },
+        "block_order": [
+          "1556148721394",
+          "1556148730979",
+          "1556809642807",
+          "1556809681892",
+          "1556809687531",
+          "1564431190154",
+          "1564431459392",
+          "1564431484741",
+          "1564431711045",
+          "1564431777572",
+          "1564431835074",
+          "1564498588725",
+          "1564499037208",
+          "1564499159253",
+          "1564500715213",
+          "1564513405248",
+          "1564514704937",
+          "1564514835807",
+          "1568675910227",
+          "1579806034415"
+        ],
+        "settings": {
+          "header": "as seen in:",
+          "carousel_autoplay": true,
+          "carousel_dots": false,
+          "carousel_arrows": true,
+          "autoplay_speed": "4000"
+        }
+      },
+      "blog-template": {
+        "type": "blog-template",
+        "settings": {
+          "enable_blog_author": false
+        }
+      },
+      "article-template": {
+        "type": "article-template",
+        "settings": {
+          "enable_disqus_comments": false,
+          "disqus_shortname": ""
+        }
+      },
+      "about": {
+        "type": "about",
+        "settings": {
+          "yellow-image": "shopify:\/\/shop_images\/Photo_Jan_15_10_24_23_PM.jpg",
+          "yellow-text": "The original intent of colonial conquest of the Indian subcontinent was a desire for domination of the spice trade. <br>\n<br>\n600+ years later, as a young woman born and raised in postcolonial Mumbai, working at the intersection of food and culture, I was slowly discovering that not much about that system had changed. <br>\n<br>Farmers made no money, spices changed hands upwards of 10 times between farmer and consumer, and the final spice on the shelf was usually an old, dusty, and flavorless shadow of what it once was.",
+          "orange-text": "Diaspora Co. was founded in 2017 to create a radically new, and equitable vision of the spice trade, decolonizing a commodity back into a seasonal crop, and a broken system into an equal exchange. <br>\n<br>Beyond highlighting gorgeous, indigenous spice varieties, it's also about creating a business for us, by us. Complicating and deepening what “Made in India” means, and how we tell our own stories of freedom, struggle, and diaspora through food.",
+          "orange-image": "shopify:\/\/shop_images\/Photo_Jan_15_11_04_54_PM.jpg",
+          "pink-image": "shopify:\/\/shop_images\/IMG_1767.JPG",
+          "pink-text": "Today, we work in close partnership with the Indian Council of Agricultural Research to identify and provide ongoing support to our partner farmers, all of whom are on the cutting edge of regenerative, and sustainable agriculture. <br>\n<br>Mr. Chacko in Kerala developed his own heirloom cardamom variety! Mr. Kasaraneni in Andhra Pradesh taught himself organic turmeric farming solely via Youtube and WhatsApp! Smt. Ioe Tang took over her family farm and made it profitable for the first time in generations! <br>\n<br>Our partner farmers are our heroes, and the future of farming is bright (and spicy)!"
+        }
+      },
+      "supply-chain": {
+        "type": "supply-chain",
+        "settings": {
+          "maintext": "We are here to put money, equity and power into the hands of Indian farmers, and to disrupt and decolonize an outdated commodity spice trading system. \n<br>\nWhat do we mean by decolonization? We mean creating a spice trade that redistributes power away from solely the trader and instead, empowers its farmers, its laborers and the earth.",
+          "bottomtextleft": "In cutting out all middle men, we hugely increase the amount of money we can pay our partner farms. It means we are able to work with much smaller farms who in a traditional model would have lacked the capital or resources to export or scale. Our focus is on flavor, sustainability and heirloom seed, so if a farmer matches those criteria, they can rest assured that they will have a long term partner in us.",
+          "bottomtextright": "In the commodity trading model several farmers crops are mixed together at every stage. Quality is assessed based on aesthetics (color and size) versus how it was grown, which seeds it was grown from, and how it tastes or smells. It means that the farmer has no agency or control over the price they receive, or the quality of the final product. We’re here to say that that system is no longer good enough- we all deserve better."
+        }
+      },
+      "all-collection": {
+        "type": "all-collection",
+        "settings": {
+          "enable_collection_filtering": false,
+          "enable_collection_sorting": false,
+          "collection_style": "grid__image--caption",
+          "collection_layout_style": "fourByThree",
+          "show_collection_header": false,
+          "show_collection_description": false,
+          "enable_dropshadow": false,
+          "image_alignment": "center",
+          "color_overlay_opacity": "0.8",
+          "color_overlay_color": "#031207",
+          "color_text": "#ffffff"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "rich-text",
+      "grid",
+      "featured-collection",
+      "newsletter",
+      "featured-products",
+      "1553553135575",
+      "instagram",
+      "1556148712906"
+    ]
+  },
+  "presets": {
+    "Street": {
+      "type_logo": "tinos_n4",
+      "type_header": "roboto_condensed_n4",
+      "type_base": "roboto_condensed_n4",
+      "color_primary": "#a16c41",
+      "color_body_bg": "#ffffff",
+      "color_transparent_header_icon": "#fff",
+      "color_borders": "#e2e2e2",
+      "color_header": "#222",
+      "color_body_text": "#565656",
+      "color_button_text": "#ffffff",
+      "color_image_cta_background": "#ffffff",
+      "color_image_cta_text": "#444444",
+      "button_rounding_px": "2",
+      "show_multiple_currencies": true,
+      "currency_format": "money_with_currency_format",
+      "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+      "default_currency": "USD",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "sticky_header": true,
+            "transparent_header": true,
+            "color_transparent_header_icon": "#ffffff",
+            "navigation_style": "links",
+            "color_nav_drawer": "#1f1f1f",
+            "color_nav_border": "#383838",
+            "color_nav_text": "#ffffff",
+            "logo_max_width": "300",
+            "notification_bar_enable_currency": true,
+            "notification_bar_enable_social": true,
+            "notification_bar_text": "Free shipping on all orders"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "store_description",
+              "settings": {
+                "title": "About",
+                "description_text": "<p>This Section is perfect for providing a three to four sentence description of your store. Talk a little bit about your history and your values. This Section looks best with three to four sentences!<\/p>"
+              }
+            },
+            "footer-1": {
+              "type": "footer_menu",
+              "settings": {
+                "menu_link_list": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "social_media",
+              "settings": {}
+            },
+            "footer-3": {
+              "type": "newsletter",
+              "settings": {
+                "title": "Newsletter",
+                "newsletter_text": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>",
+                "newsletter_button_text": "Subscribe Now"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2",
+            "footer-3"
+          ],
+          "settings": {
+            "color_footer_header": "#ffffff",
+            "color_footer_text": "#ffffff",
+            "color_footer_bg": "#1e2921",
+            "color_footer_HR": "#ffffff"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-middle",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": false,
+            "enable_dropshadow": false,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "slideshow-2": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-3-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-middle",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-3-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": false,
+            "enable_dropshadow": false,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "features": {
+          "type": "features",
+          "blocks": {
+            "1": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            },
+            "2": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            },
+            "3": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            }
+          },
+          "block_order": [
+            "1",
+            "2",
+            "3"
+          ],
+          "settings": {
+            "title": "",
+            "subheading": ""
+          }
+        },
+        "instagram": {
+          "type": "instagram",
+          "settings": {}
+        },
+        "popup": {
+          "type": "popup",
+          "settings": {
+            "enable_exit_intent": true,
+            "title": "Join our Newsletter",
+            "exit_intent_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
+          }
+        },
+        "featured-collection": {
+          "type": "collection-list",
+          "blocks": {
+            "featured-collection-0": {
+              "type": "featured_collection",
+              "settings": {
+                "textAlignment": "center"
+              }
+            },
+            "featured-collection-1": {
+              "type": "featured_collection",
+              "settings": {
+                "textAlignment": "center"
+              }
+            },
+            "featured-collection-2": {
+              "type": "featured_collection",
+              "settings": {
+                "textAlignment": "center"
+              }
+            },
+            "featured-collection-3": {
+              "type": "featured_collection",
+              "settings": {
+                "textAlignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "featured-collection-0",
+            "featured-collection-1",
+            "featured-collection-2",
+            "featured-collection-3"
+          ],
+          "settings": {
+            "homepage_collection_block_perrow": "2"
+          }
+        },
+        "featured-blog": {
+          "type": "blog-posts",
+          "settings": {}
+        },
+        "rich-text": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Welcome to your new store!",
+            "text": "<p>This Featured Text section is perfect for a quick introductory paragraph about your store. You'll want to share your values with your customers and let them what makes purchasing from you unique. It may also be a good idea to mention your shipping and returns policies.<\/p>"
+          }
+        },
+        "rich-text-2": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Welcome to your new store!",
+            "text": "<p>This Featured Text section is perfect for a quick introductory paragraph about your store. You'll want to share your values with your customers and let them what makes purchasing from you unique. It may also be a good idea to mention your shipping and returns policies.<\/p>"
+          }
+        },
+        "grid": {
+          "type": "grid",
+          "blocks": {
+            "grid2-0": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "bottom right"
+              }
+            },
+            "grid2-1": {
+              "type": "grid-item",
+              "settings": {
+                "image": "",
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid2-2": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "grid2-3": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid2-4": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "top left"
+              }
+            }
+          },
+          "block_order": [
+            "grid2-0",
+            "grid2-1",
+            "grid2-2",
+            "grid2-3",
+            "grid2-4"
+          ],
+          "settings": {}
+        },
+        "grid-2": {
+          "type": "grid",
+          "blocks": {
+            "grid3-0": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "bottom right"
+              }
+            },
+            "grid3-1": {
+              "type": "grid-item",
+              "settings": {
+                "image": "",
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid3-2": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "grid3-3": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "top left"
+              }
+            }
+          },
+          "block_order": [
+            "grid3-0",
+            "grid3-1",
+            "grid3-2",
+            "grid3-3"
+          ],
+          "settings": {}
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "homepage_newsletter_title": "Join our newsletter",
+            "homepage_newsletter_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "enable_collection_filtering": true,
+            "enable_collection_sorting": true,
+            "collection_style": "grid__image--caption",
+            "collection_layout_style": "threeByThree"
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "features",
+        "grid-2",
+        "rich-text",
+        "featured-collection",
+        "newsletter",
+        "grid",
+        "rich-text-2",
+        "slideshow-2",
+        "featured-blog",
+        "instagram"
+      ]
+    },
+    "Modern": {
+      "color_primary": "#db504a",
+      "color_body_bg": "#ffffff",
+      "color_borders": "#e2e2e2",
+      "color_header": "#222",
+      "color_body_text": "#424242",
+      "color_button_text": "#ffffff",
+      "color_image_cta_background": "#ffffff",
+      "color_image_cta_text": "#444444",
+      "type_logo": "pt_sans_n4",
+      "type_header": "pt_sans_n4",
+      "type_base": "roboto_condensed_n4",
+      "favicon_image": "",
+      "cart_notes_enable": false,
+      "cart_vendor_enable": false,
+      "show_multiple_currencies": true,
+      "currency_format": "money_with_currency_format",
+      "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+      "default_currency": "USD",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "sticky_header": true,
+            "transparent_header": true,
+            "color_transparent_header_icon": "#ffffff",
+            "navigation_style": "links",
+            "color_nav_drawer": "#1f1f1f",
+            "color_nav_border": "#383838",
+            "color_nav_text": "#ffffff",
+            "nav_linklist": "main-menu",
+            "nav_linklist_2": "",
+            "nav_linklist_3": "",
+            "logo_image": "",
+            "logo_max_width": "300",
+            "logo_transparent_image": "",
+            "notification_bar_enable_currency": true,
+            "notification_bar_enable_social": true,
+            "notification_bar_text": "Free shipping on all orders",
+            "notification_bar_link": ""
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "store_description",
+              "settings": {
+                "title": "About",
+                "description_text": "<p>This Section is perfect for providing a three to four sentence description of your store. Talk a little bit about your history and your values. This Section looks best with three to four sentences!<\/p>"
+              }
+            },
+            "footer-1": {
+              "type": "footer_menu",
+              "settings": {
+                "menu_link_list": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "social_media",
+              "settings": {}
+            },
+            "footer-3": {
+              "type": "newsletter",
+              "settings": {
+                "title": "Newsletter",
+                "newsletter_text": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>",
+                "newsletter_button_text": "Subscribe Now"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2",
+            "footer-3"
+          ],
+          "settings": {
+            "color_footer_header": "#ffffff",
+            "color_footer_text": "#ffffff",
+            "color_footer_bg": "#3b3b3b",
+            "color_footer_HR": "#585858"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-middle",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": true,
+            "enable_dropshadow": false,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "slideshow-2": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-3-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-middle",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-3-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": false,
+            "enable_dropshadow": false,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "slideshow-3": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-2-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-middle",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-2-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": false,
+            "enable_dropshadow": false,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "features-2": {
+          "type": "features",
+          "blocks": {
+            "1-2": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            },
+            "2-2": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            },
+            "3-2": {
+              "type": "feature",
+              "settings": {
+                "feature-icon": "",
+                "title": "Text column",
+                "feature-subheading": "<p>Text columns are great for displaying key features of a product or the steps that are performed after a purchase (ie. packaging, shipping, tracking).<\/p>",
+                "feature-buttonText": "Read more",
+                "feature-url": ""
+              }
+            }
+          },
+          "block_order": [
+            "1-2",
+            "2-2",
+            "3-2"
+          ],
+          "settings": {
+            "title": "",
+            "subheading": ""
+          }
+        },
+        "featured-products": {
+          "type": "featured-products",
+          "settings": {
+            "collection_style": "grid__image--caption",
+            "featured_products_per_row": "3"
+          }
+        },
+        "story-grid": {
+          "type": "story-grid",
+          "blocks": {
+            "story-grid-0": {
+              "type": "content_block",
+              "settings": {
+                "block_image": "",
+                "layout": "two-one",
+                "image_position": "right",
+                "text_alignment": "left",
+                "text_header": "Welcome to Shopify",
+                "text_body": "<p>Read a breakdown of Ira's features by visiting our Features page.<\/p>",
+                "button_cta": "Read more",
+                "button_link": "",
+                "border_override": false
+              }
+            }
+          },
+          "block_order": [
+            "story-grid-0"
+          ],
+          "settings": {
+            "header_color": "#ffffff",
+            "text_color": "#ffffff",
+            "background_color": "#3b3b3b"
+          }
+        },
+        "instagram": {
+          "type": "instagram",
+          "settings": {}
+        },
+        "grid": {
+          "type": "grid",
+          "blocks": {
+            "grid2-0": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "bottom right"
+              }
+            },
+            "grid2-1": {
+              "type": "grid-item",
+              "settings": {
+                "image": "",
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid2-2": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "grid2-3": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid2-4": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "top left"
+              }
+            }
+          },
+          "block_order": [
+            "grid2-0",
+            "grid2-1",
+            "grid2-2",
+            "grid2-3",
+            "grid2-4"
+          ],
+          "settings": {}
+        },
+        "popup": {
+          "type": "popup",
+          "settings": {
+            "enable_exit_intent": false
+          }
+        },
+        "rich-text": {
+          "type": "rich-text",
+          "settings": {
+            "title": "Welcome to your new store!",
+            "text": "<p>This Featured Text section is perfect for a quick introductory paragraph about your store. You'll want to share your values with your customers and let them what makes purchasing from you unique. It may also be a good idea to mention your shipping and returns policies.<\/p>"
+          }
+        },
+        "testimonials": {
+          "type": "testimonials",
+          "blocks": {
+            "1497739267611-0": {
+              "type": "testimonial",
+              "settings": {
+                "text": "<p>\"Absolutely fantastic products. Well made, great service and quickly shipped.\"<\/p>",
+                "title": "Jane Smith",
+                "profile": ""
+              }
+            },
+            "1497739267611-1": {
+              "type": "testimonial",
+              "settings": {
+                "text": "<p>\"Absolutely fantastic products. Well made, great service and quickly shipped.\"<\/p>",
+                "title": "Jane Smith",
+                "profile": ""
+              }
+            },
+            "1497739267611-2": {
+              "type": "testimonial",
+              "settings": {
+                "text": "<p>\"Absolutely fantastic products. Well made, great service and quickly shipped.\"<\/p>",
+                "title": "Jane Smith",
+                "profile": ""
+              }
+            }
+          },
+          "block_order": [
+            "1497739267611-0",
+            "1497739267611-1",
+            "1497739267611-2"
+          ],
+          "settings": {
+            "title": "Testimonials",
+            "subheading": ""
+          }
+        },
+        "featured-blog": {
+          "type": "blog-posts",
+          "settings": {}
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "enable_collection_filtering": false,
+            "enable_collection_sorting": false,
+            "collection_style": "grid__image--caption",
+            "collection_layout_style": "threeByThree"
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "features-2",
+        "slideshow-2",
+        "rich-text",
+        "story-grid",
+        "testimonials",
+        "grid",
+        "featured-products",
+        "slideshow-3",
+        "featured-blog",
+        "instagram"
+      ]
+    },
+    "Ecstatic": {
+      "type_logo": "pt_sans_n4",
+      "type_header": "roboto_condensed_n4",
+      "type_base": "pt_sans_n4",
+      "color_primary": "#fb674b",
+      "color_body_bg": "#ffffff",
+      "color_borders": "#e2e2e2",
+      "color_transparent_header_icon": "#fff",
+      "color_header": "#222",
+      "color_body_text": "#333333",
+      "color_button_text": "#ffffff",
+      "color_image_cta_background": "#ffffff",
+      "show_multiple_currencies": true,
+      "currency_format": "money_with_currency_format",
+      "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+      "default_currency": "USD",
+      "color_image_cta_text": "#3a3a3a",
+      "button_rounding_px": "2",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "sticky_header": true,
+            "transparent_header": true,
+            "color_transparent_header_icon": "#ffffff",
+            "navigation_style": "links",
+            "color_nav_drawer": "#1f1f1f",
+            "color_nav_border": "#383838",
+            "color_nav_text": "#ffffff",
+            "nav_linklist_2": "",
+            "nav_linklist_3": "",
+            "logo_image": "",
+            "logo_max_width": "300",
+            "logo_transparent_image": "",
+            "notification_bar_enable_currency": false,
+            "notification_bar_enable_social": false,
+            "notification_bar_text": "Free shipping on all orders over $100",
+            "notification_bar_link": ""
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "store_description",
+              "settings": {
+                "title": "About",
+                "description_text": "<p>This Section is perfect for providing a three to four sentence description of your store. Talk a little bit about your history and your values. This Section looks best with three to four sentences!<\/p>"
+              }
+            },
+            "footer-1": {
+              "type": "footer_menu",
+              "settings": {
+                "menu_link_list": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "newsletter",
+              "settings": {
+                "title": "Newsletter",
+                "newsletter_text": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>",
+                "newsletter_button_text": "Subscribe now"
+              }
+            },
+            "footer-3": {
+              "type": "social_media",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2",
+            "footer-3"
+          ],
+          "settings": {
+            "color_footer_header": "#ffffff",
+            "color_footer_text": "#ffffff",
+            "color_footer_bg": "#1f665d",
+            "color_footer_HR": "#408078"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "slide",
+              "settings": {
+                "text_position": "align-center-bottom",
+                "heading_text": "Welcome to your new store!",
+                "page_text": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements.",
+                "button_cta": "Setup your store"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0"
+          ],
+          "settings": {
+            "enable_ken_burns": true,
+            "enable_progress_bar": true,
+            "enable_dropshadow": true,
+            "color_overlay_opacity": "0.3",
+            "color_overlay_color": "#000000",
+            "progress_bar_color": "#FFFFFF",
+            "controls_color": "#ffffff"
+          }
+        },
+        "rich-text": {
+          "type": "rich-text",
+          "settings": {
+            "text": "<p>This Featured Text section is perfect for a quick introductory paragraph about your store. You'll want to share your values with your customers and let them what makes purchasing from you unique. It may also be a good idea to mention your shipping and returns policies.<\/p>"
+          }
+        },
+        "featured-collection": {
+          "type": "collection-list",
+          "blocks": {
+            "featured-collection-0": {
+              "type": "featured_collection",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "featured-collection-1": {
+              "type": "featured_collection",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "featured-collection-2": {
+              "type": "featured_collection",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "featured-collection-0",
+            "featured-collection-1",
+            "featured-collection-2"
+          ],
+          "settings": {
+            "homepage_collection_block_perrow": "3"
+          }
+        },
+        "grid": {
+          "type": "grid",
+          "blocks": {
+            "grid-0": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "bottom right"
+              }
+            },
+            "grid-1": {
+              "type": "grid-item",
+              "settings": {
+                "image": "",
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid-2": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center"
+              }
+            },
+            "grid-3": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "center left"
+              }
+            },
+            "grid-4": {
+              "type": "grid-item",
+              "settings": {
+                "overlayOpacity": "0.3",
+                "overlayColor": "#000000",
+                "textColor": "#ffffff",
+                "buttonStyle": "2",
+                "textAlignment": "top left"
+              }
+            }
+          },
+          "block_order": [
+            "grid-0",
+            "grid-1",
+            "grid-2",
+            "grid-3",
+            "grid-4"
+          ],
+          "settings": {}
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "homepage_newsletter_title": "Join our newsletter",
+            "homepage_newsletter_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
+          }
+        },
+        "featured-products": {
+          "type": "featured-products",
+          "settings": {
+            "collection_style": "grid__image--caption",
+            "featured_products_per_row": "3"
+          }
+        },
+        "instagram": {
+          "type": "instagram",
+          "settings": {}
+        },
+        "popup": {
+          "type": "popup",
+          "settings": {
+            "enable_exit_intent": true,
+            "title": "Join our newsletter",
+            "exit_intent_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "enable_collection_filtering": true,
+            "enable_collection_sorting": true,
+            "collection_style": "grid__image--caption",
+            "collection_layout_style": "twoByThree"
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "blocks": {
+            "product-template-0": {
+              "type": "share",
+              "settings": {
+                "share_facebook": true,
+                "share_pinterest": true,
+                "share_google": true,
+                "share_twitter": true,
+                "share_tumblr": true
+              }
+            }
+          },
+          "block_order": [
+            "product-template-0"
+          ],
+          "settings": {
+            "product-image-background": "#F9F9F9",
+            "product_related": true
+          }
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "rich-text",
+        "featured-collection",
+        "grid",
+        "featured-products",
+        "newsletter",
+        "instagram"
+      ]
+    }
+  }
+}

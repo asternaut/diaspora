@@ -1,0 +1,137 @@
+<!-- icon-grid -->
+<div class='grid--full icon-grid'>
+  <h2 class="wavy-underline">{{ section.settings.header }} </h2>
+  <div class='two-column'>
+
+
+    <div id='first-column'>
+        {% for block in section.blocks limit: section.blocks.size %}
+  {% if block.type == 'block-1' %}
+      <div class='row-item'>
+        <div class='icon-text'>
+          <h4 class='wavy-underline'>{{block.settings.title}}</h4>
+          <h5>{{block.settings.subtitle}}</h5>
+          <p>{{block.settings.paragraph}}</p>
+        </div>
+        <div>
+          <img src="{{block.settings.image | img_url: 'master'}}" alt="diaspora co">
+        </div>
+      </div>
+          {% endif %}
+            {% endfor %}
+    </div>
+
+
+    <div id='second-column'>
+        {% for block in section.blocks limit: section.blocks.size %}
+  {% if block.type == 'block-2' %}
+        <div class='row-item'>
+          <div class='icon-text'>
+            <h4 class='wavy-underline'>{{block.settings.title}}</h4>
+            <h5>{{block.settings.subtitle}}</h5>
+            <p>{{block.settings.paragraph}}</p>
+          </div>
+          <div>
+            <img src="{{block.settings.image | img_url: 'master'}}" alt="diaspora co">
+          </div>
+        </div>
+        {% endif %}
+            {% endfor %}
+    </div>
+
+  </div>
+    <a class="btn " href="{{ url }}">{{ section.settings.linkText | escape }}</a>
+</div>
+
+{% schema %}
+  {
+    "name": "Icon Grid",
+    "class": "icon-grid",
+      "max_blocks": 6,
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Heading",
+        "placeholder": "Title"
+      },
+      {
+        "id": "linkText",
+        "type": "text",
+        "label": "Button Text"
+      },
+      {
+        "id": "url",
+        "type": "url",
+        "label": "Button Link"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "block-1",
+      "name": "First Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "placeholder": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "placeholder": "Subtitle"
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph",
+          "label": "Description",
+          "placeholder": "Description here"
+        }
+        ]
+      },
+      {
+        "type": "block-2",
+        "name": "Second Column",
+        "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "placeholder": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "placeholder": "Subtitle"
+        },
+        {
+          "type": "textarea",
+          "id": "paragraph",
+          "label": "Description",
+          "placeholder": "Description here"
+        }
+      ]
+    }
+    ],
+    "presets": [
+      {
+        "name": "Icon Grid",
+        "category": "Custom Content"
+
+      }
+    ]
+  }
+{% endschema %}

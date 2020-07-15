@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/diaspora-co-spices.myshopify.com/articles/configure/170905/edit
+{% endcomment %}
+{% if article.metafields.custom_fields["serves"] != blank %}
+  <div class="custom-field custom-field__serves custom-field__type--text">
+    <h3 class="custom-field--title">Serves:</h3>
+    <div class="custom-field--value">
+      {{ article.metafields.custom_fields["serves"] }}
+    </div>
+  </div>
+{% endif %}

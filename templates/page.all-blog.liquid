@@ -1,0 +1,132 @@
+{% assign featuredBlogs = 'recipes,journal' | split:',' %}
+
+{% assign featuredArticles = false %}
+
+{% for featuredBlog in featuredBlogs %}
+	{% if blogs[featuredBlog].articles %}
+		{% if featuredArticles %}
+			{% assign featuredArticles = featuredArticles | concat:blogs[featuredBlog].articles %}
+		{% else %}
+			{% assign featuredArticles = blogs[featuredBlog].articles %}
+		{% endif %}
+	{% endif %}
+{% endfor %}
+
+{% if featuredArticles %}
+	{% assign featuredArticles = featuredArticles | sort:'published_at' | reverse %}
+
+
+  {% comment %}
+    This template is also used for listing out articles of a specific tag.
+    You can change layouts or styles by checking if current_tags is true.
+  {% endcomment %}
+  <div class="grid--full">
+      <div class="grid__item large--two-thirds push--large--one-sixth">
+        <div class="text-center content-wrapper--horizontal section-header">
+          <div class="display-table-cell">
+            {% if current_tags %}
+              <h1>{{ page.title | link_to: page.url }} &mdash; {{ current_tags.first }}
+                <a href="{{ blog.url }}.atom">
+                  <span aria-hidden="true" class='icon icon-rss'></span>
+                </a>
+              </h1>
+            {% else %}
+              <h1>{{ page.title }}
+                {%comment%}
+                <a href="{{ blog.url }}.atom">
+                  <span aria-hidden="true" class='icon icon-rss'></span>
+                </a>
+                {%endcomment%}
+              </h1>
+            {% endif %}
+            {% include 'breadcrumb' %}
+          </div>
+        </div>
+      </div>
+      <div style="position: relative;" class="grid__item grid--full large--one-whole image-gutters--{{ settings.image_gutter }}">
+        {% comment %}
+          Loop through each article in your blog. This is limited to what you set for pagination above.
+
+          For more info on article liquid tags:
+            - http://docs.shopify.com/themes/liquid-variables/article
+        {% endcomment %}
+        	{% for article in featuredArticles %}
+          {% assign remainder = forloop.index0 | modulo:3 %}
+
+          <div class="grid__item large--one-third medium--one-half small--one-whole">
+            {% if article.image %}
+              {% include "filter-rias-img-url-with-height" input: article.image %}
+              {% assign image_url = output %}
+
+
+              <a href="{{ article.url }}">
+                <div class="featured-blog__image-wrapper">
+                  <div class="box-ratio--1-1 image-placeholder-cover">
+
+                    {% for tag in article.tags %}
+                    {% assign tag = article.tags %}
+                    {% case tag %}
+                		{% when 'recipe' %}
+                      <span class="blog-info pink">{{ tag }}</span>
+                      {% when 'profile' %}
+                      <span class="blog-info gold">{{ tag }}</span>
+                      {% when 'field report' %}
+                      <span class="blog-info orange">{{ tag }}</span>
+
+                      {% endcase %}
+                    {% endfor %}
+
+                    <img
+                      data-src="{{ image_url }}"
+                      data-ratio="{{ article.image.aspect_ratio }}"
+                      data-sizes="auto"
+                      data-parent-fit="cover"
+                      class="lazyload lazyload-fade"
+                      alt="{{ article.image.alt | escape }}">
+
+                    <noscript>
+                      <img src="{{ article.image | img_url: '800x' }}" />
+                    </noscript>
+                  </div>
+
+                </div>
+              </a>
+            {% endif %}
+
+            <div class="featured-blog__caption small--text-center text-wrapper">
+                <p class="meta-info">{{ article.published_at | date: "%B %d, %Y"  }}</p>
+                <a href="{{ article.url }}"><h4 class='featured-blog__title'>{{ article.title }}</h4></a>
+
+                {% if section.settings.enable_blog_author %}
+                  <p class="author">{{ 'blogs.article.author_by_html' | t: author : article.author }}</p>
+                {% endif %}
+  {%comment%}
+                <span class="excerpt">
+                    {{ article.excerpt_or_content }}
+                </span>
+  {%endcomment%}
+                <!-- <p class='blog-info'><a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a></p> -->
+                <ul class="inline-list blog-info">
+                  {% if blog.comments_enabled? %}
+                  <li>
+                    <a href="{{ article.url }}#Comments">
+                      {{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
+
+
+
+            </div>
+          </div>
+          {% if remainder == 2 %}
+          {% comment %}We want to manually break rows after 3.{% endcomment %}
+          <div class="clearfix medium-down--hide"></div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+  </div>
+
+{% endif %}

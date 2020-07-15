@@ -1,0 +1,100 @@
+<!-- product-recipes -->
+{% assign blog = blogs[section.settings.blog] | default: blogs.Recipes | default: false %}
+
+{% assign heading = section.settings.blog_title | default: false %}
+
+{% capture related_items %}
+{% for product in collection.products %}
+{% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
+{% unless product.handle == current_product.handle %}
+{% assign hover_class = "grid__image--caption" %}
+{% assign fit_image_class = 'grid__item--variable-height grid__image' %}
+{% include 'product-grid-item' %}
+{% assign counter = counter | plus: 1 %}
+{% if counter == break_at %}
+{% break %}
+{% endif %}
+{% endunless %}
+{% endfor %}
+{% endcapture %}
+{% assign count = 0 %}
+{% for article in blogs.recipes.articles %}
+{% if article.tags contains product.handle %}
+{% assign count = count | plus: 1 %}
+{% endif %}{% endfor %}
+
+{% assign related_items = related_items | trim %}
+
+{% unless related_items == blank %}
+<section class="product-recipes">
+      {% assign counts = 0 %}
+  {% for article in blogs.recipes.articles %}
+  {% if article.tags contains product.handle %}
+  {% assign counts = counts | plus: 1 %}
+  {% if counts > 1 %}
+  {% break %}
+  {% else %}
+  <h2 class="text-center">Related Recipes</h2>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} {% if count > 4 %}slick-slider {% endif %}">
+    {% for article in blogs.recipes.articles %}
+    {% if article.tags contains product.handle %}
+
+    <div class="grid__item large--one-quarter medium--one-quarter small--one-whole animation-sequence-{{ forloop.index0 }}                ">
+      {% if article.image %}
+      {% include "filter-rias-img-url-with-height" input: article.image %}
+      {% assign image_url = output %}
+
+      <a href="{{ article.url }}" tabindex="0">
+        <div class="featured-blog__image-wrapper">
+          <div class="box-ratio--1-1 image-placeholder-cover">
+            <img
+                 data-src="{{ image_url }}"
+                 data-ratio="{{ article.image.aspect_ratio }}"
+                 data-sizes="auto"
+                 data-parent-fit="cover"
+                 class="lazyload lazyload-fade"
+                 alt="{{ article.image.alt | escape }}">
+
+            <noscript>
+              <img src="{{ article.image | img_url: '800x' }}" />
+            </noscript>
+          </div>
+        </div>
+      </a>
+      {% endif %}
+
+      <div class="featured-blog__caption small--text-center text-wrapper">
+        <a href="{{ article.url }}">
+          <h4 class='featured-blog__title'>{{ article.title }}</h4>
+        </a>
+        <span class="blog-info">
+          <!-- <a class="btn" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a> -->
+        </span>
+      </div>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endunless %}
+<script>
+$(document).ready(function(){
+    $('.slick-slider').slick({
+      slidesToShow: 2,
+      infinite: true,
+      slidesToScroll: 1,
+      arrows: true,
+      mobileFirst:true,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4
+        }
+      }]
+    });
+});
+</script>

@@ -1,0 +1,86 @@
+{% comment %}
+  Collections to ignore.
+  Never pick related items from those.
+{% endcomment %}
+
+{% assign exclusions = 'frontpage,2019-harvest-spices' | split: ',' %}
+
+{% comment %}
+  Looking for a relevant collection.
+{% endcomment %}
+
+{% assign found_a_collection = false %}
+{% if collection and collection.all_products_count > 1 %}
+  {% unless exclusions contains collection.handle %}
+    {% assign found_a_collection = true %}
+  {% endunless %}
+{% endif %}
+{% unless found_a_collection %}
+  {% for c in product.collections %}
+    {% unless exclusions contains c.handle or c.all_products_count < 2 %}
+      {% assign found_a_collection = true %}
+      {% assign collection = c %}
+      {% break %}
+    {% endunless %}
+  {% endfor %}
+{% endunless %}
+
+{% comment %}
+  If we have a relevant collection.
+{% endcomment %}
+
+{% if found_a_collection %}
+  {% assign counter = 0 %}
+  {% assign break_at = 4 %}
+  {% assign current_product = product %}
+
+  {% capture related_items %}
+    {% for product in collection.products %}
+{% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
+      {% unless product.handle == current_product.handle %}
+        {% assign hover_class = "grid__image--caption" %}
+        {% assign fit_image_class = 'grid__item--variable-height grid__image' %}
+        {% include 'product-related-item' %}
+        {% assign counter = counter | plus: 1 %}
+        {% if counter == break_at %}
+          {% break %}
+        {% endif %}
+      {% endunless %}
+    {% endfor %}
+  {% endcapture %}
+
+  {% assign related_items = related_items | trim %}
+
+  {% unless related_items == blank %}
+    <section class="product-related">
+      <h2 class="text-center">{{ "products.product.related" | t }}</h2>
+      <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} slick-slider-2">
+        {{ related_items }}
+      </div>
+    </section>
+  {% endunless %}
+
+{% endif %}
+
+<script>
+$(document).ready(function(){
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    $('.slick-slider-2').slick({
+      slidesToShow: 2,
+      infinite: true,
+      arrows: false,
+      slidesToScroll: 1,
+      autoplay: true,
+      speed: 300,
+      mobileFirst:true,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          autoplay: false
+        }
+      }]
+    });
+  }
+});
+</script>

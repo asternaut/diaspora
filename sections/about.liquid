@@ -1,0 +1,87 @@
+<div class="about-page grid--full">
+
+  <div class="about-split grid__item  featured-text">
+    <div class="about-img large--one-half">
+      <img src="{{ section.settings.yellow-image | img_url: 'master' }}">
+    </div>
+    <div class="about-aside grid__item gold ">
+      <p>
+        {{ section.settings.yellow-text }}
+      </p>
+    </div>
+  </div>
+
+  <div class="about-split grid__item  column-reverse featured-text">
+    <div class="about-aside grid__item gold">
+      <p>
+        {{ section.settings.orange-text }}
+      </p>
+    </div>
+    <div class="about-img large--one-half">
+      <img src="{{ section.settings.orange-image | img_url: 'master' }}">
+    </div>
+  </div>
+
+  <div class="about-split grid__item featured-text ">
+    <div class="about-img large--one-half">
+      <img  src="{{ section.settings.pink-image | img_url: 'master' }}">
+    </div>
+    <div class="about-aside grid__item gold">
+      <p>
+        {{ section.settings.pink-text }}
+      </p>
+    </div>
+  </div>
+
+</div>
+
+
+{% schema %}
+  {
+    "name": "About",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Yellow Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "yellow-image",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "yellow-text",
+        "label": "Text"
+      },
+      {
+        "type": "header",
+        "content": "Orange Section"
+      },
+      {
+        "type": "textarea",
+        "id": "orange-text",
+        "label": "Text"
+      },
+      {
+        "type": "image_picker",
+        "id": "orange-image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "Pink Section"
+      },
+      {
+        "type": "image_picker",
+        "id": "pink-image",
+        "label": "Image"
+      },
+      {
+        "type": "textarea",
+        "id": "pink-text",
+        "label": "Text"
+      }
+    ]
+  }
+{% endschema %}

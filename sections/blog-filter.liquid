@@ -1,0 +1,20 @@
+{%- assign blog = blogs[section.settings.blog] -%}
+
+{% if blog %}
+  {% include 'blog-filter' %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Filter",
+  "class": "blog-filter",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Filter by blog",
+      "info": "Pick a blog to filter by it's article tags"
+    }
+  ]
+}
+{% endschema %}

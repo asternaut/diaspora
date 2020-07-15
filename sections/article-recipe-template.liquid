@@ -1,0 +1,150 @@
+<!-- /templates/article.liquid -->
+{% comment %}
+
+  Comments will not appear right after they are submitted, either to be checked for spam
+  or to await moderation. When a comment is submitted, the browser is redirected to a page
+  that includes the new comment id in its URL.
+    Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+
+  More information:
+    - http://docs.shopify.com/themes/liquid-variables/comment
+
+{% endcomment %}
+
+{% assign number_of_comments = article.comments_count %}
+
+{% comment %}
+  If a comment was just submitted and it has no blank fields, we have an extra comment to count.
+{% endcomment %}
+{% if comment and comment.created_at %}
+  {% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+<div class="grid--full">
+  <div class="grid__item text-center blog-illustration">
+      <div class="content-wrapper--horizontal section-header recipe-title">
+        <div class="display-table-cell">
+          <a href="{{blog.url}}">{{ blog.title | uppercase }}</a>
+          <h1 class="wavy-underline">
+            {{ article.title }}
+          </h1>
+
+          {% capture author %}
+            <strong>{{ article.author }}</strong>
+          {% endcapture %}
+
+        </div>
+      </div>
+    </div>
+
+    {% if article.image %}
+    <div class="">
+        {% assign image = article.image %}
+
+        {% include "attribute-image-box-ratio" %}
+
+        {% include "filter-rias-img-url" input: image %}
+        {% assign image_url = output %}
+        <div class="">
+          <div class="image-placeholder-cover box-ratio article-feature-image" style="padding-bottom: 70vh">
+            <img
+              data-src="{{ image_url }}"
+              data-ratio="{{ image.aspect_ratio }}"
+              data-sizes="auto"
+              alt="{{ image.alt | escape }}"
+              data-parent-fit="cover"
+              class="lazyload lazyload-fade">
+
+            <noscript>
+              <img src="{{ image | img_url: '1200x' }}" alt="{{ image.alt | escape }}">
+            </noscript>
+          </div>
+        </div>
+        {% if article.metafields.custom_fields["photo_credit"] != blank %}
+          <div class="image-credit text-center">Photo by {{ article.metafields.custom_fields["photo_credit"] }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+
+
+  <article class="recipe" itemscope itemtype="http://schema.org/Article">
+
+    {% if article.metafields.custom_fields["serves"] != blank or article.metafields.custom_fields["recipe_introduction"] != blank or article.metafields.custom_fields["recipe_by"] != blank  %}
+      <div class="article-introduction container grid">
+        <div class="grid__item {% if article.metafields.custom_fields["recipe_introduction"] == blank %}center{% else %}large--one-third{% endif %}">
+          <h2> {{article.title}} </h2>
+          {% if article.metafields.custom_fields["recipe_by"] != blank %}
+            <div class="recipe-by ">  Recipe By: {{ article.metafields.custom_fields["recipe_by"] }}
+            </div>
+          {% endif %}
+
+          {% if article.metafields.custom_fields["serves"] != blank %}
+            <p class="serves">Serves:
+                {{ article.metafields.custom_fields["serves"] }}
+            </p>
+          {% endif %}
+        </div>
+        <div class="content grid__item large--two-thirds">
+           {{ article.metafields.custom_fields["recipe_introduction"] }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div  class="wave-hr"></div>
+
+    <div class="rte container grid" itemprop="articleBody">
+      <div class="grid__item large--one-third article-ingredients">
+        <span class="cart-icon cart-svg">  <svg><use xlink:href="#icon-cart"></use></svg></span>
+        <h4> Ingredients </h4>
+        {{ article.content }}
+        <div class="organic-background js-article-button" style="margin: 0px 0 40px 0;">
+          <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart js-article-submit">
+            <svg width="313.053" height="61.537" viewBox="0 0 313.053 61.537">
+              <g id="ingrediens_atc" data-name="ingrediens atc" transform="translate(7171 -3982)">
+                <path id="Path_294" data-name="Path 294" d="M78.748,60.59c-11.547.084-23.06-.231-34.6-.175-9.658.047-20.928.187-29.152-1.555C4.241,56.582,2.553,51.747,2.075,48.2c-.632-4.693.67-9.39.692-14.084C2.792,29.079.462,24.082.085,19.049-.374,12.936.1,2.153,26.021.334,36.767-.42,48.254.588,59.028.813,91.663,1.5,123.591.136,156.12,0c21.01-.085,41.542,1.555,62.508,1.676,13.185.076,26.065-.883,39.124-1.24C263.8.273,269.839.3,275.9.377c10.651.13,23.405.012,27.712,3.482a7.245,7.245,0,0,1,1.933,2.459c1.767,3.373,3.788,6.8,4.942,10.219a25.644,25.644,0,0,1,.956,5.7,29.826,29.826,0,0,1,.123,5.452,11.533,11.533,0,0,0,1.122,5.111,6.74,6.74,0,0,1,.028,4.274c-.739,2.92-2.377,5.812-3.015,8.732a7.958,7.958,0,0,0,.792,6.345,3.835,3.835,0,0,1,.3,3.372c-.38,1.216-1.9,2.477-5.011,3.353-7.976,2.242-21.447,2.239-31.831,2.259-4.131.006-8.246-.09-12.364-.161-8.85-.155-17.75-.086-26.6.07-17.077.3-33.849.634-50.986.433-17.156-.2-34.261-.65-51.407-.9-14.713-.213-29.445-.258-44.173-.348" transform="translate(-7171 3982)"/>
+                <text id="Add_Ingredients_To_Cart" data-name="Add Ingredients To Cart" transform="translate(-7014 4021)" ><tspan x="-126.434" y="0">Add Ingredients To Cart</tspan></text>
+              </g>
+            </svg>
+          </button>
+      </div>
+      </div>
+      <div class="grid__item large--two-thirds methods rte">
+        <h4> Method </h4>
+         {{ article.metafields.custom_fields["methods"] }}
+      </div>
+    </div>
+
+    {% comment %}
+      Show off meta information like comments and tags.
+    {% endcomment %}
+    <ul class="inline-list">
+      {% include 'article-tags' %}
+    </ul>
+
+
+
+  </article>
+  <div class="article-recipe-footer">
+    {%- include 'recipes-and-related' -%}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Article",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "product_related",
+        "label": "Show related products"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_recipies",
+        "label": "Show related recipies"
+      }
+    ]
+  }
+{% endschema %}
