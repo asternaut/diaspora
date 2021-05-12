@@ -20,6 +20,10 @@
 {% assign current_product = product %}
 {% assign current_product_found = false %}
 {% for product in collection.products limit: number_of_related_products_to_fetch %}
+{%- comment -%} Wholesale Gorilla: do not delete unless app is uninstalled{%- endcomment -%}
+{%- assign wsgTempProd = product -%}{%- assign wsgExclude = false -%}{%- if forloop.first == true -%}{%- assign wsgActive = false -%}{%- assign wsgActiveCustomer = false -%}
+{%- include 'wsg-status' wsgStatusAction: 'init' | strip -%}{%- endif -%}{%- if wsgActive -%}{%- include 'wsg-status' wsgStatusAction: 'col-item' | strip -%}{%- endif -%}{%- if wsgExclude -%} {%- continue -%} {%- endif -%}
+{%- comment -%} end WSG {%- endcomment -%}
 {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
   {% if product.handle == current_product.handle %}
     {% assign current_product_found = true %}

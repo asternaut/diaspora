@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/diaspora-co-spices.myshopify.com/products/configure/214401/edit
+{% endcomment %}
+{% if product.metafields.custom_fields["fine_print"] != blank %}
+  <div class="custom-field custom-field__fine-print custom-field__type--html">
+    <h3 class="custom-field--title">Fine Print</h3>
+    <div class="custom-field--value">
+      {{ product.metafields.custom_fields["fine_print"] }}
+    </div>
+  </div>
+{% endif %}

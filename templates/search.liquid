@@ -48,6 +48,10 @@
           {% endif %}
           <div class="grid--full">
             {% for item in search.results %}
+{%- comment -%} Wholesale Gorilla: do not delete unless app is uninstalled{%- endcomment -%}
+{%- assign wsgTempProd = item -%}{%- assign wsgExclude = false -%}{%- if forloop.first == true -%}{%- assign wsgActive = false -%}{%- assign wsgActiveCustomer = false -%}
+{%- include 'wsg-status' wsgStatusAction: 'init' | strip -%}{%- endif -%}{%- if wsgActive -%}{%- if wsgTempProd.object_type == 'product' -%}{%- include 'wsg-status' wsgStatusAction: 'col-item' | strip -%}{%- endif -%}{%- endif -%}{%- if wsgExclude -%} {%- continue -%} {%- endif -%}
+{%- comment -%} end WSG {%- endcomment -%}
 {% include 'wh_calculate_discount' with item, hide_method: 'skip' %}
               {% comment %}
                 Check if the product is on sale and set a variable to be used below.

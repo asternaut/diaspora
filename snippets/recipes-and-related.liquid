@@ -1,15 +1,8 @@
 {%- if template == 'product' -%}
   {% if section.settings.divider %}
   <div class="product-divider">
-    {% if spice == 'cardamom' %}
-    <img src="{{ 'Cardamom.png' | asset_img_url: '200x200' }}">
-    {% elsif spice == 'turmeric' %}
-    <img src="{{ 'Turmeric.png' | asset_img_url: '200x200' }}">
-    {% elsif spice == 'chillies' %}
-    <img src="{{ 'Chilli.png' | asset_img_url: '200x200' }}">
-    {% elsif spice == 'pepper' %}
-    <img src="{{ 'Pepper.png' | asset_img_url: '200x200' }}">
-    {% else %}
+    {% if product.metafields.custom_fields["spice_illustration"] != blank %}
+  	  <img data-src="{{ product.metafields.custom_fields["spice_illustration"] }}" alt="illustration of whole spice" class="lazyload">
     {% endif %}
   </div>
   {% endif %}

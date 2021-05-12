@@ -17,32 +17,25 @@ For more information on these Scheme.org tags, visit:
 {% assign on_sale = false %}
 
 {% if wh_v_compare_at_price > wh_v_price %}
-{% unless hide_on_sale_badge %}
-{% assign on_sale = true %}
-{% endunless %}
+	{% unless hide_on_sale_badge %}
+		{% assign on_sale = true %}
+	{% endunless %}
 {% endif %}
 
 {% assign in_stock = false %}
 {% for variant in product.variants %}
-{% if variant.available %}
-{% assign in_stock = true %}
-{% endif %}
+	{% if variant.available %}
+		{% assign in_stock = true %}
+	{% endif %}
 {% endfor %}
 
 {% assign spice = '' %}
-{% if product.type == 'Spice' %}
-  {% if product.handle contains 'cardamom' %}
- 	 {% assign spice = 'cardamom' %}
-  {% elsif product.handle contains 'turmeric' %}
-  	{% assign spice = 'turmeric' %}
-  {% elsif product.handle contains 'chilli' %}
-  	{% assign spice = 'chillies' %}
-  {% elsif product.handle contains 'pepper' %}
-  	{% assign spice = 'pepper' %}
-  {% else %}
-  {% endif %}
-{% endif %}
 
+{% for tag in product.tags %}
+	{% if tag contains "spice_" %}
+		{% assign spice = tag | remove: "spice_" %}
+	{% endif %}
+{% endfor %}
 
 <style>
 .product-content.margins, .product-content.margins *{
@@ -60,17 +53,17 @@ hr.margins{
 </style>
 
 <div
-data-product-container
-itemscope
-itemtype="http://schema.org/Product"
-{% if current_variant.image %}
-data-initial-image-position="{{ current_variant.image.position | json | minus: 1 }}"
-{% endif %}
-data-shop-default-currency="{{ shop.currency }}"
-data-product-options-size="{{ product.options.size }}"
-data-product-options-first="{{ product.options.first }}"
-data-product-variants-size="{{ product.variants.size }}"
-data-product-variants-first="{{ product.variants.first.title }}">
+	data-product-container
+	itemscope
+	itemtype="http://schema.org/Product"
+	{% if current_variant.image %}
+	data-initial-image-position="{{ current_variant.image.position | json | minus: 1 }}"
+	{% endif %}
+	data-shop-default-currency="{{ shop.currency }}"
+	data-product-options-size="{{ product.options.size }}"
+	data-product-options-first="{{ product.options.first }}"
+	data-product-variants-size="{{ product.variants.size }}"
+	data-product-variants-first="{{ product.variants.first.title }}">
 
 <script data-product-json type="application/json">
 {% include 'wh_product_json' with product %}
@@ -79,274 +72,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
 <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
 <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-<div class="product-panel-background background-illustration {{product.handle}} {{spice}} {% if product.type != 'Spice' or product.handle == 'the-trio' %} default-background {% endif %}">
-<div class="grid--inline product-single {% if section.settings.margins %}margins{% endif %}">
-
-  <div class="product__panel-item">
-
-    <div class="medium-down--hide">
-      {% if section.settings.image_layout_style == "stacked_images" or section.settings.image_layout_style == "stacked_images_sticky_sidebar" %}
-      <div id="ProductGalleryStacked" class="product-single__photos large--one-whole product_photo">
-        {% for image in product.images  limit:1 %}
-
-        {% include "attribute-image-box-ratio" %}
-
-        {% include "filter-rias-img-url" input: image %}
-        {% assign image_url = output %}
-
-        <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};" data-image-id="{{ image.id }}">
-          <img
-          data-src="{{ image| product_img_url: '700x' }}"
-          data-sizes="auto"
-          data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
-          class="lazyload lazyload-fade"
-          alt="{{ image.alt | escape }}">
-
-          <noscript>
-            <img src="{{ image | img_url: '700x' }}" alt="{{ image.alt }}" />
-          </noscript>
-        </div>
-        {% else %}
-        <img src="//cdn.shopify.com/s/images/themes/product-1.png">
-        {% endfor %}
-      </div>
-      {% else %}
-      <div class="product-multiple__photos large--one-tenth" id="ProductThumbs">
-        {% for image in product.images %}
-        <button class="product-thumbnail-button" data-product-thumbnail>
-          <img src="{{ image | img_url: '400x' }}" alt="{{ image.alt | escape }}">
-        </button>
-        {% else %}
-        <button class="product-thumbnail-button" data-product-thumbnail>
-          <img src="//cdn.shopify.com/s/images/themes/product-1.png">
-        </button>
-        {% endfor %}
-      </div>
-      {% comment %}
-      <div class="product-single__photos {% if product.images.size > 1 %}large--nine-tenths{% else %}large--one-whole{% endif %}">
-        <div class="image-container image-layers box-ratio" style="padding-bottom: {{ product_image_box_ratio_max }};">
-          {% for image in product.images %}
-          {% include "filter-rias-img-url" input: image %}
-          {% assign image_url = output %}
-
-          <img
-          data-src="{{ img_url }}"
-          data-sizes="auto"
-          class="lazyload lazypreload lazyload-fade"
-          id="ProductPhotoImg"
-          alt="{{ image.alt | escape }}"
-          {% unless forloop.first %}style="display: none;"{% endunless %}
-          data-product-image
-          data-image-id="{{ image.id }}">
-
-          <noscript>
-            <img src="{{ image | img_url: '1000x' }}" alt="{{ image.alt }}" />
-          </noscript>
-          {% else %}
-          <img src="//cdn.shopify.com/s/images/themes/product-1.png">
-          {% endfor %}
-        </div>
-
-        <button class="product-lightbox-button-open" data-product-lightbox-button="open"><span class="product-lightbox-button open">
-          <svg><use xlink:href="#icon-glass"></use></svg></span>
-        </button>
-      </div>
-      {% endcomment %}
-
-      {% include "product-lightbox" %}
-      {% endif %}
-
-      {% if product.metafields.custom_fields["product_quote"] != blank %}
-      <div class="product-single__quote product-single__photos">
-        <div class="custom-field custom-field__product-quote custom-field__type--html">
-          <div class="custom-field--value">
-            {{ product.metafields.custom_fields["product_quote"] }}
-          </div>
-        </div>
-      </div>
-      {% endif %}
-
-    </div>
-
-    {% comment %}
-    Now create the mobile slideshow.
-    {% endcomment %}
-    <div class="large--hide">
-      <div class="product-header-wrap">
-        <h1 itemprop="name" class='medium-down--text-center product-title'>{{ product.title }}</h1>
-        {% if section.settings.product_reviews %}
-        <div class="reviews-badge">
-          <a href="#shopify-product-reviews"><span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span></a>
-        </div>
-        {% endif %}
-      </div>
-      <div class="product-single__photos product_photo" id="ProductPhotoSlideshow">
-        {% for image in product.images limit:1 %}
-        {% include "filter-rias-img-url" input: image %}
-        {% assign image_url = output %}
-
-        <img
-        data-src="{{ image | product_img_url: '1000x' }}"
-        data-sizes="auto"
-        class="lazyload lazyload-fade"
-        alt="{{ image.alt | escape }}"
-        data-image-id="{{ image.id }}">
-        {% endfor %}
-      </div>
-      {% if product.metafields.custom_fields["product_quote"] != blank %}
-      <div class="product-single__quote product-single__photos">
-        <div class="custom-field custom-field__product-quote custom-field__type--html">
-          <div class="custom-field--value">
-            {{ product.metafields.custom_fields["product_quote"] }}
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="product__panel-item" >
-    <div class="sidebarColumn-inner">
-      <div class="content-wrapper--title">
-        {% comment %} <div class="breadcrumb-wrapper content-wrapper--squished content-wrapper--half-top medium-down--text-center medium-down--hide">
-        {% include 'breadcrumb' %}
-      </div> {% endcomment %}
-      <div class="product-header-wrap medium-down--hide">
-        <h1 itemprop="name" class='medium-down--text-center product-title'>{{ product.title }}</h1>
-        {% if section.settings.product_reviews %}
-        <div class="reviews-badge">
-          <a href="#shopify-product-reviews"><span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span></a>
-        </div>
-        {% endif %}
-      </div>
-
-      <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-        <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
-
-        <div id="AddToCartForm" class="product-form form-vertical {% if product.type == "Spice" %}form-with-bg{% else %} general-form {% endif %}">
-          {% if product.type == "Spice" %}
-          <img  data-src="{{'product-panel-bg.png' | asset_img_url: 'master' }}" alt="" class="lazyload lazyload-fade">
-          {% endif %}
-
-          {% form 'product', product, data-productid: product.id %}
-
-          <div class="product-single__price-text underline">
-            <div class="money-wrapper   {% if product.metafields.custom_fields["flavors"] == blank %} center-mobile {% endif %} product_page">
-              <span class="money" itemprop="price" data-product-price>
-                {{ wh_v_price |  money_without_trailing_zeros  }}
-              </span>
-              {% if wh_compare_at_price_max > wh_price %}
-              <span class='strikethrough faded money' data-compare-price>
-                {{ wh_v_compare_at_price |  money_without_trailing_zeros }}
-              </span>
-              {% endif %}
-            </div>
-            {% if product.metafields.custom_fields["flavors"] != blank %}
-            <div class="custom-field custom-field__flavors custom-field__type--text">
-              <div class="custom-field--value">
-                {{ product.metafields.custom_fields["flavors"] }}
-              </div>
-            </div>
-            {% endif %}
-          </div>
-
-          {% comment %}
-          Add product variants as a dropdown.
-          - By default, each variant (or combination of variants) will display as its own <option>
-          - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
-
-          You can leverage jQuery to add a callback on page load and each time the select element changes:
-          - Include option_selection.js (as seen at the bottom of this file)
-          - This allows you to use JavaScript anytime the variant dropdown changes
-          - This also separates out your variant options (ie. size, color, etc.) to separate select elements
-
-          For more information on products with multiple options, visit:
-          - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
-          {% endcomment %}
-
-          <div class="product-selectors">
-
-            <!-- Begin ReCharge code -->
-            {% if product.available %}{% include 'subscription-product' %}{% endif %}
-            <!-- End ReCharge code -->
-
-
-            <div class="   {% if product.has_only_default_variant %} {% else %} select-wrapper {% endif %}">
-              <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="product-single__variants">
-
-                {% for variant in product.variants %}
-                {% include 'wh_variant' with variant, in_loop: true %}
-                {% if variant.available %}
-                {% comment %}
-                Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                {% endcomment %}
-
-                <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
-                {% else %}
-                <option disabled="disabled">
-                  {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                </option>
-                {% endif %}
-                {% endfor %}
-              </select>
-            </div>
-
-            {% if product.metafields.custom_fields["show_harvest_notes_and_size_gu"] == 1 %}
-            <div class="size-chart-link large--hide">
-              Not sure what size you need or how long it’ll last you? Our<a href="#size-guide"> spice size guide </a>can help!
-            </div>
-            <div class="size-chart-link medium-down--hide">
-              Not sure what size you need or how long it’ll last you? Our<a href="#size-chart"> spice size guide </a>can help!
-            </div>
-            {% endif %}
-
-            <div class="product__button-quanity">
-              <div class="organic-background">
-                <button type="submit" id="AddToCart" name="add" class="btn rough-btn js addToCart  {% if in_stock == false %} disabled {% endif %}"
-                  {% if customer.tags.size > 0 %} onclick="setTimeout("window.location.href='/cart';", 50);"{% endif %}  >
-
-                  <svg width="259" height="61.538" viewBox="0 0 259 61.538">
-                    <defs>
-                      <clipPath id="clip-path">
-                        <rect width="259" height="61.538" fill="#f41f86"/>
-                      </clipPath>
-                    </defs>
-                    <g id="atc-button" transform="translate(5077 444)">
-                      <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
-                      <text  data-add-to-cart-text id="Add_To_Cart" data-name="Add To Cart" transform="translate(-5000 -405)"><tspan>{% if product.metafields.custom_fields["add_to_cart_button_text"] != blank %} {{ product.metafields.custom_fields["add_to_cart_button_text"] }}
-                      {% else %}
-                        {{ 'products.product.add_to_cart' | t }}
-                      {% endif %}</tspan></text>
-                    </g>
-                  </svg>
-                </button>
-              </div>
-            <div class=" quantity-input js organic-background">
-              <img  data-src="{{'quantity-bg.png' | asset_img_url: 'master' }}" alt="" class=" {% unless product.type == 'Spice' %} not-spice {% endunless %} lazyload lazyload-fade">
-              <input type='button' value='-' class='qtyminus qtyadjust' field='quantity' />
-              <input type="number" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector js-quantityInput" autocomplete="off">
-              <input type='button' value='+' class='qtyplus qtyadjust' field='quantity' />
-            </div>
-
-
-            {% if section.settings.enable_payment_button %}
-            {{ form | payment_button }}
-            {% endif %}
-          </div>
-        </div>
-        {% endform %}
-      </div>
-      {% if product.metafields.custom_fields["add_to_cart_button_text"] != blank and in_stock == true %}
-      <div style=" font-weight: 500; font-size: 0.9em;">You'll receive your <strong>preorder</strong> of the 2020 harvest in early June, though this is subject to change due to the pandemic! We'll keep you regularly updated and make every effort to get you your spices sooner. Your preorder allows us to keep paying our partner farms during this crisis, and to ensure healthcare to our 50+ farm laborers across India that are most vulnerable right now.</div>
-      {% endif %}
-    </div>
-
-  </div>
-    </div>
-  </div>
-</div>
-</div>
+{% include 'product-buy-panel'%}
 
 <div class="product-content">
   <hr class="grid__item {% if section.settings.margins %}margins{% endif %}">
@@ -365,6 +91,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
         <div class="product-description rte product-tab-content" data-name="story" data-product-tab-content>
           <div data-product-tab-content-inner>
             {{product.description}}
+						<br>
           </div>
           <!-- <img class="little-wave" src="{{ 'medium-wave-pink.png' | asset_img_url: 'master' }}"> -->
           {% if product.metafields.custom_fields["product_description_image"] != blank %}
@@ -375,6 +102,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
         </div>
       </li>
 
+	{% if product.metafields.custom_fields["spice_guide"] != blank or product.metafields.custom_fields["size_guide"] != blank %}
       <li class="product-tab " data-product-tab data-name="size-guide">
         <button class="product-tab-title organic-background" data-product-tab-title  id="size-guide">
             <img  src="{{'tab-bg.png' | asset_img_url: 'master' }}" alt="">
@@ -386,6 +114,7 @@ data-product-variants-first="{{ product.variants.first.title }}">
           </div>
         </div>
       </li>
+	{% endif %}
 
       <li class="product-tab" data-product-tab data-name="harvest">
 
@@ -443,17 +172,23 @@ data-product-variants-first="{{ product.variants.first.title }}">
       </li>
     </ul>
 
+    {% if product.metafields.custom_fields["product_quote"] != blank %}
+    <figure class="product-single__quote product-single__photos">
+      {{ product.metafields.custom_fields["product_quote"] }}
+    </figure>
+    {% endif %}
+
   </section>
 
   <!-- DESKTOP -->
   <section class="medium-down--hide" >
-    <div class="product-desc-harvest wrapper will-animate fade-in">
+    <div class="product-desc-harvest wrapper">
       <div class="product-description" >
         <div >
           {{product.description}}
         </div>
       </div>
-      <div class="harvest">
+      <div class="harvest will-animate fade-in">
         <ul class="harvest-items">
           {% if product.metafields.custom_fields["origin"] != blank %}
           <li>
@@ -500,15 +235,24 @@ data-product-variants-first="{{ product.variants.first.title }}">
       </div>
     </div>
 
+
+    {% if product.metafields.custom_fields["product_quote"] != blank %}
+    <figure class="product-single__quote product-single__photos">
+          {{ product.metafields.custom_fields["product_quote"] }}
+    </figure>
+    {% endif %}
+
     {% if product.metafields.custom_fields["product_description_image"] != blank %}
     <div class="full-width-image  background-illustration">
       {{ product.metafields.custom_fields["product_description_image"] }}
     </div>
     {% endif %}
 
-    <div class="size-chart charts wrapper" id="size-chart">
-      {% include 'size-chart' %}
-    </div>
+		{% if product.metafields.custom_fields["spice_guide"] != blank or product.metafields.custom_fields["size_guide"] != blank %}
+	    <div class="size-chart charts wrapper" id="size-chart">
+	      {% include 'size-chart' %}
+	    </div>
+		{% endif %}
 
   </section>
 
@@ -624,6 +368,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
       "default": true
     },
+		{
+			"type": "header",
+			"content": "Secondary button",
+			"info": "Floating 'sticky' button, leave all items blank to disable"
+		},
+		{
+		  "type": "text",
+		  "id": "circletext",
+		  "label": "Secondary button semicircle-path text"
+		},
+		{
+			"type": "text",
+			"id": "bundler_link_text_pre",
+			"label": "Secondary button pre-text"
+		},
+		{
+		  "type": "text",
+		  "id": "bundler_link_text",
+		  "label": "Secondary button text"
+		},
+		{
+			"type": "text",
+			"id": "bundler_link_text_sub",
+			"label": "Secondary button sub-text"
+		},
+		{
+		  "type": "url",
+		  "id": "bundler_link",
+		  "label": "Secondary button link"
+		},
+		{
+			"type": "header",
+			"content": "Images"
+		},
     {
       "type": "select",
       "id": "image_layout_style",

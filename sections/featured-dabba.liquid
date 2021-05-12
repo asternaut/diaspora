@@ -1,0 +1,192 @@
+{% include 'wh_calculate_discount' with product, hide_method: 'break' %}
+{% assign product = all_products[section.settings.product] | default: false %}
+
+{% if product %}
+
+  {% assign current_variant = product.selected_or_first_available_variant %}
+{% include 'wh_variant' with current_variant %}
+
+  <div
+    data-product-container
+    class="featured-product-inner"
+    itemscope
+    itemtype="http://schema.org/Product"
+    {% if current_variant.image %}
+      data-initial-image-position="{{ current_variant.image.position | json | minus: 1 }}"
+    {% endif %}
+    data-shop-default-currency="{{ shop.currency }}"
+    data-product-options-size="{{ product.options.size }}"
+    data-product-options-first="{{ product.options.first }}"
+    data-product-variants-size="{{ product.variants.size }}"
+    data-product-variants-first="{{ product.variants.first.title }}">
+
+    <script data-product-json type="application/json">
+      {% include 'wh_product_json' with product %}
+    </script>
+
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    {% include 'featured-product-panel'%}
+
+    {% if section.settings.show != false %}
+      {% include 'dabba-spices' %}
+    {% endif %}
+
+  </div>
+
+{% else %}
+
+  {% assign settings_url = shop.url | append: '/admin/themes/' | append: theme.id | append: '/editor' %}
+
+  <div class="featured-product-inner">
+    <div class="grid--inline product-single">
+
+      <div class="grid__item xxlarge--one-half xlarge--one-half large--one-half text-center" id="PhotoContent">
+        <div class="product-single__photos large--one-whole">
+          <div class="image-container">
+            <img src="//cdn.shopify.com/s/images/themes/product-1.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid__item xxlarge--one-half xlarge--one-half large--one-half" id='sidebarColumn'>
+        <div class="sidebarColumn-inner">
+          <div class="content-wrapper--title js-fix-on-scroll--target fix-on-scroll--large-only">
+
+            <h1 itemprop="name" class='medium-down--text-center product-title'>
+              <a href="{{ settings_url }}">{{- "homepage.onboarding.featured_product_title" | t -}}</a>
+            </h1>
+
+            <p class="medium-down--text-center">
+              <span id="ProductPrice" class="medium-down--text-center">
+                $0.00
+              </span>
+            </p>
+
+            <div class="product-description-wrapper">
+              <div class="product-description rte" id="description">
+                {{- "homepage.onboarding.featured_product_description" | t -}}
+              </div>
+
+              <a class="btn" href="{{ settings_url }}">{{ "homepage.onboarding.theme_settings" | t }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<script>
+$('.spice-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    variableWidth: true,
+    centerMode: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    mobileFirst: true,
+    responsive: [
+     {
+        breakpoint: 1025,
+        settings: {
+          arrows: false,
+          slidesToShow: 7,
+          infinite: false,
+          centerMode: false
+        }
+     },
+     {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1
+        }
+      },
+     {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      }
+    ]
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Dabba",
+    "class": "featured-product product-pages",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "text",
+        "id": "supertext",
+        "label": "Pre Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "page_text",
+        "label": "Short product description"
+      },
+      {
+        "type": "text",
+        "id": "arrow_text",
+        "label": "Callout text"
+      },
+      {
+        "type": "checkbox",
+        "id": "purchase",
+        "label": "Allow add to cart from page",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show",
+        "label": "Show spices",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Spice",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "spice_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "bonus_text",
+            "label": "Small Text"
+          },
+          {
+            "type": "html",
+            "id": "spice_title",
+            "label": "Title"
+          },
+          {
+            "type": "product",
+            "id": "spice_product",
+            "label": "Product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Dabba",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

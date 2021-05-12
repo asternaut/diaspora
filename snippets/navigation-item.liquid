@@ -1,10 +1,13 @@
+<!-- navigation-item -->
 <li {% if link.links != blank %}aria-haspopup="true"{% endif %} class="{% if link.links != blank %}has-dropdown{% endif %}">
-  <a href="{{ link.url }}" {% if topLevel == true %}data-navigation-top-level{% endif %}>
+  <a href="{{ link.url }}" class="alphatier" {% if topLevel == true %}data-navigation-top-level{% endif %}>
     {{ link.title }}
     {% if link.links != blank %}
       <span class="icon-container">
-        <svg class="icon"><use xlink:href="#icon-dropdown"></use></svg>
-        <svg class="icon-active"><use xlink:href="#icon-dropdown-active"></use></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10.899" class="icon-arrow" height="19.399" viewBox="0 0 10.899 19.399">
+          <path id="icon-arrow-right" d="M477.206,790.191l6.876,6.076,6.876-6.076" transform="translate(-787.368 493.782) rotate(-90)" fill="none"  stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        </svg>
+
       </span>
     {% endif %}
   </a>
@@ -17,38 +20,45 @@
 
     {% if section.settings.catalog_dropdowns and link.links != blank and topLevel == false %}
       {% for link in link.links %}
-        {% if link.type == "collection_link" or link.type == "collections_link" %}
+        {% if link.title == "shop" or link.type == "collections_link" %}
           {% assign catalogDropdown = true %}
         {% endif %}
       {% endfor %}
     {% endif %}
 
-    <div class="dropdown {% if catalogDropdown %}catalog-menu{% endif %}">
-      <ul>
+    <div class="dropdown {% if catalogDropdown %}catalog-menu{% endif %} {% if link.title == "Journal" %} bubble-dropdown {% else %} standard-dropdown {% endif %} ">
+      <ul class="top-dropdown">
         {% for link in link.links %}
           {% assign dropdown = link.links | default: false %}
 
-          <li class="animation-sequence-{{ count }}" data-index="{{ forloop.index0 }}">
-            <a href="{{ link.url }}">
+          <li class="animation-sequence-{{ count }} tier-two" data-index="{{ forloop.index0 }}">
+            <a href="{{ link.url }}" class="tier-two-title">
               {% if link.title contains 'Recipe' %}
                 <img class="saute" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/icons-food-Thardka.png?v=1578680997" class="dropdown-image" alt="">
               {% endif %}
               {% if link.title contains 'Blog' %}
-                <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/elephant.png?v=1592233752" class="dropdown-image" alt="">
+                <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/Buffalo.png?v=1594843965" class="dropdown-image" alt="">
               {% endif %}
               <span>
                 {{ link.title }}
               </span>
             </a>
-
+            {% unless link.title contains 'Blog' or link.title contains 'Recipe' %}
+            <span class="menu__squiggly-divider">
+              <svg xmlns="http://www.w3.org/2000/svg" width="118.975" height="4.656">
+                <path d="M116.555,1.737a5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.624,5.624,0,0,0-7.26,0,5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.622,5.622,0,0,0-7.258,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0,5.623,5.623,0,0,1-7.259,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0" transform="translate(1.006 0.591)" fill="none" stroke="#F41F86" stroke-linecap="round" stroke-miterlimit="1" stroke-width="1"/>
+              </svg>
+            </span>
+            {% endunless %}
             {% if dropdown %}
-              <ul class="dropdown-third-level">
-                {% for link in link.links %}
-                  <li>
+              <ul class="dropdown-third-level {% if link.links.size > 7 %} double-column {% endif %}">
+                {% for link in link.links  limit:21 %}
+                  <li class="animation-sequence-{{ step }}" data-index="{{ forloop.index0 }}" style="order: {{forloop.index}}">
                     <a href="{{ link.url }}">
                       {{ link.title }}
                     </a>
                   </li>
+                    {% assign step = step | plus: 1 %}
                 {% endfor %}
               </ul>
             {% endif %}
@@ -58,23 +68,37 @@
         {% endfor %}
       </ul>
 
-      {% if catalogDropdown %}
+      {% if section.settings.featured_product != blank %}
+      {% assign product = all_products[section.settings.featured_product] | default: false %}
+      <div class="bg-image-container">
         <div class="catalog-menu-image-container">
-          {% if section.settings.catalog_menu_image != blank %}
-            <img src="{{ section.settings.catalog_menu_image | img_url: '400x', scale: 2 }}" class="catalog-menu-default-image" />
-          {% endif %}
+          <a class="featured-product__link" href="{{product.url}}">
 
-          {% for link in link.links %}
-            {% if link.type == "collection_link" %}
-              {% assign collection = link.object %}
-              {% assign image = collection.image | default: collection.products.first.featured_image %}
-
-              {% if image != blank %}
-                <img src="{{ image | img_url: '400x', scale: 2 }}" class="catalog-menu-collection-image" data-index="{{ forloop.index0 }}" />
-              {% endif %}
+            {% if section.settings.catalog_menu_image != blank %}
+              <img src="{{ section.settings.catalog_menu_image | img_url: '400x', scale: 2 }}" class="catalog-menu-default-image" />
             {% endif %}
-          {% endfor %}
+              <div class="circle-svg ">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
+                  <defs>
+                      <path d="M15,100a85,85 0 1,0 170,0a85,85 0 1,0 -170,0" id="productTitleCircle" transform="rotate(16 100 100)" />
+                      <path d="M100,37c34.8,0,63,28.2,63,63s-28.2,63-63,63s-63-28.2-63-63S65.2,37,100,37z" id="headerCircle" transform="rotate(-25 100 100)" />
+                  </defs>
+                  {% if section.settings.circletext != blank%}
+                  <text>
+                      <textPath xlink:href="#headerCircle" class="top">{{section.settings.circletext}}</textPath>
+                  </text>
+                  {% endif %}
+                  {% if section.settings.product_title != blank%}
+
+                  <text dx="55" textLength="160" class="bottom">
+                      <textPath xlink:href="#productTitleCircle">{{section.settings.product_title}}</textPath>
+                  </text>
+                  {% endif %}
+                </svg>
+              </div>
+          </a>
         </div>
+      </div>
       {% endif %}
     </div>
   {% endif %}

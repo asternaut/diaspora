@@ -1,37 +1,21 @@
-<ul class="tag-nav grid__item">
-  <li class="title">  filter: </li>
   {% for tag in blog.all_tags %}
-    {% if tag == 'recipe' and blog.handle == 'recipes' %}
-      <li class="last"><a class="{% if current_tags contains tag %} active {% endif %}" href="/blogs/{{blog.handle}}/tagged/{{tag}}">all recipes</a>   <img  src="{{'tab-bg.png' | asset_img_url: 'master' }}" alt=""></li>
-
-    {% else %}
-      <li><a class="{% if current_tags contains tag %} active {% endif %}" href="/blogs/{{blog.handle}}/tagged/{{tag}}">{{ tag }}</a>   <img  src="{{'tab-bg.png' | asset_img_url: 'master' }}" alt=""></li>
+    {% if current_tags contains tag %}
+      {% assign selected_tag = tag | prepend: "&nbsp;by: " %}
+      {% if selected_tag == "recipe" %}
+        {% assign selected_tag = "by: all recipes" %}
+      {% endif %}
     {% endif %}
   {% endfor %}
-  <li class="searchForm">
-    <form method="get" action="/search" class="blog-search">
-      <input class="searchBox js-searchBox field" placeholder="search" type="text" name="q"{% if search.performed %} value="{{ search.terms | escape | downcase }}"{% endif %} />
-      <input type="hidden" name="type" value="article" />
-      <button class="searchSubmit js-searchSubmit" type="submit" value="Search" class="submit" >
-        <span class="icon search-svg" tabindex="-1">
-          <svg><use xlink:href="#icon-search"></use></svg>
-        </span>
-      </button>
-    </form>
-  </li>
+<ul class="tag-nav ">
+  <div class="title">filter<span class="selected-tag">  {{selected_tag}} </span> </div>
+  <div class="tag-nav__items">
+    {% for tag in blog.all_tags %}
+      {% if tag == 'recipe' and blog.handle == 'recipes' %}
+        <li class="last"><a class="{% if current_tags contains tag %} active {% endif %}" href="/blogs/{{blog.handle}}/tagged/{{tag | handleize }}">all recipes</a></li>
+
+      {% else %}
+        <li><a class="{% if current_tags contains tag %} active {% endif %}" href="/blogs/{{blog.handle}}/tagged/{{tag | handleize }}">{{ tag }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </div>
 </ul>
-
-
-<script>
-$('.js-searchBox').hide();
-var submitSearch = function(e){  event.preventDefault();  }
-$('.js-searchSubmit').click( function (){
-  if ($('.js-searchBox').is(':visible')){
-    $('body').unbind('.js-searchSubmit', submitSearch);
-  } else {
-    event.preventDefault();
-  }
-  $('.searchBox').show()
-})
-
-</script>

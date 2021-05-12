@@ -1,0 +1,33 @@
+<!-- dabba-spices -->
+<div class="spice-rack">
+  <div class="spice-rack__title">Inside the Dabba</div>
+
+  <svg class="mound" xmlns="http://www.w3.org/2000/svg" width="501.118" height="43.937" viewBox="0 0 501.118 43.937">
+    <path id="mound" d="M865.529,514.538h32.515c68.254,0,108.357-43.937,212.585-43.937s137.9,43.937,204.327,43.937h34.832" transform="translate(-856.178 -470.601)" fill="#fb0"/>
+  </svg>
+  <div class="spice-rack__items spice-slider">
+    {%- for block in section.blocks -%}
+      {%- assign block_product = all_products[block.settings.spice_product] -%}
+
+      {%- if block.settings.spice_product != blank and template.name != 'product' -%}
+        <a href="{{block_product.url}}">
+      {%- endif -%}
+      <div class="spice-item">
+        {%- if block.settings.spice_image != blank -%}
+          <div class="bg-circle">
+            <img data-src="{{block.settings.spice_image | img_url: '500x'}}" class="lazyload" alt="{{block.settings.spice_iamge.alt}}">
+          </div>
+        {%- endif -%}
+        {%- if block.settings.bonus_text != blank -%}
+          <div class="spice-item__bonus"> {{ block.settings.bonus_text}} </div>
+        {%- endif -%}
+        {%- if block.settings.spice_title != blank -%}
+          <div class="spice-item__title"> {{ block.settings.spice_title}} </div>
+        {%- endif -%}
+      </div>
+      {%- if block.settings.spice_product != blank and template.name != 'product' -%}
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>

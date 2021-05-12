@@ -1,0 +1,248 @@
+{% include 'wh_calculate_discount' with product, hide_method: 'break' %}
+{% comment %}
+
+Rich snippets (itemscope, itemtype, etc.) for products are a theme requirement,
+and allow search engines to easily understand what the content is.
+
+For more information on these Scheme.org tags, visit:
+- http://schema.org/docs/gs.html
+
+{% endcomment %}
+
+{% include "attribute-product-image-box-ratio-max" %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% include 'wh_variant' with current_variant %}
+
+{% assign on_sale = false %}
+
+{% if wh_v_compare_at_price > wh_v_price %}
+  {% unless hide_on_sale_badge %}
+    {% assign on_sale = true %}
+  {% endunless %}
+{% endif %}
+
+{% assign in_stock = false %}
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign in_stock = true %}
+  {% endif %}
+{% endfor %}
+
+{% assign spice = '' %}
+{% for tag in product.tags %}
+	{% if tag contains "spice_" %}
+		{% assign spice = tag | remove: "spice_" %}
+	{% endif %}
+{% endfor %}
+
+
+<style>
+  .product-content.margins, .product-content.margins *{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  hr.margins{
+    display: none;
+  }
+  @media screen and (max-width: 699px){
+    .product-content.margins *{
+      width: 100% !important;
+    }
+  }
+</style>
+<div>
+  <div
+    data-product-container
+    itemscope
+    itemtype="http://schema.org/Product"
+    {% if current_variant.image %}
+    data-initial-image-position="{{ current_variant.image.position | json | minus: 1 }}"
+    {% endif %}
+    data-shop-default-currency="{{ shop.currency }}"
+    data-product-options-size="{{ product.options.size }}"
+    data-product-options-first="{{ product.options.first }}"
+    data-product-variants-size="{{ product.variants.size }}"
+    data-product-variants-first="{{ product.variants.first.title }}">
+
+    <script data-product-json type="application/json">
+      {% include 'wh_product_json' with product %}
+    </script>
+
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+
+    {% include 'dabba-buy-panel'%}
+  </div>
+
+  <div class="js-bundler" data-limit="7">
+    {% include 'byo-dabba-spices' %}
+  </div>
+
+  {% include 'spice-description-slider' %}
+
+  <div class="video">
+    <video width="100%" autoplay muted controls loop>
+      <source src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/masala-dabba-vid.mp4?v=1601410734" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="shopify-product-reviews"  data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+
+  {% include 'recipes-and-related' %}
+</div>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+$('.spice-slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    variableWidth: true,
+    centerMode: true,
+    autoplay: false,
+    arrows: false,
+    mobileFirst: true,
+    // asNavFor: '.spice-description-slider',
+    focusOnSelect: true,
+    responsive: [
+     {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 7,
+          infinite: false,
+          centerMode: false
+        }
+     },
+     {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 1
+        }
+      },
+     {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      }
+    ]
+});
+
+$('.spice-description-slider').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  infinite: true
+    // asNavFor: '.spice-slider'
+});
+
+</script>
+
+  {% comment %}
+  To take advantage of a callback on the select dropdown, add option_selection.js
+  and customize the JS in timber.productPage as needed.
+
+  Currently, timber.productPage does the following:
+  - Hides your <select> tag from above
+  - Breaks out the product variants into separate product options, if more than one exists
+  - Generates a <select> tag for each product option
+  - Enables/disables elements based on variant availability
+
+  Callback notes:
+  - Keep the callback available to the global scope (window.selectCallback) so that advanced
+  addons can override it.
+  * E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
+  {% endcomment %}
+
+  {% schema %}
+  {
+    "name": "Product Page",
+    "class": "product-pages",
+    "settings": [
+      {
+        "type": "text",
+        "id": "supertext",
+        "label": "Product Supertext",
+        "default": "Build Your Own"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Short description"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_related",
+        "label": "Show related products"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_recipies",
+        "label": "Show related recipies"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": "Show dynamic checkout button",
+        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "default": true
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Dabba Collection"
+      },
+      {
+        "type": "image_picker",
+        "id": "jar_illustration",
+        "label": "Empty Jar Illustration"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "product",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "spice_image",
+          "label": "Image"
+        },
+     
+        {
+          "type": "html",
+          "id": "spice_title",
+          "label": "Title"
+        },
+   		{
+          "type": "text",
+          "id": "flavors",
+          "label": "Tasting Notes"
+        },
+        {
+          "type": "product",
+          "id": "spice_product",
+          "label": "Product"
+        },
+        {
+          "type": "richtext",
+          "id": "spice_description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+  {% endschema %}

@@ -1,22 +1,29 @@
+<!-- drawer-nav-menu -->
 {% if link.links != blank %}
   <li class="mobile-nav__item {% if count != blank %}animation-sequence-{{ count }}{% endif %} {% if link.active %}mobile-nav__item--active{% endif %}" aria-haspopup="true">
-    <div class="mobile-nav__has-sublist">
+    <div class="mobile-nav__has-sublist" data-link="{{ link.title }}">
       <a href="{{ link.url }}" class="mobile-nav__link">
         <span>{{ link.title }}</span>
       </a>
-      <button type="button" class="icon-fallback-text mobile-nav__toggle">
-        <svg><use xlink:href="#icon-dropdown"></use></svg>
+      <button type="button" class="icon-fallback-text mobile-nav__toggle ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="{% if link.title != "Shop" %} expand {% endif %}" width="10.899" height="19.399" viewBox="0 0 10.899 19.399">
+          <path id="icon-arrow-right" d="M477.206,790.191l6.876,6.076,6.876-6.076" transform="translate(-787.368 493.782) rotate(-90)" fill="none" stroke="#f41f86" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        </svg>
         <span class="fallback-text">See More</span>
       </button>
     </div>
 
-    <ul class="mobile-nav__sublist wavy-underline">
-      {% assign count = 0 %}
-      {% for link in link.links %}
-        {% include "drawer-nav-menu" %}
-        {% assign count = count | plus: 1 %}
-      {% endfor %}
-    </ul>
+    {%- if link.title == "Shop" -%}
+      {%- include 'drawer-nav-submenu' -%}
+    {% else %}
+      <ul class="mobile-nav__sublist wavy-underline">
+        {% assign count = 0 %}
+        {% for link in link.links %}
+          {% include "drawer-nav-menu" %}
+          {% assign count = count | plus: 1 %}
+        {% endfor %}
+      </ul>
+    {%- endif -%}
   </li>
 
 {% else %}
@@ -26,7 +33,7 @@
         <img class="saute" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/icons-food-Thardka.png?v=1578680997" class="dropdown-image" alt="">
       {% endif %}
       {% if link.title contains 'Blog' %}
-        <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/elephant.png?v=1592233752" class="dropdown-image" alt="">
+        <img class="jump" src="https://cdn.shopify.com/s/files/1/0108/8867/5428/files/Buffalo.png?v=1594843965" class="dropdown-image" alt="">
       {% endif %}
       <span>{{ link.title }}</span>
     </a>

@@ -1,0 +1,134 @@
+<!-- collection-featured-product -->
+
+{% include "attribute-product-image-box-ratio-max" %}
+
+<div class="collection-collaborations pink">
+  <div class="center collaboration-slider__header">
+    {%- if section.settings.title != blank -%}
+      <h2 class="text-white">{{section.settings.title}}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <div class="yellow-text font-weight-medium">{{section.settings.description}}</div>
+    {%- endif -%}
+  </div>
+  <div class="collab-slider ">
+    {% for block in section.blocks %}
+      <div class="collaboration-slide">
+        <div class="flex-all-center">
+          {%- if block.settings.product_image != blank -%}
+            <div>
+              <img data-src="{{block.settings.product_image | img_url: '600x'}}" class="lazyload" alt="{{block.settings.product_image.alt}}">
+            </div>
+          {%- endif -%}
+
+          <div>
+            {%- if block.settings.product_title != blank -%}
+              <h3 class="yellow-text">{{block.settings.product_title}}</h3>
+            {%- endif -%}
+            {%- if block.settings.product_description != blank -%}
+              <div class="text-white font-weight-medium"> {{block.settings.product_description}} </div>
+            {%- endif -%}
+            {%- if block.settings.button_link != blank and block.settings.button_text != blank -%}
+              <a class="title-text underline yellow-text" href="{{block.settings.button_link}}" target="_blank">{{block.settings.button_text}}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<style>
+  .slick-slider {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+$.fn.randomize = function(selector){
+  var $elems = selector ? $(this).find(selector) : $(this).children(),
+      $parents = $elems.parent();
+
+  $parents.each(function(){
+      $(this).children(selector).sort(function(){
+          return Math.round(Math.random()) - 0.5;
+      }).detach().appendTo(this);
+  });
+
+  return this;
+};
+  
+  $('.collab-slider').randomize('.collaboration-slide');
+  
+$('.collab-slider').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: false,
+  arrows: true,
+  dots: true,
+  mobileFirst: true,
+  responsive: [{
+    breakpoint: 768,
+    settings: {
+      slidesToShow: 2
+    }
+  }]
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Collaborations",
+    "max_blocks": 9,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Collaborations"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Collaboration",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "product_image",
+            "label": "Product Image"
+          },
+          {
+            "type": "text",
+            "id": "product_title",
+            "label": "Product Title",
+            "default": "Product title"
+          },
+          {
+            "type": "richtext",
+            "id": "product_description",
+            "label": "Product Description"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Link text"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Link to shop"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

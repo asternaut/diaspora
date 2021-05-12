@@ -1,0 +1,53 @@
+<!-- sections/faq -->
+<div class="grid--full text-max-width">
+  <div>
+    <div class="text-center content-wrapper--horizontal section-header">
+      <div class="display-table-cell">
+        <h1 class="no-margins">{{ page.title }}</h1>
+      </div>
+    </div>
+  </div>
+
+  {% if page.metafields.custom_fields["faq_section"] != blank %}
+  <div class="faq-section">
+
+      {% for item in page.metafields.custom_fields["faq_section"] %}
+        <div class="nested-accordion  {% if item["disable_accordion"] == 1 %} always-expanded {% else %} js-nested-accordion {% endif %}" data-index="forloop.index0">
+
+           {% if item["faq_section_title"] != blank %}
+             <div class="faq-section__title js-faq-section__title primary-level">
+               <h2>
+                 {{ item["faq_section_title"] }}
+               </h2>
+             </div>
+           {% endif %}
+
+           {% if item["faq_item"] != blank %}
+             <div class="faq-item__content js-faq-item__content first-level">
+                 {% for faq_item_item in item["faq_item"] %}
+                   <div class="faq-item__item">
+                     {% if faq_item_item["faq_item_title"] != blank %}
+                       <div class="faq-section__title js-faq-section__title secondary-level  {% if faq_item_item["faq_item_content"] != blank %} has-content {% else %} no-content {% endif %}">
+                         <h3 class="h4">
+                           {{ faq_item_item["faq_item_title"] }}
+                         </h3>
+                       </div>
+                     {% endif %}
+
+                     {% if faq_item_item["faq_item_content"] != blank %}
+                       <div class="faq-item__content js-faq-item__content second-level">
+                         {{ faq_item_item["faq_item_content"] }}
+                       </div>
+                     {% endif %}
+
+                   </div>
+                 {% endfor %}
+             </div>
+           {% endif %}
+
+         </div>
+       {% endfor %}
+
+  </div>
+{% endif %}
+</div>

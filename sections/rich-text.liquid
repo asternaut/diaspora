@@ -25,13 +25,20 @@
   {% assign buttonText = section.settings.linkText | escape %}
 {% endif %}
 
-<div class="grid--full index-featured-text">
-  {% if heading %}
-    <h2>{{ section.settings.title | escape }}</h2>
-  {% endif %}
-
+<div class="grid--full index-featured-text title-text ">
   {% if text %}
-    <div class="will-animate fade-in">{{ section.settings.text }}</div>
+    <div class="flex-all-center">
+      <svg class="medium-down--hide" xmlns="http://www.w3.org/2000/svg" width="118.975" height="4.656" viewBox="0 0 118.975 4.656">
+        <path id="wiggly_yellow" data-name="wiggly yellow" d="M116.555,1.737a5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.624,5.624,0,0,0-7.26,0,5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.622,5.622,0,0,0-7.258,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0,5.623,5.623,0,0,1-7.259,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0" transform="translate(1.006 0.591)" fill="none" stroke="#ffde17" stroke-linecap="round" stroke-miterlimit="1" stroke-width="2"/>
+      </svg>
+      <div class="">{{ section.settings.text }}</div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="118.975" height="4.656" viewBox="0 0 118.975 4.656">
+        <path id="wiggly_yellow" data-name="wiggly yellow" d="M116.555,1.737a5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.624,5.624,0,0,0-7.26,0,5.623,5.623,0,0,1-7.259,0,5.624,5.624,0,0,0-7.26,0,5.622,5.622,0,0,1-7.258,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.622,5.622,0,0,0-7.258,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0,5.623,5.623,0,0,1-7.259,0,5.623,5.623,0,0,0-7.259,0,5.624,5.624,0,0,1-7.26,0,5.623,5.623,0,0,0-7.259,0" transform="translate(1.006 0.591)" fill="none" stroke="#ffde17" stroke-linecap="round" stroke-miterlimit="1" stroke-width="2"/>
+      </svg>
+    </div>
+  {% endif %}
+  {% if heading %}
+    <h2 class="will-animate fade-in">{{ section.settings.title | escape }}</h2>
   {% endif %}
 
   {% if buttonText and url %}
@@ -42,7 +49,7 @@
 {% schema %}
   {
     "name": "Rich text",
-    "class": "featured-text",
+    "class": "featured-text background-illustration product-panel-background palms",
     "settings": [
       {
         "id": "title",

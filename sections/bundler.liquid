@@ -1,0 +1,177 @@
+{%- include 'wh_calculate_discount' with product, hide_method: 'break' -%}
+
+{% assign current_variant = product.variants | last %}
+
+{%- include 'wh_variant' with current_variant -%}
+
+{% assign collection = collections[section.settings.collection] | default: false %}
+
+{%- if wh_v_compare_at_price > wh_v_price -%}
+  {%- unless hide_on_sale_badge -%}
+    {% assign on_sale = true %}
+  {%- endunless -%}
+{%- endif -%}
+
+{% if product.metafields.custom_fields["fine_print"] != blank %}
+	<div class="fine-print">
+		<div class="page-width  flex-all-center">
+			<h2>Hey!</h2>
+			<div>{{ product.metafields.custom_fields["fine_print"] }}</div>
+		</div>
+	</div>
+{% endif %}
+
+{%- include 'preorder-modal' -%}
+
+<div class="product-panel-background bundler-section">
+  <div class="grid--inline product-single bundler">
+    <div class="product__panel-item bundler__mobile-drawer js-mobile-drawer byp--jar-container">
+      <div class="bundler__mobile-drawer-tab js desktop-up--hide js-mobile-tab">
+        <div class="tab-text">
+          <img src="{{ 'dropdown-arrow.svg' | asset_url }}" alt="open/close arrow" class="arrow">
+          <div class="h4 pink-text js-tab-title">See Your Pack</div>
+        </div>
+        <svg class="mound" xmlns="http://www.w3.org/2000/svg" width="501.118" height="43.937" viewBox="0 0 501.118 43.937">
+          <path id="mound" d="M865.529,514.538h32.515c68.254,0,108.357-43.937,212.585-43.937s137.9,43.937,204.327,43.937h34.832" transform="translate(-856.178 -470.601)" fill="#fb0"/>
+        </svg>
+      </div>
+      <div class=" bundler__product-photos jars-6 js-jar-count">
+        <!-- PRODUCT PHOTOS -->
+        {%- for i in (1..6) -%}
+          <div class="bundler__empty-jar js image-{{i}} js-bundler-images">
+            <img src="{{ section.settings.jar_illustration | img_url: '800x'}}" data-src="{{ section.settings.jar_illustration | img_url: '800x'}}" class="lazyload" alt="">
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {% comment %} MOBILE SPICE SPOON CHECKBOX {% endcomment %}
+      {% comment %} <div id="product__spoon-checkbox-container" class="product__spoon-checkbox-container desktop-up--hide">
+        <div class="spice-spoon-image-container hide"></div>
+        <input id="spice-spoon-checkbox" type="checkbox" name="spice-spoon-checkbox" class="spice-spoon-checkbox__input" />
+        <label for="spice-spoon-checkbox" id="spice-spoon-checkbox__label"><span>$1</span> add a spice spoon</label>
+      </div> {% endcomment %}
+
+      <div class="organic-background desktop-up--hide">
+        <button type="submit" id="AddToCart" name="add" class="btn bundler-btn rough-btn js addToCart js-bundler-button js-modal-trigger" data-modal="preorder" disabled data-id="{{ current_variant.id }}">
+          <svg width="259" height="61.538" viewBox="0 0 259 61.538">
+            <defs>
+              <clipPath id="clip-path">
+                <rect width="259" height="61.538" fill="#f41f86"/>
+              </clipPath>
+            </defs>
+            <g id="atc-button" transform="translate(5077 444)">
+              <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
+
+              <!-- you'll need to change the transform on the <text> tag depending on the text length -ss -->
+              <text
+                data-button-text="Add 6 More"
+                transform="translate(-5000 -405)"
+                style="font-size: 20px;"
+                id="Add_To_Cart" data-name="Add To Cart"
+              >
+                <tspan>
+                  Add 6 More
+                </tspan>
+              </text>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="product__panel-item bundler__intraction-panel">
+      <div class="content-wrapper--title product-header-wrap">
+        {%- include 'shipping-badge' -%}
+        <h1 itemprop="name" class='product-title'>Build Your Pack</h1>
+        <div class="product__price flex flex--space-between byp--swatch-container">
+          <div class="money-flex">
+            {% comment %}
+            <strong> Ready to Ship &nbsp;</strong>
+            {% endcomment %}
+            <span class="money" itemprop="price" data-product-price>
+              <span class="font-weight-bold js-bundler-price">Starting at $27</span>
+            </span>
+
+            &nbsp;
+            {% comment %}
+            <span class="medium-down--hide">&nbsp;| &nbsp; </span><span class="pink-text"> <strong> Save $2.50 when you check out</strong> </span>
+            {% endcomment %}
+          </div>
+          <div class="byp--variant-swatches flex">
+            {%- for variant in product.variants -%}
+              <div class="variant--swatch">
+                <input id="byp-swatch-{{ variant.id }}" type="radio" name="id" value="{{ variant.id }}" data-limit="{{ variant.title | remove: ' Jars' }}" class="js-bundler-variant" {% if variant.title == "6 Jars" %}checked{% endif %}>
+                <label for="byp-swatch-{{ variant.id }}">
+                  {{ variant.title }}
+                  {%- if variant.title == "3 Jars" -%}
+                      + $2.50 OFF 
+                     {% else %}
+                    + $5 OFF
+                  {%- endif -%}
+                </label>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div>{{ product.description }}</div>
+
+        <!-- @arren bundler items -->
+        <div class="bundler__items">
+          {%- for product in collection.products -%}
+            {%- for variant in product.variants -%}
+              {%- include 'bundler-item' -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dabba__button-sticky ipad-down--hide">
+    <button type="submit" id="AddToCart" name="add" class="btn bundler-btn js addToCart js-bundler-button js-modal-trigger" data-limit="6" data-modal="preorder" disabled data-id="{{ current_variant.id }}">
+      <text
+        data-button-text="Add 6 More"
+        style="font-size: 20px; color: #fff;"
+        id="Add_To_Cart" data-name="Add To Cart"
+      >
+        <tspan>Add 6 More</tspan>
+        <span>• <span class="js-bundler-price">Starting at $27</span></span>
+      </text>
+    </button>
+
+    {% comment %} DESKTOP SPICE SPOON CHECKBOX {% endcomment %}
+    {% comment %} <div id="product__spoon-checkbox-container" class="product__spoon-checkbox-container">
+        <div class="spice-spoon-image-container hide"></div>
+        <input id="spice-spoon-checkbox" type="checkbox" name="spice-spoon-checkbox" class="spice-spoon-checkbox__input" />
+        <label for="spice-spoon-checkbox" id="spice-spoon-checkbox__label"><span>$1</span> add a spice spoon</label>
+    </div> {% endcomment %}
+  </div>
+</div>
+
+
+{% include 'recipes-and-related' %}
+
+
+{% schema %}
+{
+  "name": "Build Your Pack",
+  "class": "product-pages js-bundler",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Build Your Pack Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "jar_illustration",
+      "label": "Empty Jar Illustration"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_related",
+      "label": "Show related products"
+    }
+  ]
+}
+{% endschema %}

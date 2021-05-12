@@ -6,6 +6,10 @@
   This snippet is used to showcase each product during the loop,
   'for product in collection.products' in collection.liquid.
 {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
+{%- comment -%} Wholesale Gorilla: do not delete unless app is uninstalled{%- endcomment -%}
+{%- assign wsgTempProd = product -%}{%- assign wsgExclude = false -%}{%- if forloop.first == true -%}{%- assign wsgActive = false -%}{%- assign wsgActiveCustomer = false -%}
+{%- include 'wsg-status' wsgStatusAction: 'init' | strip -%}{%- endif -%}{%- if wsgActive -%}{%- include 'wsg-status' wsgStatusAction: 'col-item' | strip -%}{%- endif -%}{%- if wsgExclude -%} {%- continue -%} {%- endif -%}
+{%- comment -%} end WSG {%- endcomment -%}
 
   A liquid variable (grid_item_width) is set just before the this
   snippet is included to change the size of the container.
@@ -68,34 +72,28 @@
       {% if product.images.size == 0 %}
         <img src="//cdn.shopify.com/s/images/themes/product-1.png">
       {% endif %}
-	{% comment %}
-      {% if variant_image %}
-        {% include "filter-rias-img-url" input: variant_image %}
-        {% assign image_url = output %}
 
-        <span>
-          <img
-            data-src="{{ image_url }}"
-            data-sizes="auto"            
-            data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
-            alt="{{ iamge.alt | escape }}"
-            class="lazyload lazyload-fade">
-        </span>
-      {% endif %}
-    {% endcomment %}
 
       {% if product.featured_image %}
         {% include "filter-rias-img-url" input: product.featured_image %}
         {% assign image_url = output %}
+        {% assign show = true %}
+        {% for tag in product.tags %}
+          {% if tag == "transparent" %}
+            {% assign show = false %}
+          {% endif %}
+        {% endfor %}
 
-        <span>
-          <img
-            data-src="{{ image | product_img_url: '350x' }}"
-            data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
-            data-sizes="auto"
-            alt="{{ product.featured_image.alt | escape }}"
-            class="lazyload lazyload-fade">
-        </span>
+        <div {% if show == true %} class="hover-images" {% endif %}>
+          <span {% if show == true %} class="hover-images" {% endif %}>
+            <img
+              data-src="{{ image | product_img_url: '800x' }}"
+              data-sizes="auto"
+              data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+              alt="{{ product.featured_image.alt | escape }}"
+              class="lazyload lazyload-fade">
+          </span>
+        </div>
 
         <noscript>
           <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.featured_image.alt }}" />
@@ -104,7 +102,11 @@
     </div>
 
     <span class="product_image_caption">
-      <h6>{{ product.title }}</h6>
+      <div class="flex flex-all-center">
+        {%- include 'shipping-badge' -%}
+      </div>
+
+      <div class="h4">{{ product.title }}</div>
 
       {% capture price %}
         <span class="money">

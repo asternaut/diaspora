@@ -1,0 +1,28 @@
+<!-- snippets/preorder-button -->
+{%- if product.available and bundlerProduct == true and section.settings.bundler_link_text != blank -%}
+  <a href="{{section.settings.bundler_link}}" target="_blank" class="product__secondary-button-container">
+    <div class="product__secondary-button orange">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 130" >
+        <defs>
+            <path d="M100,37c34.8,0,63,28.2,63,63s-28.2,63-63,63s-63-28.2-63-63S65.2,37,100,37z" id="curve-2" transform="rotate(180 100 100)" />
+        </defs>
+        {% if section.settings.circletext != blank%}
+        <g> <!-- this is the magic tag that allows transforms to work in Safari: they do not work on text tags -->
+          <text text-anchor="middle">
+              <textPath xlink:href="#curve-2" class="top" startOffset="50%">{{section.settings.circletext}}</textPath>
+          </text>
+        </g>
+        {% endif %}
+      </svg>
+      {%- if section.settings.bundler_link_text_pre != blank -%}
+        <div class="product__secondary-button--pretitle"> {{section.settings.bundler_link_text_pre}} </div>
+      {%- endif -%}
+      {%- if section.settings.bundler_link_text != blank -%}
+        <div class="h2 product__secondary-button--title"> {{section.settings.bundler_link_text}} </div>
+      {%- endif -%}
+      {%- if section.settings.bundler_link_text_sub != blank -%}
+        <div class="product__secondary-button--subtitle"> {{section.settings.bundler_link_text_sub}} </div>
+      {%- endif -%}
+    </div>
+  </a>
+{%- endif -%}

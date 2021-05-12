@@ -28,6 +28,8 @@
 {% endcomment %}
 {% assign on_sale = false %}
 
+{% assign hide_on_sale_badge = true %}
+
 {% if wh_compare_at_price > wh_price %}
   {% unless hide_on_sale_badge %}
     {% assign on_sale = true %}
@@ -55,7 +57,6 @@
 
 {% assign image = product.featured_image %}
 {% include "attribute-image-box-ratio" %}
-
 <div class="grid__item {{ fit_image_class }} {{ hover_class }} {{ grid_item_width }} {{ product_class }} animation-sequence-{{ forloop.index0 }}">
   <a href="{{ product.url | within: collection }}" class="block" tabindex='0'>
 
@@ -86,15 +87,22 @@
       {% if product.featured_image %}
         {% include "filter-rias-img-url" input: product.featured_image %}
         {% assign image_url = output %}
-
-        <span>
-          <img
-            data-src="{{ image | product_img_url: 'large' }}"
-            data-sizes="auto"
-            data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
-            alt="{{ product.featured_image.alt | escape }}"
-            class="lazyload lazyload-fade">
-        </span>
+        {% assign show = true%}
+        {% for tag in product.tags %}
+          {% if tag == "transparent" %}
+            {% assign show = false %}
+          {% endif %}
+        {% endfor %}
+        <div {% if show == true %} class="hover-images" {% endif %}>
+          <span {% if show == true %} class="hover-images" {% endif %}>
+            <img
+              data-src="{{ image | product_img_url: '800x' }}"
+              data-sizes="auto"
+              data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+              alt="{{ product.featured_image.alt | escape }}"
+              class="lazyload lazyload-fade">
+          </span>
+        </div>
 
         <noscript>
           <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.featured_image.alt }}" />
@@ -103,10 +111,15 @@
     </div>
 
     <span class="product_image_caption">
-      <h6>{{ product.title }}</h6>
-	 
+
+      <div class="flex flex-all-center">
+        {%- include 'shipping-badge' -%}
+      </div>
+
+      <div class="h4">{{ product.title }}</div>
+
       {% capture price %}
-        <span class="money">
+        <span class="money bold">
           {% if settings.currency_format == "money_format" %}
             {{ wh_price | money }}
           {% else %}
@@ -115,16 +128,6 @@
         </span>
       {% endcapture %}
 
-      {% if sold_out %}
-        <strong>
-          {{ 'products.product.sold_out' | t }}
-        </strong>
-      {% else %}
-      
-       {% if product.metafields.custom_fields["pre-order"] == 1 %}
-        <span> <strong>Pre-Order</strong></span>
-       {% endif %}
-      
         {% if on_sale and product.price_varies and product.metafields.custom_fields["pre-order"] == 0 %}
           {{ 'products.product.on_sale_from_html' | t: price: price }}
         {% elsif product.price_varies %}
@@ -132,16 +135,15 @@
         {% else %}
           {{ price }}
         {% endif %}
-      {% endif %}
 
       {% if on_sale %}
         <s><span class="price money">{{ wh_compare_at_price | money }}</span></s>
       {% endif %}
 
       <!-- tiny little stars //-->
-      <span class="hide-caption">
+      <!-- <span class="hide-caption">
         <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-      </span>
+      </span> -->
     </span>
   </a>
 </div>

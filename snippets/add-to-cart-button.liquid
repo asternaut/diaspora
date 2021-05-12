@@ -1,0 +1,59 @@
+{% assign sold_out = true %}
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign sold_out = false %}
+  {% endif %}
+{% endfor %}
+
+{%- if product.metafields.custom_fields['pre-order'] == 1 -%}
+  {% assign preorder = true %}
+{%- endif -%}
+
+
+<div class="organic-background">
+  <button {% if preorder %} type="button" {% else %} type="submit" {% endif %}  id="AddToCart" {% if preorder %} data-modal="preorder" {% endif %} name="add" class="btn rough-btn {% if preorder %} js-modal-trigger {%- else -%} js addToCart {% endif %} {% unless in_stock %} disabled {% endunless %}">
+    <svg width="259" height="61.538" viewBox="0 0 259 61.538">
+      <defs>
+        <clipPath id="clip-path">
+          <rect width="259" height="61.538" fill="#f41f86"/>
+        </clipPath>
+      </defs>
+      <g id="atc-button" transform="translate(5077 444)">
+        <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
+        <text
+              data-restock= "{% if product.metafields.custom_fields["restock_date"] != blank %} Until {{ product.metafields.custom_fields["restock_date"] }}{% endif %}"
+
+                {% if product.metafields.custom_fields["restock_date"] != blank and sold_out == true %}
+                  transform="translate(-5055 -405)"
+                  style="font-size: 17px;"
+                {% elsif sold_out %}
+                  data-add-to-cart-text="Sold Out"
+                  transform="translate(-5000 -405)"
+                  style="font-size: 22px;"
+                {% endif %}
+                {% if product.metafields.custom_fields["pre-order"] == 1 %}
+                  data-add-to-cart-text="Pre-Order"
+                  transform="translate(-5000 -405)"
+                  style="font-size: 22px;"
+                {% else %}
+                  data-add-to-cart-text=" {{ 'products.product.add_to_cart' | t }}"
+                  transform="translate(-5000 -405)"
+                  style="font-size: 17px;"
+                {% endif %}
+
+                id="Add_To_Cart" data-name="Add To Cart"
+              >
+          <tspan>
+            {% if sold_out %}
+              Sold Out
+            {% elsif product.metafields.custom_fields["pre-order"] == 1 %}
+              Pre-Order
+            {% else %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% endif %}
+          </tspan>
+        </text>
+      </g>
+    </svg>
+  </button>
+</div>

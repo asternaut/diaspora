@@ -1,0 +1,83 @@
+<!-- drawer-nav-submenu -->
+<ul class="mobile-nav__submenu">
+  <div class="mobile-nav__submenu-header flex flex--align-center flex--space-between">
+    <li class="mobile-nav__item">
+      <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__submenu-back flex-all-center {% if link.title != 'Shop' %} mobile-nav__sublink {% endif %}" data-link="{{ link.title }}">
+        <button type="button" class="icon-fallback-text flex-all-center">
+          {%- include 'right-arrow' -%}
+          <span class="fallback-text">Back</span>
+        </button>
+        <span class="text-pink">{{ link.title }}</span>
+      </a>
+    </li>
+
+    <li class="mobile-nav__item">
+      <a href="{{ link.url }}" class="mobile-nav__link uppercase mobile-nav__sublink">
+        <small class="text-pink shop-all-link">Shop All</small>
+      </a>
+    </li>
+  </div>
+
+  <div class="mobile-nav__submenu-links">
+    {% for sublink in link.links %}
+      {%- if sublink.links != blank -%}
+        <li class="mobile-nav__item {% if sublink.active %}mobile-nav__item--active{% endif %}" aria-haspopup="true">
+          <div class="mobile-nav__has-sublist flex--align-center" data-link="{{ sublink.title }}">
+            <a href="{{ sublink.url }}" class="mobile-nav__link mobile-nav__sublink">
+              <span class="{% if link.title == 'Shop' %} text-pink{% else %} text-dark{% endif %}">{{ sublink.title }}</span>
+            </a>
+            <button type="button" class="icon-fallback-text mobile-nav__toggle flex-all-center">
+              {%- include 'right-arrow' -%}
+              <span class="fallback-text">See More</span>
+            </button>
+          </div>
+          {%- include 'drawer-nav-submenu', link: sublink -%}
+        </li>
+      {% else %}
+        <li class="mobile-nav__item mobile-nav__submenu-item">
+          <a href="{{ sublink.url }}" class="mobile-nav__link mobile-nav__sublink">
+            <span class="{% if link.title == 'Shop' %} text-pink{% else %} text-dark{% endif %}">{{ sublink.title }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {% endfor %}
+  </div>
+
+  {%- if link.title == "Shop" -%}
+    {% if section.settings.featured_product != blank %}
+      {% assign product = all_products[section.settings.featured_product] | default: false %}
+      <div class="featured-product__container text-center">
+        <a class="featured-product__link" href="{{ product.url }}">
+          <div class="circle-svg ">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 162 30" width="150" height="50">
+              <defs>
+                <path id="curve" d="M.09,7.16s78.15-15,162,0"/>
+              </defs>
+              {% if section.settings.circletext != blank%}
+                <text>
+                    <textPath xlink:href="#curve" class="top">{{section.settings.circletext}}</textPath>
+                </text>
+              {% endif %}
+            </svg>
+          </div>
+          {% if section.settings.catalog_menu_image != blank %}
+            <img src="{{ section.settings.catalog_menu_image | img_url: '400x', scale: 2 }}" class="catalog-menu-default-image" />
+          {% endif %}
+          <p class="text-gold">{{ product.title }}</p>
+          <small class="money-flex center">
+            {% if product.metafields.custom_fields["pre-order"] == 1 and in_stock %}
+              <span><strong>Pre-Order &nbsp;</strong></span>
+              <!-- if product is in stock / not preorder -->
+            {%- elsif sold_out == false -%}
+              <strong> Ready to Ship &nbsp;</strong>
+            {% endif %}
+
+            <span class="money" itemprop="price" data-product-price>
+              <span class="font-weight-regular">{{ product.price |  money_without_trailing_zeros  }}</span>
+            </span>
+          </small>
+        </a>
+      </div>
+    {% endif %}
+  {%- endif -%}
+</ul>

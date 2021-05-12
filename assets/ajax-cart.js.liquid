@@ -59,6 +59,56 @@ ShopifyAPI.updateCartNote = function(note, callback) {
   jQuery.ajax(params);
 };
 
+ShopifyAPI.updateEngravingNote = function(note, callback) {
+  var params = {
+    type: 'POST',
+    url: '/cart/update.js',
+    data: {
+      attributes: {
+        engravingText: attributeToString(giftMessage)
+      }
+    },
+    dataType: 'json',
+    success: function(cart) {
+      if ((typeof callback) === 'function') {
+        callback(cart);
+      }
+      else {
+        ShopifyAPI.onCartUpdate(cart);
+      }
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      ShopifyAPI.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
+ShopifyAPI.updateGiftMessage = function(note, callback) {
+  var params = {
+    type: 'POST',
+    url: '/cart/update.js',
+    data: {
+      attributes: {
+        giftMessage: attributeToString(note)
+      }
+    },
+    dataType: 'json',
+    success: function(cart) {
+      if ((typeof callback) === 'function') {
+        callback(cart);
+      }
+      else {
+        ShopifyAPI.onCartUpdate(cart);
+      }
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      ShopifyAPI.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
 ShopifyAPI.onError = function(XMLHttpRequest, textStatus) {
   var data = eval('(' + XMLHttpRequest.responseText + ')');
   if (!!data.message) {
@@ -97,11 +147,17 @@ ShopifyAPI.addItemFromForm = function(form, callback, errorCallback) {
   jQuery.ajax(params);
 };
 
-ShopifyAPI.addItem = function(variant_id, quantity, callback) {
+ShopifyAPI.addItem = function(variant_id, quantity, properties, callback) {
+  var data = {
+    id: variant_id,
+    quantity: quantity,
+    properties: properties
+  }
+
   var params = {
     type: 'POST',
     url: '/cart/add.js',
-    data:  'quantity='+quantity+'&id='+variant_id,
+    data:  data,
     dataType: 'json',
     success: function(line_item) {
       if ((typeof callback) === 'function') {
@@ -147,7 +203,7 @@ ShopifyAPI.getCart = function(callback) {
       callback(cart);
     }
     else {
-      ShopifyAPI.onCartUpdate(cart);
+      ajaxCart.cartUpdateCallback(cart);
     }
   });
 };
@@ -157,13 +213,33 @@ ShopifyAPI.changeItem = function(variant_id, quantity, line, callback) {
   var params = {
     type: 'POST',
     url: '/cart/change.js',
-    data:  'quantity='+quantity+'&id='+variant_id+'&line='+line,
+    data:  'quantity='+quantity+'&id='+variant_id,
     dataType: 'json',
     success: function(cart) {
       if ((typeof callback) === 'function') {
         callback(cart);
+      } else {
+        ShopifyAPI.onCartUpdate(cart);
       }
-      else {
+    },
+    error: function(XMLHttpRequest, textStatus) {
+      ShopifyAPI.onError(XMLHttpRequest, textStatus);
+    }
+  };
+  jQuery.ajax(params);
+};
+
+// POST to cart/change.js returns the cart in JSON
+ShopifyAPI.updateItems = function(updates, callback) {
+  var params = {
+    type: 'POST',
+    url: '/cart/update.js',
+    data:  updates,
+    dataType: 'json',
+    success: function(cart) {
+      if ((typeof callback) === 'function') {
+        callback(cart);
+      } else {
         ShopifyAPI.onCartUpdate(cart);
       }
     },
@@ -188,6 +264,27 @@ ShopifyAPI.clearCart = function(){
   jQuery.ajax(params);
 }
 
+ShopifyAPI.onItemAdded = function(item){
+  ajaxCart.itemAddedCallback(item)
+}
+
+
+var countryCodesInEurope = ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PO", "PT", "RO", "SK", "SI", "ES", "SE", "AL", "AD", "AM", "BY", "BA", "FO", "GE", "GI", "IS", "IM", "XK", "LI", "MK", "MD", "MC", "ME", "NO", "RU", "SM", "RS", "CH", "TR", "UA", "GB", "VA"];
+var months = {
+  January: 1,
+  February: 2,
+  March: 3,
+  April: 4,
+  May: 5,
+  June: 6,
+  July: 7,
+  August: 8,
+  September: 9,
+  October: 10,
+  November: 11,
+  December: 12
+}
+
 /*============================================================================
 Ajax Shopify Add To Cart
 ==============================================================================*/
@@ -207,20 +304,28 @@ var ajaxCart = (function(module, $) {
   // Private plugin variables
   var $formContainer, $form, $addToCart, $cartCountSelector, $cartCostSelector, $cartContainer, $drawerContainer;
 
+  var customerCountry, getCustomerCountry;
+
   // Private functions
-  var updateCountPrice, formOverride, itemAddedCallback, itemErrorCallback, cartUpdateCallback, buildCart, getPromotions, cartCallback, adjustCart, adjustCartCallback, handleQuantityChange, createQtySelectors, qtySelectors, validateQty, removeItem;
+  var updateCountPrice, formOverride, itemAddedCallback, itemErrorCallback, cartUpdateCallback, buildCart, getPromotions, cartCallback, adjustCart, adjustCartCallback, handleQuantityChange, createQtySelectors, qtySelectors, validateQty, removeItem, removePreorderItems, addSpiceSpoonToCart;
+
+  // Spice Spoon Variant ID ==> 30985799663698
+  var spiceSpoonID = 30985799663698;
+
 
   /*============================================================================
   Initialise the plugin and define global options
   ==============================================================================*/
   init = function (options) {
+    getCustomerCountry();
+
     onCartPage = window.location.pathname === "/cart";
 
     // Default settings
     settings = {
       formContainerSelector: "#AddToCartForm",
       formSelector: 'form[action^="/cart/add"]',
-      cartContainer: '#CartContainer',
+      cartContainer: '.js-cartContainer',
       addToCartSelector: '.addToCart',
       cartCountSelector: null,
       cartCostSelector: null,
@@ -248,7 +353,8 @@ var ajaxCart = (function(module, $) {
       qtySelectors();
     }
 
-    $cartContainer.on('click', '.ajaxcart__qty-adjust', handleQuantityChange)
+    $cartContainer.on('click', '.ajaxcart__qty-adjust', handleQuantityChange);
+    $cartContainer.on('click', '.js-remove-preorders', removePreorderItems);
 
     // Take over the add to cart form submit action if ajax enabled
     if (!settings.disableAjaxCart) {
@@ -260,6 +366,15 @@ var ajaxCart = (function(module, $) {
     removeItem();
   };
 
+  getCustomerCountry = function(){
+    var url = '/browsing_context_suggestions.json'
+    $.ajax(url).then(function(json){
+      // do whatever you want with the data here
+      if (json && json.detected_values && json.detected_values.country) {
+        customerCountry = json.detected_values.country.handle;
+      }
+    })
+  }
 
   loadCart = function () {
     $body.addClass('drawer--is-loading');
@@ -289,7 +404,7 @@ var ajaxCart = (function(module, $) {
       // Remove any previous quantity errors
       $('.qty-error').remove();
 
-      ShopifyAPI.addItemFromForm(evt.target, itemAddedCallback, itemErrorCallback);
+      ShopifyAPI.addItemFromForm(evt.target, addSpiceSpoonToCart, itemErrorCallback);
     });
 
     $('.js-article-submit').on('click', function(e){
@@ -302,6 +417,15 @@ var ajaxCart = (function(module, $) {
       })
       ShopifyAPI.addItems(items, itemAddedCallback)
     })
+  };
+
+  addSpiceSpoonToCart = function (product) {
+    if ($('#spice-spoon-checkbox').is(':checked') ) {
+      console.log('Spice spoon is checked!');
+      ShopifyAPI.addItem(spiceSpoonID, 1)
+    } else {
+      itemAddedCallback(product)
+    }
   };
 
   itemAddedCallback = function (product) {
@@ -347,60 +471,95 @@ var ajaxCart = (function(module, $) {
     });
   };
 
+  removePreorderItems = function(){
+    var updates = {}
 
-  var wholesale = wh_customer_tags;
+    $('.js-preorder-item').each(function(index, item){
+      var $this = $(item);
+      var id = $(item).data('id');
+
+      updates[id] = 0
+
+      $this.addClass('is-removed');
+    })
+
+    ShopifyAPI.updateItems({updates: updates}, cartUpdateCallback);
+  }
+
+
   var spoon = 31985354440786;
   var magnetTrio = 31985351360594;
+  var sticker = 32150387228754;
   var powderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32135529070674, 32135529037906, 32124805709906, 32124805677138, 32124805644370];
   //turmeric small, turmeric med, turmeric large, powdered chili, powdered chili M, powdered chili L, turmeric 2, turmeric 10, turmeric 50, big trio, small trio, subscription turmeric 2, subscription turmeric 10, subscription turmeric 50
 
   buildCart = function (cart) {
     // Start with a fresh cart div
+    var $cartCount = $('.js-cart-count');
+    $cartCount.text(cart.item_count);
+
+    if (cart.item_count > 0) {
+      $cartCount.addClass('active')
+    } else {
+      $cartCount.removeClass('active')
+    }
+
     $cartContainer.empty();
     var rechargeInCart = false
-    var cartHasPowderedSpice = false;
+    // var cartHasPowderedSpice = false;
     var cartHasOnlyPromos = true;
     var hasCard = false;
-    var totalUnderFifty = cart.total_price < 5000 ? true : false;
-    var powderQuantity = 0;
-    var trioSpice = [32135529070674, 32135529037906]; //big trio, small trio
-    var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32124805709906, 32124805677138, 32124805644370];
+    // var totalUnderFourty = cart.total_price < 4000;
+    // var totalUnderFifty = cart.total_price < 5000;
+    // var powderQuantity = 0;
+    // var trioSpice = [32135529070674, 32135529037906]; //big trio, small trio
+    // var notTrioPowderedSpices = [32122998194258, 29483866914881, 17738076815460,  30982564610130, 32122950778962, 32122956120146, 29523210272833, 29523210305601, 29523210338369, 32124805709906, 32124805677138, 32124805644370, 32150387228754];
+    var dabba = 32891260305490;
+    var bundlerId = 6087228915883;
+    var preorderMonth = ""
 
-    $.each(cart.items, function(index, cartItem) {
-      if (powderedSpices.includes(cartItem.variant_id)){
-        cartHasPowderedSpice = true;
-      }
-      // tally number of spoons to add to cart
-      if (notTrioPowderedSpices.includes(cartItem.variant_id)){
-        if (wh_customer_tags === true) {
-          powderQuantity += cartItem.quantity;
-        } else {
-          powderQuantity += 1;
-        }
-      } else if ( trioSpice.includes(cartItem.variant_id) ){
-        if (wh_customer_tags === true) {
-          powderQuantity += cartItem.quantity * 2;
-        } else {
-          powderQuantity += 2;
-        }
-      }
-    })
+    // $.each(cart.items, function(index, cartItem) {
+    //   if (powderedSpices.includes(cartItem.variant_id)){
+    //     cartHasPowderedSpice = true;
+    //   }
+    //   tally number of spoons to add to cart
+    //   if (notTrioPowderedSpices.includes(cartItem.variant_id)){
+    //     powderQuantity += 1;
+    //   } else if ( trioSpice.includes(cartItem.variant_id) ){
+    //     powderQuantity += 2;
+    //   }
+    // })
 
     // Handlebars.js cart layout
     var items = [],
         item = {},
-        promotions = getPromotions(),
+        // promotions = getPromotions(),
         promo = {},
         data = {},
         source = $("#CartTemplate").html(),
-        template = Handlebars.compile(source);
+        template = Handlebars.compile(source),
+        totalPrice = 0,
+        hasPreorders = false,
+        hasReadys = false;
 
     // Add each item to our handlebars.js data
     $.each(cart.items, function(index, cartItem) {
       var itemAdd = cartItem.quantity + 1,
           itemMinus = cartItem.quantity - 1,
           itemQty = cartItem.quantity;
-      var  itemShouldRender = true;
+      var itemShouldRender = true;
+      var metafields = {};
+
+      var url = "/products/" + cartItem.handle + "?view=metafields&variant=" + cartItem.variant_id;
+
+      $.ajax({
+        url: url,
+        async: false,
+        success: function(data) {
+          var json = JSON.parse(data);
+          metafields = json;
+        }
+      })
 
       /* Hack to get product image thumbnail
       *   - If image is not null
@@ -425,24 +584,77 @@ var ajaxCart = (function(module, $) {
         cartHasOnlyPromos = false;
       }
 
+      var bundlerProperties = []
+
+      var price = Shopify.formatMoney(cartItem.price, settings.moneyFormat);
+
+      if (cartItem.product_id === bundlerId || cartItem.title === "Build Your Own Trio" || cartItem.title.includes("Masala Dabba") || cartItem.product_id === dabba) {
+        Object.keys(cartItem.properties).forEach(function(key){
+          if (!key.includes("_") && !key.includes("price")) {
+            var isTrio = cartItem.title === "Build Your Own Trio" || cartItem.product_id === bundlerId;
+            bundlerProperties.push({ byot: isTrio, title: key, quantity: cartItem.properties[key] })
+          } else if (key.includes("price")) {
+            price = cartItem.properties[key];
+          }
+        })
+      } else {
+        price = Shopify.formatMoney(cartItem.price, settings.moneyFormat)
+      }
+
+      var unformattedPrice = (parseFloat(price.replace("$", "")) * 100) * cartItem.quantity;
+
+      totalPrice += unformattedPrice;
+
+      var isPreorder = metafields['product']['pre-order'] === 1;
+      if (!isPreorder) {
+        isPreorder = metafields['variant']['pre-order'] === 1;
+      }
+
+      var restockDate = metafields.product.restock_date
+      if (!restockDate) {
+        restockDate = metafields.variant.restock_date;
+      }
+
+      if (isPreorder) {
+        hasPreorders = true;
+        if (months[preorderMonth] && months[restockDate] && months[preorderMonth] > months[restockDate]) {
+        } else {
+          preorderMonth = restockDate;
+        }
+        if (restockDate) {
+          var shippingMessage = restockDate + " Preorder";
+        } else {
+          var shippingMessage = "Preorder";
+        }
+      } else {
+        var shippingMessage = "Ready To Ship"
+        hasReadys = true;
+      }
+
       // Create item's data object and add to 'items' array
       item = {
-        id: cartItem.variant_id,
+        id: cartItem.key,
+        variantId: cartItem.variant_id,
         line: index + 1,
         url: cartItem.url,
         img: prodImg,
         name: prodName,
         variation: prodVariation,
         description: cartItem.product_description,
+        attributes: cart.attributes,
         itemAdd: itemAdd,
         itemMinus: itemMinus,
-        itemQty: cartItem.variant_id === spoon ? powderQuantity : itemQty,
-        price: Shopify.formatMoney(cartItem.price, settings.moneyFormat),
+        itemQty: itemQty,
+        price: price,
         priceZero: cartItem.price <= "0",
         vendor: cartItem.vendor,
         properties: cartItem.properties,
         promotion: cartItem.product_type === "Cart Promo",
-        wholesale: wh_customer_tags
+        dabba: cartItem.variant_id === dabba,
+        bundlerProperties: bundlerProperties,
+        preorder: isPreorder,
+        shippingMessage: shippingMessage,
+        giftMessage: cart.attributes.giftMessage
       };
 
 
@@ -451,22 +663,30 @@ var ajaxCart = (function(module, $) {
       }
 
       //remove magnet from cart if price is less than $50
-      if ( item.id === magnetTrio && totalUnderFifty ){
-        var line = item.line;
-        itemShouldRender = false;
-        ShopifyAPI.changeItem(magnetTrio, 0, line);
-      }
-      //remove spoon from cart if there are no powdered spices
-      if (!cartHasPowderedSpice && item.id === spoon ){
-        var line = item.line;
-        //itemShouldRender = false;
-        ShopifyAPI.changeItem(spoon, 0, line);
-      }
+      // if (item.id === magnetTrio && totalUnderFifty){
+      //   var line = item.line;
+      //   itemShouldRender = false;
+      //   ShopifyAPI.changeItem(magnetTrio, 0, line);
+      // }
 
-      if( item.id === spoon){
-        var line = item.line;
-        ShopifyAPI.changeItem(spoon, powderQuantity, line);
-      }
+      //remove sticker from cart if price is less than $40
+      // if ( item.id === sticker && totalUnderFourty ){
+      //   var line = item.line;
+      //   itemShouldRender = false;
+      //   ShopifyAPI.changeItem(sticker, 0, line);
+      // }
+
+      // remove spoon from cart if there are no powdered spices
+      // if (!cartHasPowderedSpice && item.id === spoon ){
+      //  var line = item.line;
+      //  //itemShouldRender = false;
+      //  ShopifyAPI.changeItem(spoon, 0, line);
+      // }
+
+      // if( item.id === spoon){
+      //  var line = item.line;
+      //  ShopifyAPI.changeItem(spoon, powderQuantity, line);
+      // }
 
       if (itemShouldRender){
         items.push(item);
@@ -479,75 +699,88 @@ var ajaxCart = (function(module, $) {
     }
 
     //Determine whether the promo is in the cart or not
-    var promoInFooter = function(promo){
-      var inFooter = true;
-      $.each(cart.items, function(index, cartItem){
-        //if promo variant ID matches item in cart
-        if(cartItem.variant_id === promo.variants[0].id){
-          inFooter = false;
-        }
-      })
-      return inFooter;
-    }
+    // var promoInFooter = function(promo){
+    //   var inFooter = true;
+    //   $.each(cart.items, function(index, cartItem){
+    //     //if promo variant ID matches item in cart
+    //     if(cartItem.variant_id === promo.variants[0].id){
+    //       inFooter = false;
+    //     }
+    //   })
+    //   return inFooter;
+    // }
 
     // create an array of promo objects in footer
-    var promoFilter = promotions.filter(function(promo){
-      var wholesaleItems = [32150387228754, 31067999109202]; //sticker, talkers
-      var cartHasPowderedSpice = false;
-      $.each(cart.items, function(index, cartItem){
-        if (powderedSpices.includes(cartItem.variant_id)){
-          cartHasPowderedSpice = true;
-        }
-      })
+    // var promoFilter = promotions.filter(function(promo){
+    //   var wholesaleItems = [31067999109202]; //sticker, talkers
+    //   var cartHasPowderedSpice = false;
+    //   $.each(cart.items, function(index, cartItem){
+    //     if (powderedSpices.includes(cartItem.variant_id)){
+    //       cartHasPowderedSpice = true;
+    //     }
+    //   })
 
-      if(promoInFooter(promo)){
-        if (wholesale === false && wholesaleItems.includes(promo.variants[0].id) ){
-          return false
-        }
-        if (cart.total_price < 0 ){
-          return false //show nothing
-        } else if ( cart.total_price > 0 ){
-          if (promo.variants[0].id === magnetTrio && cart.total_price < 5000) {
-            return false //hide magnet if total is less than $50
-          } else if (!cartHasPowderedSpice && promo.variants[0].id === spoon ){
-            return false // hide spoons unless cart has powdered spice
-          }
-          else{
-            return true
-          }
-        }
-      }
-    })
+    //   if(promoInFooter(promo)){
+    //     if (cart.total_price < 0 ){
+    //       return false //show nothing
+    //     } else if ( cart.total_price > 0 ){
+    //       if (promo.variants[0].id === sticker && cart.total_price < 4000){
+    //         return false // hide sticker if total is less than $40
+    //       }
+    //       if (promo.variants[0].id === magnetTrio && cart.total_price < 5000) {
+    //         return false //hide magnet if total is less than $50
+    //       } else if (!cartHasPowderedSpice && promo.variants[0].id === spoon ){
+    //         return false // hide spoons unless cart has powdered spice
+    //       }
+    //       else{
+    //         return true
+    //       }
+    //     }
+    //   }
+    // })
 
     // send cart promo object data to footer
-    var promoMap = promoFilter.map(function(promo){
-      return {
-        title: promo.title,
-        variantId: promo.variants[0].id,
-        description: promo.body_html,
-        img: promo.images[0].src,
-        quantity: promo.quantity,
-        product: promo
+    // var promoMap = promoFilter.map(function(promo){
+    //   return {
+    //     title: promo.title,
+    //     variantId: promo.variants[0].id,
+    //     description: promo.body_html,
+    //     img: promo.images[0].src,
+    //     quantity: promo.quantity,
+    //     product: promo
+    //   }
+    // });
+
+    if (customerCountry && customerCountry !== "US") {
+      if (countryCodesInEurope.includes(customerCountry)) {
+        shippingMessage = "If you choose to ship internationally, you authorize Diaspora Co. to import the goods on your behalf. You agree that Diaspora Co. may delegate the obligation to import the goods on your behalf to a customs broker. As a buyer, you will pay the taxes & duties associated with the import in addition to the purchase price of the goods."
+      } else {
+        shippingMessage = "Be warned! Your shipping cost does not include import duties and fees that may apply. Customers are responsible for all international duties and should check with local agencies for rates."
       }
-    });
+    } else {
+      var shippingMessage = ""
+    }
 
     // Gather all cart data and add to DOM
     data = {
       items: items,
-      promotions: promoMap,
+      // promotions: promoMap,
+      attributes: cart.attributes,
+      shippingMessage: shippingMessage,
+      giftMessage: cart.attributes.giftMessage,
       note: cart.note,
       checked: cart.items.find(function(item){
-        return item.id === 29581924859969;
+        return item.variant_id === 29581924859969;
       }),
-      totalPrice: Shopify.formatMoney(cart.total_price, settings.moneyFormat)
+      totalPrice: Shopify.formatMoney(totalPrice, settings.moneyFormat),
+      preorderMonth: preorderMonth,
+      hasPreorderAndReady: hasReadys && hasPreorders
     }
 
     $cartContainer.append(template(data));
 
-    cartCallback(cart);
-
-    if (wholesale === true){
-      $('.js-total-price p').html('Price shown at checkout');
+    if(location.pathname !== "/cart") {
+      cartCallback(cart);
     }
 
     //recharge
@@ -581,11 +814,7 @@ var ajaxCart = (function(module, $) {
     $body.removeClass('drawer--is-loading');
     $body.trigger('ajaxCart.afterCartLoad', cart);
 
-    {% if settings.cart_additional_buttons %}
-    if (window.Shopify && Shopify.StorefrontExpressButtons) {
-      Shopify.StorefrontExpressButtons.initialize();
-    }
-    {% endif %}
+
   };
 
   var toggleNote = function (e) {
@@ -599,13 +828,13 @@ var ajaxCart = (function(module, $) {
 
   var toggleProduct = function (e) {
     var cardProduct = 29581924859969;
-    var item = $('.ajaxcart__row[data-id="'+ cardProduct +'"]');
+    var item = $('.ajaxcart__row[data-variant-id="'+ cardProduct +'"]');
     var line = item.data('line');
     line = parseInt(line);
     var checked = e.target.checked;
 
     if (checked) {
-      ShopifyAPI.addItem(cardProduct, 1, adjustCartCallback);
+      ShopifyAPI.addItem(cardProduct, 1, {}, adjustCartCallback);
     } else {       //removes card
       ShopifyAPI.changeItem(cardProduct, 0, line, adjustCartCallback);
     }
@@ -615,7 +844,9 @@ var ajaxCart = (function(module, $) {
     var card = $('.js-card');
     var messages = $('.js-message');
     var cardProduct = 29581924859969;
-    var item = $('.ajaxcart__row[data-id="'+ cardProduct +'"]');
+    var item = $('.ajaxcart__row[data-variant-id="'+ cardProduct +'"]');
+
+
     var hasCard = item.length ? true : false;
     if (card) {
       hasCard
@@ -624,7 +855,6 @@ var ajaxCart = (function(module, $) {
     }
 
     $(document).on('change', '.js-card', toggleProduct);
-
   };
 
   addCard();
@@ -685,11 +915,18 @@ var ajaxCart = (function(module, $) {
     });
 
     // Save note anytime it's changed
-    $body.on('change', 'textarea[name="note"]', function() {
+    $body.on('change', 'textarea[name="attributes[giftMessage]"]', function() {
+      var newNote = $(this).val();
+      // Update the cart note in case they don't click update/checkout
+      ShopifyAPI.updateGiftMessage(newNote, function(cart) {});
+    });
+
+    // Save engraving note anytime it's changed
+    $body.on('change', '.custom-engraving', function() {
       var newNote = $(this).val();
 
       // Update the cart note in case they don't click update/checkout
-      ShopifyAPI.updateCartNote(newNote, function(cart) {});
+      ShopifyAPI.updateEngravingNote(newNote, function(cart) {});
     });
   };
 
@@ -836,8 +1073,16 @@ var ajaxCart = (function(module, $) {
 
   module = {
     init: init,
-    load: loadCart
+    load: loadCart,
+    cartUpdateCallback: cartUpdateCallback,
+    itemAddedCallback: itemAddedCallback
   };
+
+  if (location.pathname === "/cart" ) {
+  $(document).ready(function(){
+    ShopifyAPI.getCart(buildCart);
+  });
+  }
 
   return module;
 

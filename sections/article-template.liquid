@@ -46,7 +46,7 @@
         {% include "filter-rias-img-url" input: image %}
         {% assign image_url = output %}
         <div class="">
-          <div class="image-placeholder-cover box-ratio article-feature-image" style="padding-bottom: 70vh">
+          <div class="image-placeholder-cover box-ratio article-feature-image">
             <img
               data-src="{{ image_url }}"
               data-ratio="{{ image.aspect_ratio }}"

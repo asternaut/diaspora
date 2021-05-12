@@ -1,0 +1,73 @@
+<!-- bundler-item -->
+{% assign in_stock = false %}
+{% assign productSize = "" %}
+
+{% if variant.metafields.custom_fields["product_size"] != blank %}
+  {% assign productSize = variant.metafields.custom_fields["product_size"] %}
+{% else %}
+  {% assign productSize = product.metafields.custom_fields["product_size"] %}
+{% endif %}
+
+{%- if variant.available -%}
+  {% assign in_stock = true %}
+{%- endif -%}
+
+{%- if variant.metafields.custom_fields["show_in_bundler"] == 1 or product.has_only_default_variant -%}
+  {% assign bundle_price = variant.price | minus: 83 %}
+    <div
+      class="bundler__product js-bundler-card {% if in_stock == false %} out-of-stock {% endif %}"
+      data-title="{{product.title}}{% if productSize %} - {{ productSize }} {% endif %}"
+      data-variant-id="{{ variant.id }}"
+      data-price="{{ bundle_price }}"
+      data-jar-image="
+        {%- if product.metafields.custom_fields['jar_image_for_bundler'] -%}
+          {{ product.metafields.custom_fields['jar_image_for_bundler'] }}
+        {%- elsif variant.metafields.custom_fields['jar_image_for_bundler'] -%}
+          {{ variant.metafields.custom_fields['jar_image_for_bundler'] }}
+        {%- endif -%}"
+      >
+      <div class="bundler__product-details">
+        {%- if product.metafields.custom_fields["spice_illustration"] != blank -%}
+          <div class="bundler__product-image">
+            <div class="bundler__product-count js-bundler-count">1</div>
+            <img data-src="{%- if variant.metafields.custom_fields['spice_illustration'] -%} {{variant.metafields.custom_fields['spice_illustration']}} {%- else -%} {{ product.metafields.custom_fields['spice_illustration'] }} {%- endif -%}" alt="illustration of whole spice" class="lazyload">
+          </div>
+        {%- endif -%}
+
+        <div class="bold" style="margin-top: 1em"> {{productSize}}</div>
+
+        {% assign pre_order = product.metafields.custom_fields["pre-order"] %}
+
+        {%- unless pre_order == 1 -%}
+          {% assign pre_order = variant.metafields.custom_fields["pre-order"] %}
+        {%- endunless -%}
+
+        {% if pre_order == 1 and in_stock %}
+
+          {% assign restock_date = product.metafields.custom_fields["restock_date"] %}
+          {%- if restock_date == blank -%}
+            {% assign restock_date = variant.metafields.custom_fields["restock_date"] %}
+          {%- endif -%}
+
+          <div class="title-text font-weight-medium" style="margin-top: 0.75em;">{{ restock_date }} Preorder</div>
+        {%- elsif in_stock -%}
+          <div class="title-text font-weight-medium" style="margin-top: 0.75em;">In Stock</div>
+        {%- else -%}
+          <div class="title-text font-weight-medium" style="margin-top: 0.75em;">Out of Stock</div>
+        {%- endif -%}
+
+
+        <div class="h4">{{product.title}}</div>
+      </div>
+      {%- if in_stock -%}
+        <div class="bundler__product-quantity">
+          <div class=" bundler quantity-input js-bundler-quantity organic-background">
+            <img data-src="{{'quantity-bg.png' | asset_img_url: 'master' }}" alt="" class="not-spice lazyload lazyload-fade">
+            <input type='button' value='-' class='qtyminus qtyadjust-bundler' field='quantity' />
+            <input type="number" id="Quantity" name="quantity" value="0" min="0" class="quantity-selector js-quantityInput" autocomplete="off" readonly>
+            <input type='button' value='+' class='qtyplus qtyadjust-bundler' field='quantity' />
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+{%- endif -%}

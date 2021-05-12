@@ -1,0 +1,30 @@
+<!-- preorder-modal -->
+{% assign in_stock = false %}
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign in_stock = true %}
+  {% endif %}
+{% endfor %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="js-modal modal preorder-modal" data-modal="preorder">
+  <div class="overlay js-modal-trigger" data-modal="preorder"></div>
+  <div class="modal--content">
+
+    <button type="button" class="icon-fallback-text js-modal-trigger modal--close-btn" data-modal="preorder">
+      <svg><use xlink:href="#icon-close"></use></svg>
+      <span class="fallback-text">"Close Modal"</span>
+    </button>
+    <h2 class="pink-text">Your order will ship in:</h2>
+
+    <div class="yellow modal-box mb-sm">
+      <h1 class="pink-text"><span class="js-restock-month"> {{ product.metafields.custom_fields["restock_date"] }} </span> of 2021 </h1>
+      <p class="uppercase margin-none">Approximate Shipment Date</p>
+    </div>
+
+    <p class="bold">That means that orders containing preorder and ready-to-ship items won't be sent until  {{ product.metafields.custom_fields["restock_date"] }} at the earliest.</p>
+
+    <button type="submit" id="modal-atc" name="add"  class="btn-outline btn--full js-modal-trigger {% if template.suffix == 'dabba' or template.suffix == 'bundler-template' %} js-bundler-atc{% else %} js addToCart{% endif %}" data-id="{{ current_variant.id }}" data-modal="preorder">I Understand</button>
+  </div>
+</div>

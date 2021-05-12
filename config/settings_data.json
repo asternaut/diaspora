@@ -1,10 +1,10 @@
 {
   "current": {
-    "color_primary": "#f41f86",
+    "color_primary": "#d5137b",
     "color_body_bg": "#ffffff",
     "color_borders": "#ffde17",
-    "color_header": "#222222",
-    "color_body_text": "#3a3a3a",
+    "color_header": "#080a5c",
+    "color_body_text": "#080a5c",
     "color_button_text": "#ffffff",
     "color_image_cta_background": "#ffffff",
     "color_image_cta_text": "#3a3a3a",
@@ -12,7 +12,7 @@
     "enable_max_width_container": false,
     "max_width_container_background_color": "#ffffff",
     "type_logo": "pt_sans_n4",
-    "type_header": "avenir_next_n4",
+    "type_header": "avenir_next_n7",
     "type_base": "avenir_next_n4",
     "favicon_image": "shopify:\/\/shop_images\/Diaspora_Co_Logo_HiRes_RGB.jpg",
     "cart_notes_enable": false,
@@ -54,22 +54,21 @@
           "transparent_header": false,
           "color_transparent_header_icon": "#ffffff",
           "navigation_style": "links",
-          "color_nav_drawer": "#f41f86",
+          "color_nav_drawer": "#d5137b",
           "color_nav_border": "#383838",
           "color_nav_text": "#ffffff",
-          "nav_linklist": "dev-menu",
-          "catalog_dropdowns": false,
-          "catalog_menu_image": "",
-          "nav_linklist_2": "",
-          "nav_linklist_3": "",
+          "nav_linklist": "main-menu",
+          "featured_product": "masala-dabba",
+          "circletext": "Build Your Own!",
+          "product_title": "Masala Dabba",
+          "catalog_menu_image": "shopify:\/\/shop_images\/dabba-masala.png",
           "logo_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
           "logo_max_width": "280",
           "logo_transparent_image": "shopify:\/\/shop_images\/Diaspora_Logo_White.png",
           "show_announcement_bar": true,
           "notification_bar_enable_currency": false,
           "notification_bar_enable_social": false,
-          "notification_bar_text": "We ship across the USA, UK, EUROPE, AUSTRALIA AND CANADA! CUSTOMS AND DUTIES APPLY! WORLDWIDE SOON!",
-          "notification_bar_link": ""
+          "notification_bar_text": "~ Spring '21 Harvest Pre-Orders ARE LIVE! $100+ ORDERS GET FREE ECONOMY USA SHIPPING! ~"
         }
       },
       "footer": {
@@ -79,7 +78,7 @@
             "type": "store_description",
             "settings": {
               "title": "About",
-              "description_text": "<p>We're building a better spice trade, equitably and deliciously.<\/p>\n<p>We source India's freshest, heirloom, and single-origin spices, directly from our partner farms to bring you next level flavor and fragrance!<\/p>\n<p><\/p>\n<p><\/p>"
+              "description_text": "<p>We&#x27;re building a better spice trade, equitably and deliciously.<\/p><p>We source India&#x27;s freshest, heirloom, and single-origin spices, directly from our partner farms to bring you next level flavor and fragrance!<\/p><p><\/p><p><\/p>"
             }
           },
           "footer-1": {
@@ -92,7 +91,7 @@
             "type": "newsletter",
             "settings": {
               "title": "Newsletter",
-              "newsletter_text": "<p>We write a pretty great newsletter.<\/p>\n<p>Seasonal reading lists, highly cookable recipes, feelings-filled harvest reports, and lots more.<\/p>\n<p>Plus, we hella respect your privacy.<\/p>",
+              "newsletter_text": "<p>We write a pretty great newsletter.<\/p><p>Seasonal reading lists, highly cookable recipes, feelings-filled harvest reports, and lots more.<\/p><p>Plus, we hella respect your privacy.<\/p>",
               "newsletter_button_text": "Subscribe now"
             }
           },
@@ -108,7 +107,7 @@
           "footer-3"
         ],
         "settings": {
-          "enable_payment_icons": false,
+          "enable_payment_icons": true,
           "enable_shop_name": false,
           "color_footer_header": "#ffffff",
           "color_footer_text": "#ffffff",
@@ -122,13 +121,13 @@
           "slideshow-0": {
             "type": "slide",
             "settings": {
-              "slide_image": "shopify:\/\/shop_images\/diasporashopify31.jpg",
+              "slide_image": "shopify:\/\/shop_images\/Diaspora_MasalaDabba_2020_Melati_-10_1.jpg",
               "text_position": "align-center-bottom",
               "button_position": "align-center-button",
               "heading_text": "",
               "page_text": "",
-              "button_cta": "Shop spices",
-              "button_link": "shopify:\/\/collections\/all"
+              "button_cta": "build your dabba",
+              "button_link": "shopify:\/\/products\/masala-dabba"
             }
           }
         },
@@ -150,168 +149,17 @@
       "rich-text": {
         "type": "rich-text",
         "settings": {
-          "title": "",
-          "text": "<p>Decolonizing your spices.&nbsp;<\/p>\n<p><\/p>\n<p>We are a queer, WOC-led business&nbsp;here to put money, equity and power into the hands of small, organic spice farmers that are leading the way in sustainability, regenerative&nbsp;agriculture and truly delicious spices.<\/p>\n<p><\/p>\n<p>Proudly grown in India.&nbsp;<\/p>",
-          "link": "shopify:\/\/collections\/all",
+          "title": "Welcome to the Diaspora",
+          "text": "<p>Building A better spice trade<\/p>",
           "linkText": ""
-        }
-      },
-      "featured-collection": {
-        "type": "collection-list",
-        "disabled": true,
-        "blocks": {
-          "featured-collection-0": {
-            "type": "featured_collection",
-            "settings": {
-              "collection": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "subheading": "",
-              "buttonStyle": "2",
-              "textAlignment": "center"
-            }
-          },
-          "featured-collection-1": {
-            "type": "featured_collection",
-            "settings": {
-              "collection": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "subheading": "",
-              "buttonStyle": "2",
-              "textAlignment": "center"
-            }
-          },
-          "featured-collection-2": {
-            "type": "featured_collection",
-            "settings": {
-              "collection": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "subheading": "",
-              "buttonStyle": "2",
-              "textAlignment": "center"
-            }
-          }
-        },
-        "block_order": [
-          "featured-collection-0",
-          "featured-collection-1",
-          "featured-collection-2"
-        ],
-        "settings": {
-          "collectionlist_title": "",
-          "homepage_collection_block_perrow": "3",
-          "enable_animation": false
-        }
-      },
-      "grid": {
-        "type": "grid",
-        "disabled": true,
-        "blocks": {
-          "grid-0": {
-            "type": "grid-item",
-            "settings": {
-              "image": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "heading": "",
-              "subheading": "",
-              "link": "",
-              "linkText": "",
-              "buttonStyle": "2",
-              "textAlignment": "bottom right"
-            }
-          },
-          "grid-1": {
-            "type": "grid-item",
-            "settings": {
-              "image": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "heading": "",
-              "subheading": "",
-              "link": "",
-              "linkText": "",
-              "buttonStyle": "2",
-              "textAlignment": "center left"
-            }
-          },
-          "grid-2": {
-            "type": "grid-item",
-            "settings": {
-              "image": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "heading": "",
-              "subheading": "",
-              "link": "",
-              "linkText": "",
-              "buttonStyle": "2",
-              "textAlignment": "center"
-            }
-          },
-          "grid-3": {
-            "type": "grid-item",
-            "settings": {
-              "image": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "heading": "",
-              "subheading": "",
-              "link": "",
-              "linkText": "",
-              "buttonStyle": "2",
-              "textAlignment": "center left"
-            }
-          },
-          "grid-4": {
-            "type": "grid-item",
-            "settings": {
-              "image": "",
-              "overlayOpacity": "0.3",
-              "overlayColor": "#000000",
-              "textColor": "#ffffff",
-              "heading": "",
-              "subheading": "",
-              "link": "",
-              "linkText": "",
-              "buttonStyle": "2",
-              "textAlignment": "top left"
-            }
-          }
-        },
-        "block_order": [
-          "grid-0",
-          "grid-1",
-          "grid-2",
-          "grid-3",
-          "grid-4"
-        ],
-        "settings": {
-          "enable_animation": false
-        }
-      },
-      "newsletter": {
-        "type": "newsletter",
-        "disabled": true,
-        "settings": {
-          "homepage_newsletter_title": "Join our newsletter",
-          "homepage_newsletter_body": "<p>Briefly describe your newsletter and write a quick sentence about your commitment to not spamming your subscribers.<\/p>"
         }
       },
       "featured-products": {
         "type": "featured-products",
         "settings": {
-          "collection": "2019-harvest-spices",
+          "collection": "home-page",
           "collection_title": false,
+          "marigold": false,
           "collection_style": "grid__image--caption",
           "featured_products_per_row": "4",
           "featured_rows": "1"
@@ -322,8 +170,7 @@
         "settings": {
           "enable_exit_intent": true,
           "title": "Let's be email friends?",
-          "exit_intent_body": "<p>We write a pretty great newsletter.<\/p>\n<p>First dibs on&nbsp;the latest spice harvests, seasonal reading lists, highly cookable recipes, and very emotional harvest reports! We do it all!&nbsp;<\/p>\n<p>Plus, we hella respect your privacy.<\/p>",
-          "exit_intent_image": ""
+          "exit_intent_body": "<p>We write a pretty great newsletter.<\/p><p>First dibs on the latest spice harvests, seasonal reading lists, highly cookable recipes, and very emotional harvest reports! We do it all! <\/p><p>Plus, we hella respect your privacy.<\/p>"
         }
       },
       "collection-template": {
@@ -344,17 +191,6 @@
       },
       "product-template": {
         "type": "product-template",
-        "blocks": {
-          "1578340071005": {
-            "type": "tab",
-            "settings": {
-              "product_tab_page": "supply-chain"
-            }
-          }
-        },
-        "block_order": [
-          "1578340071005"
-        ],
         "settings": {
           "product-image-background": "#ffc600",
           "margins": true,
@@ -362,6 +198,11 @@
           "product_recipies": true,
           "product_reviews": true,
           "enable_payment_button": false,
+          "circletext": "Wanna upgrade your pantry?",
+          "bundler_link_text_pre": "make it a",
+          "bundler_link_text": "gift box",
+          "bundler_link_text_sub": "save $2.50",
+          "bundler_link": "shopify:\/\/products\/build-your-pack",
           "image_layout_style": "stacked_images",
           "expand_first_tab": true,
           "divider": true
@@ -419,232 +260,6 @@
           "url": ""
         }
       },
-      "1553553135575": {
-        "type": "icon-grid",
-        "blocks": {
-          "1553553161242": {
-            "type": "block-1",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_1_f120d939-ddb5-43cc-a69a-6444688a0afe.jpg",
-              "title": "Fresh",
-              "subtitle": "Guaranteed same-year harvest",
-              "paragraph": "versus spices that can be up to five years old, still sitting on a grocery store shelf."
-            }
-          },
-          "1553553321136": {
-            "type": "block-1",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_2_ac5291fc-51b8-42a7-8745-dd96bb0c0be5.jpg",
-              "title": "Potent",
-              "subtitle": "100% pure heirloom varieties",
-              "paragraph": "versus conventional spices, made of a blend of varieties chosen solely for yield and storability."
-            }
-          },
-          "1553553341502": {
-            "type": "block-2",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_3_0a7ec7d3-4574-4233-9ae8-d8d7cbb5583f.jpg",
-              "title": "Sustainable",
-              "subtitle": "Organically farmed",
-              "paragraph": "versus industrial spice farming sprayed with chemicals, and pesticides."
-            }
-          },
-          "1553553369201": {
-            "type": "block-2",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Diaspora_Co_Lil_Logos_ac6fb24e-23a4-4131-8763-5d74928ce36f.jpg",
-              "title": "EQUITABLE",
-              "subtitle": "Direct-trade, upto 10x premium",
-              "paragraph": "versus conventional supply chains with farmers getting less than 2% of the final revenue."
-            }
-          }
-        },
-        "block_order": [
-          "1553553161242",
-          "1553553321136",
-          "1553553341502",
-          "1553553369201"
-        ],
-        "settings": {
-          "header": "Our Spices Are",
-          "linkText": "Read More",
-          "url": "https:\/\/www.diasporaco.com\/pages\/supply-chain"
-        }
-      },
-      "1556148712906": {
-        "type": "slider",
-        "blocks": {
-          "1556148721394": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Forbes-logo.png",
-              "slide_link": "https:\/\/www.forbes.com\/sites\/mollysprayregen\/2018\/11\/19\/how-sana-javeri-kadri-founder-of-diaspora-co-is-reforming-the-turmeric-industry\/?ss=womenatforbes#7450a6464b3f"
-            }
-          },
-          "1556148730979": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/healthyish-logo.png",
-              "slide_link": "https:\/\/www.bonappetit.com\/story\/wellness-influencers-indian-food"
-            }
-          },
-          "1556809642807": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/stratdropcap.png",
-              "slide_link": "http:\/\/nymag.com\/strategist\/2017\/11\/unique-gifts-that-give-back-for-giving-tuesday-2017.html"
-            }
-          },
-          "1556809681892": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/e3cd1cb9-f04c-4c5e-90df-b0241b8a8dfb--Screen_Shot_2013-07-11_at_5.58.26_PM.png",
-              "slide_link": "https:\/\/food52.com\/blog\/21678-this-turmeric-business-wants-to-help-farmers-in-india"
-            }
-          },
-          "1556809687531": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/new-york-times-logo-png-transparent.png",
-              "slide_link": "https:\/\/www.nytimes.com\/guides\/gifts\/2018-holiday-gift-guide?category=Food+%26+Drink"
-            }
-          },
-          "1564431190154": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/buzzfeed-logo-transparent.png",
-              "slide_link": "https:\/\/www.buzzfeed.com\/jesseszewczyk\/sana-javeri-kadri-diaspora-interview"
-            }
-          },
-          "1564431459392": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/cooking-light-logo.png",
-              "slide_link": "https:\/\/www.cookinglight.com\/cooking-101\/essential-ingredients\/turmeric-for-back-pain-arthritis"
-            }
-          },
-          "1564431484741": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/vice-logo-transparent.png",
-              "slide_link": "https:\/\/www.vice.com\/en_us\/article\/paqz37\/this-24-year-old-started-her-own-turmeric-business-to-help-indian-farmers"
-            }
-          },
-          "1564431711045": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-06_at_1.16.27_PM.png",
-              "slide_link": ""
-            }
-          },
-          "1564431777572": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/3e5078f807f345886c3fa25618875a5d.w3150.h825.jpg",
-              "slide_link": "https:\/\/www.epicurious.com\/ingredients\/its-time-to-start-buying-fair-trade-spices-article"
-            }
-          },
-          "1564431835074": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Unknown-4.png",
-              "slide_link": "https:\/\/civileats.com\/2018\/02\/01\/a-queer-female-entrepreneur-is-taking-back-turmeric-for-indian-farmers\/"
-            }
-          },
-          "1564498588725": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-11_at_11.26.28_PM.png",
-              "slide_link": "https:\/\/www.bonappetit.com\/story\/sana-javeri-kadri"
-            }
-          },
-          "1564499037208": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2019-08-06_at_1.50.13_PM.png",
-              "slide_link": "http:\/\/www.grubstreet.com\/2017\/12\/stephen-satterfield-grub-street-diet.html"
-            }
-          },
-          "1564499159253": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/mw1bfcqefre6jtf8r1aalid81k7s2-c4d2f236d677b00f8e834e4cc08321ba.jpg",
-              "slide_link": "https:\/\/www.foodandwine.com\/cooking-techniques\/meet-makers-sana-javeri-kadri"
-            }
-          },
-          "1564500715213": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/VOGUE_logo_logotype.png",
-              "slide_link": ""
-            }
-          },
-          "1564513405248": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Unknown_9cea6e35-6131-431d-a223-d70cd12f81da.png",
-              "slide_link": "https:\/\/www.thekitchn.com\/sana-javeri-kadri-diaspora-co-interview-268139"
-            }
-          },
-          "1564514704937": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/best-oakland-dog-boarding-award.png",
-              "slide_link": "https:\/\/www.eastbayexpress.com\/oakland\/best-decolonized-food-company\/BestOf?oid=18391884"
-            }
-          },
-          "1564514835807": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Unknown_7291ef80-70a9-4023-84b0-b5013169e5d8.png",
-              "slide_link": "https:\/\/coolhunting.com\/buy\/diaspora-co-tumeric\/"
-            }
-          },
-          "1568675910227": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Unknown_dd0095de-a633-44dc-bb9b-fa48339195ed.png",
-              "slide_link": "https:\/\/www.domino.com\/content\/sana-javeri-kadri-nighttime-routine\/"
-            }
-          },
-          "1579806034415": {
-            "type": "slide",
-            "settings": {
-              "slide_img": "shopify:\/\/shop_images\/Screen_Shot_2020-01-23_at_8.00.08_PM.png",
-              "slide_link": "https:\/\/www.youtube.com\/watch?v=pdF2Zc3SLEQ"
-            }
-          }
-        },
-        "block_order": [
-          "1556148721394",
-          "1556148730979",
-          "1556809642807",
-          "1556809681892",
-          "1556809687531",
-          "1564431190154",
-          "1564431459392",
-          "1564431484741",
-          "1564431711045",
-          "1564431777572",
-          "1564431835074",
-          "1564498588725",
-          "1564499037208",
-          "1564499159253",
-          "1564500715213",
-          "1564513405248",
-          "1564514704937",
-          "1564514835807",
-          "1568675910227",
-          "1579806034415"
-        ],
-        "settings": {
-          "header": "as seen in:",
-          "carousel_autoplay": true,
-          "carousel_dots": false,
-          "carousel_arrows": true,
-          "autoplay_speed": "4000"
-        }
-      },
       "blog-template": {
         "type": "blog-template",
         "settings": {
@@ -662,11 +277,11 @@
         "type": "about",
         "settings": {
           "yellow-image": "shopify:\/\/shop_images\/Photo_Jan_15_10_24_23_PM.jpg",
-          "yellow-text": "The original intent of colonial conquest of the Indian subcontinent was a desire for domination of the spice trade. <br>\n<br>\n600+ years later, as a young woman born and raised in postcolonial Mumbai, working at the intersection of food and culture, I was slowly discovering that not much about that system had changed. <br>\n<br>Farmers made no money, spices changed hands upwards of 10 times between farmer and consumer, and the final spice on the shelf was usually an old, dusty, and flavorless shadow of what it once was.",
-          "orange-text": "Diaspora Co. was founded in 2017 to create a radically new, and equitable vision of the spice trade, decolonizing a commodity back into a seasonal crop, and a broken system into an equal exchange. <br>\n<br>Beyond highlighting gorgeous, indigenous spice varieties, it's also about creating a business for us, by us. Complicating and deepening what “Made in India” means, and how we tell our own stories of freedom, struggle, and diaspora through food.",
+          "yellow-text": "The original intent of colonial conquest of the Indian subcontinent was a desire for domination of the spice trade. <br>\n<br>\nIn late 2016, 600+ years later, as a young woman born and raised in postcolonial Mumbai, working at the intersection of food and culture, I was slowly discovering that not much about that system had changed. <br>\n<br>Farmers made no money, spices changed hands upwards of 10 times between farmer and consumer, and the final spice on the shelf was usually an old, dusty, and flavorless shadow of what it once was.",
+          "orange-text": "Ten wild months that included a one way ticket back to India, intense research, 40+ farm visits, endless un-answered phone calls, wild motorbike rides through farmland, and a lot of processing of doubts and fears later, Diaspora Co. was founded in late 2017 to create a radically new, and equitable vision of the spice trade, decolonizing a commodity back into a seasonal crop, and a broken system into an equal exchange. <br>\n<br>Beyond highlighting gorgeous, indigenous spice varieties, it's also about creating a business for us, by us. Complicating and deepening what “Made in India” means, and how we tell our own stories of freedom, struggle, and diaspora through food.",
           "orange-image": "shopify:\/\/shop_images\/Photo_Jan_15_11_04_54_PM.jpg",
           "pink-image": "shopify:\/\/shop_images\/IMG_1767.JPG",
-          "pink-text": "Today, we work in close partnership with the Indian Council of Agricultural Research to identify and provide ongoing support to our partner farmers, all of whom are on the cutting edge of regenerative, and sustainable agriculture. <br>\n<br>Mr. Chacko in Kerala developed his own heirloom cardamom variety! Mr. Kasaraneni in Andhra Pradesh taught himself organic farming via Youtube and WhatsApp, the first in his entire village to go chemical-free! Our partner farmers are our heroes. <br>\n<br>The future of our food system is BIPOC-led, equitable AF, and decolonizing every step of the way. Get on board. <br>\n<br> - Sana Javeri Kadri, Founder & CEO"
+          "pink-text": "Today, we work in close partnership with the Indian Council of Agricultural Research to identify and provide ongoing support to our partner farmers, all of whom are on the cutting edge of regenerative, and sustainable agriculture. <br>\n<br>Mr. Chacko in Kerala developed his own heirloom cardamom variety! Mr. Kasaraneni in Andhra Pradesh taught himself organic farming via Youtube and WhatsApp, the first in his entire village to go chemical-free! Mr. Sakariya grows indescribably fruity coriander on a guava and sitaphal orchard. Our partner farmers are our heroes. <br>\n<br>\nAs of 2021 we're proud of work with 12 farmers and 320+ farm workers across 6 states. We pay our farm partners an average 6x more than the commodity price, and by the end of this year we aim to provide health insurance to every single farm worker that is part of our rapidly growing supply chain.<br> \n<br>\n- Sana Javeri Kadri, Founder & CEO"
         }
       },
       "supply-chain": {
@@ -679,18 +294,39 @@
       },
       "all-collection": {
         "type": "all-collection",
+        "blocks": {
+          "1600196670697": {
+            "type": "collection",
+            "settings": {
+              "collection": "spices",
+              "hide": false,
+              "collection_layout_style": "fourByThree"
+            }
+          },
+          "1600197349155": {
+            "type": "collection",
+            "settings": {
+              "collection": "tools",
+              "hide": true,
+              "collection_layout_style": "fourByThree"
+            }
+          },
+          "2e5c60a8-5881-416c-8655-1e4b74cae8c1": {
+            "type": "collection",
+            "settings": {
+              "collection": "swag",
+              "hide": false,
+              "collection_layout_style": "fourByThree"
+            }
+          }
+        },
+        "block_order": [
+          "1600196670697",
+          "1600197349155",
+          "2e5c60a8-5881-416c-8655-1e4b74cae8c1"
+        ],
         "settings": {
-          "enable_collection_filtering": false,
-          "enable_collection_sorting": false,
-          "collection_style": "grid__image--caption",
-          "collection_layout_style": "fourByThree",
-          "show_collection_header": false,
-          "show_collection_description": false,
-          "enable_dropshadow": false,
-          "image_alignment": "center",
-          "color_overlay_opacity": "0.8",
-          "color_overlay_color": "#031207",
-          "color_text": "#ffffff"
+          "collection_style": "grid__image--caption"
         }
       },
       "blog-filter": {
@@ -714,18 +350,497 @@
           "feed_width": 100,
           "html_area": "<!-- -->"
         }
+      },
+      "1595346139127": {
+        "type": "featured-product",
+        "settings": {
+          "product": "build-your-pack",
+          "supertext": "The new favorite",
+          "page_text": "<p>We&#x27;ve opened up our Trio to your creative combo-making genius. Shipped in our super cute boxes - perfect for gifting!<\/p>",
+          "reverse": true,
+          "purchase": false,
+          "enable_payment_button": false
+        }
+      },
+      "collection-featured-product": {
+        "type": "collection-featured-product",
+        "blocks": {
+          "1601312748430": {
+            "type": "slide",
+            "settings": {
+              "product": "masala-dabba",
+              "supertext": "Build your own",
+              "page_text": "We partnered with Tiipoi to bring you an heirloom pairing of our single origin Indian spices in an artisanal brass dabba that will last for generations to come!",
+              "purchase": false,
+              "button_link": "shopify:\/\/products\/masala-dabba"
+            }
+          },
+          "ef1b50a9-0f58-4b6d-be4e-99d08101131a": {
+            "type": "slide",
+            "settings": {
+              "product": "build-your-pack",
+              "supertext": "Now with 3 anD 6 Packs!",
+              "page_text": "Save $2.50 when you build your own trio. Shipped in our super cute boxes - perfect for gifting!",
+              "purchase": false,
+              "button_link": "shopify:\/\/products\/build-your-pack"
+            }
+          }
+        },
+        "block_order": [
+          "1601312748430",
+          "ef1b50a9-0f58-4b6d-be4e-99d08101131a"
+        ],
+        "settings": {
+          "enable_ken_burns": false
+        }
+      },
+      "1601326569693": {
+        "type": "featured-dabba",
+        "blocks": {
+          "1601328288176": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_3_2x_fc549448-2614-43de-bd4c-7ea96f72f5f0.png",
+              "bonus_text": "",
+              "spice_title": "Pragati <br> Turmeric",
+              "spice_product": "turmeric"
+            }
+          },
+          "1601328780381": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_4_2x_417a79ce-ddea-4944-84c4-0f48edcd9482.png",
+              "bonus_text": "",
+              "spice_title": "Aranya <br>Pepper",
+              "spice_product": "pepper"
+            }
+          },
+          "1601329115774": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_5_2x_ce70cc3b-e76f-4d3b-afcf-60b9b24b5b54.png",
+              "bonus_text": "",
+              "spice_title": "Baraka <br>Cardamom",
+              "spice_product": "cardamom"
+            }
+          },
+          "1601329414437": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_6_2x_e52180ff-8b3f-4b70-8d31-e332eb9fb7da.png",
+              "bonus_text": "",
+              "spice_title": "Guntur Sannam <br> Chilli Powder",
+              "spice_product": "sannam-chillies"
+            }
+          },
+          "1601329489093": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_7_2x_508564d0-b7b3-420f-bf09-2e89d3b98310.png",
+              "bonus_text": "",
+              "spice_title": "Nandini <br> Coriander",
+              "spice_product": "coriander"
+            }
+          },
+          "1601329514929": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_8_2x_9498d046-0cfe-4c0e-8ccf-e7d68e9eceec.png",
+              "bonus_text": "new!",
+              "spice_title": "Nagauri <br> Cumin",
+              "spice_product": ""
+            }
+          },
+          "1601329558005": {
+            "type": "Spice",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_10_2x_48c079c6-1422-42ab-a4a6-28dedeffd654.png",
+              "bonus_text": "new!",
+              "spice_title": "Kandhamal <br> Black Mustard",
+              "spice_product": ""
+            }
+          }
+        },
+        "block_order": [
+          "1601328288176",
+          "1601328780381",
+          "1601329115774",
+          "1601329414437",
+          "1601329489093",
+          "1601329514929",
+          "1601329558005"
+        ],
+        "settings": {
+          "product": "masala-dabba",
+          "supertext": "Build Your Own",
+          "page_text": "<p>We partnered with <a href=\"https:\/\/tiipoi.com\/\" title=\"Tiipoi\">Tiipoi<\/a> to bring you an heirloom pairing of our single origin Indian spices in an hand-spun brass dabba that will last for generations to come!<\/p>",
+          "arrow_text": "",
+          "purchase": false,
+          "show": false
+        }
+      },
+      "product-template-dabba": {
+        "type": "product-template-dabba",
+        "blocks": {
+          "1601399837819": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_3_2x_fc549448-2614-43de-bd4c-7ea96f72f5f0.png",
+              "spice_title": "Pragati <br> Turmeric",
+              "flavors": "Marigolds ~ Oranges ~ Sunshine ~ Wet Soil",
+              "spice_product": "turmeric",
+              "spice_description": "<p>Grown by the Kasaraneni family amidst marigolds, bananas, and black rice on the 4th generation farm. Whilst Mr. Prabhu Kasaraneni&#x27;s family has been farming for three generations, he is a self taught organic farmer who began growing heirloom Pragati turmeric in 2015, with assistance from the Indian Institute of Spices Research.<\/p>"
+            }
+          },
+          "1601400040428": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_4_2x_417a79ce-ddea-4944-84c4-0f48edcd9482.png",
+              "spice_title": "Aranya <br>Pepper",
+              "flavors": "Fig ~ Citrus ~ Jam ~ Nutmeg",
+              "spice_product": "pepper",
+              "spice_description": "<p>Grown on the Parameswaran family farm, where Parameswaran and his son Akash have been organically farming pepper for over 35 years, amidst passion fruit, tigers (no, really!), and jackfruits. Their Aranya pepper is vine ripened, hand harvested with utmost care, and is unreasonably flavorful. <\/p>"
+            }
+          },
+          "1601400045272": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_5_2x_ce70cc3b-e76f-4d3b-afcf-60b9b24b5b54.png",
+              "spice_title": "Baraka <br>Cardamom",
+              "flavors": "Mint ~ Pine ~ Cacao ~ Licorice",
+              "spice_product": "cardamom",
+              "spice_description": "<p>Grown by the Chacko family amidst black pepper, coffee, and flowers on their estate turned wild food forest! As a pioneer in the natural farming movement, Mr. Chacko is one of the only farmers that has been able to domesticate a wild cardamom variety that thrives without pesticides, and is still beautifully aromatic!<\/p>"
+            }
+          },
+          "1601400051479": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_7_2x_508564d0-b7b3-420f-bf09-2e89d3b98310.png",
+              "spice_title": "Nandini <br> Coriander",
+              "flavors": "Lemony ~ Floral ~ Nutty ~ Fresh Linens",
+              "spice_product": "coriander",
+              "spice_description": "<p>Grown on the Sakariya family farm amidst custard apples, guavas, and heirloom wheat, our beautiful Nandini coriander is named after the Sakariya family&#x27;s beloved cow, the undisputed matriarch of their regenerative farm. It&#x27;s a variety that Dharmesh, a third generation farmer and natural farming expert has keenly developed for its incredible fragrance and vibrant coloring.<\/p>"
+            }
+          },
+          "1601400055356": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_8_2x_9498d046-0cfe-4c0e-8ccf-e7d68e9eceec.png",
+              "spice_title": "Nagauri <br> Cumin",
+              "flavors": "Earthy ~ Smoke ~ Woody ~ Licorice",
+              "spice_product": "nagauri-cumin",
+              "spice_description": "<p>Grown on Prahlad Ramji&#x27;s small family farm in Inana, Rajasthan, this is his first truly organic harvest, as a self taught and passionate natural farmer. His farm is on the edge of the Thar Desert, making it the perfect scorching, arid climate for deeply flavorful cumin. <\/p>"
+            }
+          },
+          "0c8b1d42-d4fd-447a-91f5-4c12e71cec64": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/5_nutmegs_2x_79041e9b-36c8-4fc9-b72e-b7e0f6747aab.png",
+              "spice_title": "",
+              "flavors": "Tobacco ~ Menthol ~ Sweet Potato ~ Molasses",
+              "spice_product": "anamalai-nutmeg",
+              "spice_description": "<p>Grown by Harish Manoj Kumar &amp; Karthikeyan Palaniswamy on their family estate at the base of the Western Ghats alongside their award-winning<a href=\"https:\/\/www.diasporaco.com\/products\/cacao?variant=37523707035819\" title=\"cacao\" target=\"_blank\">Anamalai Cacao<\/a>. Your nutmeg is fully tree ripened for maximum flavor and oil content, which keeps it aromatic in your kitchen for longer! Manoj is a regenerative farmer and has converted the entire estate to be 100% chemical free since 2012, a change that has caused the nutmeg trees with their shallow root systems to really flourish and transform as the soil has gotten more and more nourishment.<\/p>"
+            }
+          },
+          "69d7f7d1-37b1-4ede-9369-0e117751ba92": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/mace_seed_2x_bd6410a9-943f-4c9b-9566-2ceba7e44e59.png",
+              "spice_title": "Anamalai <br> Mace",
+              "flavors": "Raw Mango ~ Fennel ~ Papaya ~ Lemongrass",
+              "spice_product": "anamalai-mace",
+              "spice_description": "<p>Grown by Harish Manoj Kumar &amp; Karthikeyan Palaniswamy on their family estate at the base of the Western Ghats alongside their award-winning<a href=\"https:\/\/www.diasporaco.com\/products\/cacao?variant=37523707035819\" title=\"cacao\" target=\"_blank\">Anamalai Cacao<\/a>. Your nutmeg is fully tree ripened for maximum flavor and oil content, which keeps it aromatic in your kitchen for longer! Manoj is a regenerative farmer and has converted the entire estate to be 100% chemical free since 2012, a change that has caused the nutmeg trees with their shallow root systems to really flourish and transform as the soil has gotten more and more nourishment.<\/p>"
+            }
+          },
+          "a5a5e7fe-9698-4e7f-bf2f-660ae1d32ab6": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/sivathei_chili.png",
+              "spice_title": "Sivathei <br> Chillies",
+              "flavors": "Pineapple ~ Smoke ~ Maple ~ Guava",
+              "spice_product": "sivathei-chillies",
+              "spice_description": "<p>Grown by Zeinorin Angkang and her small collective of neighbors turned organic farmers in the hills of Ukhrul, Manipur alongside indigenous soybeans, rice and yams. These fiery chillies are smoked on bamboo mats over a wood fire to give them their intoxicating fruity, smoky fragrance. Zeinorin is a skilled farmer, business woman and a proud member of the Tangkhul tribe which is why we call these chillies by their Tangkhul name of Sivathei!<\/p>"
+            }
+          },
+          "b796ea2e-20e6-496a-9506-1ccf04541963": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/sirarakhong_chilli.png",
+              "spice_title": "Sirarakhong <br> Chillies",
+              "flavors": "Bacon ~ Chipotle ~ Whiskey ~ Oak",
+              "spice_product": "sirarakhong-chillies",
+              "spice_description": "<p>Proudly grown by a cooperative of farmers in Sirarakhong and sourced for us by our friends Zeinorin &amp; Alan of Hillwild. Legend has it that the villagers&#x27; ancestors found these exquisitely long, vibrant chillies growing in the wild on a hunting trip that they then brought home and have made a part of their daily cuisine ever since. Many nearby villages have tried to grow the Sirarakhong Hathei chillies, but something about the terroir of Sirarakhong produces the very best of the best!<\/p>"
+            }
+          },
+          "a36b71a9-3e6c-41dd-bb5a-627d171a2dc1": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Spice_Illustration_eca7effc-8fa4-4edb-9b0c-65878848ea8f.png",
+              "spice_title": "Kashmiri <br> Chillies",
+              "flavors": "Prune ~ Pineapple ~ Citrus ~ Soy Sauce",
+              "spice_product": "kashmiri-chillies",
+              "spice_description": "<p>Grown by the Farukh family on their ancestral land in Pulwana in the Kashmir valley from seed that has been passed down for generations, alongside purple stripe heirloom garlic. This is true Kashmiri mirch - hot as ever, and with deep color and heat that iconic Kashmiri dishes like our farm partner Bashir Ahmed&#x27;s famous rogan josht is known for.<\/p>"
+            }
+          },
+          "8e6d966c-a465-4a5c-9871-402a09b7e2f6": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Spice_Illustration.png",
+              "spice_title": "Kandyan <br> Cloves",
+              "flavors": "Pine ~ Butterscotch ~ Henna ~ Allspice",
+              "spice_product": "kanyan-cloves",
+              "spice_description": "<p>Grown in the forests of Kandy alongside wild cinnamon, nutmeg, and the biggest jackfruits you have ever seen. These plump, oil-rich gems are hand-harvested and hand-sorted for us by our friends at Eko Land Produce, a community of organic farmers from the heart of Sri Lanka!<\/p>"
+            }
+          },
+          "e269c5f5-17c1-40a0-b43b-2863b186b9c4": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/ginger_root_2x_50cea02d-3f67-4c67-9812-1bc9d8018a0d.png",
+              "spice_title": "Makhir <br> Ginger",
+              "flavors": "Treacle ~ Lemongrass ~ Warm Bread ~ Hachiya Persimmon",
+              "spice_product": "makhir-ginger",
+              "spice_description": "<p>Grown by a small group of organic farmers in the Jaintia hills alongside Lakadong turmeric and black sesame. This wildly strong, surprisingly tiny heirloom ginger variety (Makhir means small in Khasi!) is sourced for us by our friends at Zizira, a small team of Meghalaya locals dedicated to connecting Meghalayan farmers to better markets. Besides sheer potency, it&#x27;s also more caramel-y and aromatic than any ginger you&#x27;ve ever tried!<\/p>"
+            }
+          },
+          "ef0dedc4-9c91-457d-a3e1-d4f9a4f87bee": {
+            "type": "product",
+            "settings": {
+              "spice_image": "shopify:\/\/shop_images\/Mask_Group_5_2x_ce70cc3b-e76f-4d3b-afcf-60b9b24b5b54.png",
+              "spice_title": "Iniya <br> Cardamom",
+              "flavors": "Mint ~ Pine ~ Cacao ~ Licorice",
+              "spice_product": "iniya-cardamom",
+              "spice_description": "<p>Grown by husband &amp; wife duo Dr. Elango &amp; Dr. Susitra on their lush estate in the Kolli HIlls amidst cloves, nutmeg, and pepper. This is India&#x27;s only USDA certified organic cardamom, a testament to the decades of investment and care that our doctor-farmer heroes have put in to make this high yielding Njallani variety thrive sans chemical inputs!<\/p>"
+            }
+          }
+        },
+        "block_order": [
+          "1601399837819",
+          "1601400040428",
+          "1601400045272",
+          "1601400051479",
+          "1601400055356",
+          "0c8b1d42-d4fd-447a-91f5-4c12e71cec64",
+          "69d7f7d1-37b1-4ede-9369-0e117751ba92",
+          "a5a5e7fe-9698-4e7f-bf2f-660ae1d32ab6",
+          "b796ea2e-20e6-496a-9506-1ccf04541963",
+          "a36b71a9-3e6c-41dd-bb5a-627d171a2dc1",
+          "8e6d966c-a465-4a5c-9871-402a09b7e2f6",
+          "e269c5f5-17c1-40a0-b43b-2863b186b9c4",
+          "ef0dedc4-9c91-457d-a3e1-d4f9a4f87bee"
+        ],
+        "settings": {
+          "supertext": "Build Your Own",
+          "description": "",
+          "product_related": true,
+          "product_recipies": true,
+          "enable_payment_button": false,
+          "collection": "build-your-pack",
+          "jar_illustration": "shopify:\/\/shop_images\/Small_Jar.png"
+        }
+      },
+      "1603821549de9410c2": {
+        "type": "brand-logos",
+        "blocks": {
+          "1603821549de9410c2-0": {
+            "type": "brand",
+            "settings": {
+              "brandLogo": "shopify:\/\/shop_images\/new-york-times-logo-png-transparent.png",
+              "logoWidth": ""
+            }
+          },
+          "0deea2e2-9edf-402a-b61d-1bdd524c9820": {
+            "type": "brand",
+            "settings": {
+              "brandLogo": "shopify:\/\/shop_images\/Forbes-logo.png",
+              "logoWidth": "200"
+            }
+          },
+          "1603821549de9410c2-1": {
+            "type": "brand",
+            "settings": {
+              "brandLogo": "shopify:\/\/shop_images\/mw1bfcqefre6jtf8r1aalid81k7s2-c4d2f236d677b00f8e834e4cc08321ba.jpg",
+              "logoWidth": "200"
+            }
+          },
+          "fd8b8457-28c7-4643-ad0f-e8068193df48": {
+            "type": "brand",
+            "settings": {
+              "brandLogo": "shopify:\/\/shop_images\/Screen_Shot_2019-08-11_at_11.22.45_PM.png",
+              "logoWidth": "200"
+            }
+          }
+        },
+        "block_order": [
+          "1603821549de9410c2-0",
+          "0deea2e2-9edf-402a-b61d-1bdd524c9820",
+          "1603821549de9410c2-1",
+          "fd8b8457-28c7-4643-ad0f-e8068193df48"
+        ],
+        "settings": {
+          "title": "as seen in",
+          "subheading": "",
+          "linkText": ""
+        }
+      },
+      "1603821583a79f5e53": {
+        "type": "story-grid",
+        "blocks": {
+          "1603821583a79f5e53-0": {
+            "type": "content_block",
+            "settings": {
+              "block_image": "shopify:\/\/shop_images\/decolonize_image_2x_55c3a6e9-690e-4348-88d0-03935f2f30bc.png",
+              "layout": "half-half",
+              "image_position": "left",
+              "text_alignment": "left",
+              "text_header": "Our Origin Story",
+              "text_body": "<p>Diaspora Co. was founded by 3rd gen Mumbai native, Sana Javeri Kadri in 2017 to build a more equitable and delicious spice trade that championed her heroes - Indian farmers leading the way on sustainable agriculture. We are a company as built for and by passionate home cooks, putting flavor at the tippy top of absolutely everything we do! <\/p>",
+              "button_cta": "Learn More",
+              "button_link": "https:\/\/www.diasporaco.com\/pages\/about",
+              "border_override": false
+            }
+          }
+        },
+        "block_order": [
+          "1603821583a79f5e53-0"
+        ],
+        "settings": {
+          "header_color": "#ffde17",
+          "text_color": "#ffffff",
+          "background_color": "#f41f86"
+        }
+      },
+      "160382178644a243f6": {
+        "type": "slideshow",
+        "blocks": {
+          "160382178644a243f6-0": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify:\/\/shop_images\/984A7223-2.jpg",
+              "text_position": "align-center-bottom",
+              "button_position": "align-right-button",
+              "heading_text": "",
+              "page_text": "",
+              "button_cta": ""
+            }
+          }
+        },
+        "block_order": [
+          "160382178644a243f6-0"
+        ],
+        "settings": {
+          "enable_ken_burns": false,
+          "enable_progress_bar": true,
+          "enable_dropshadow": false,
+          "color_overlay_opacity": "0",
+          "color_overlay_color": "#031207",
+          "progress_bar_color": "rgba(0,0,0,0)",
+          "enable_color": false,
+          "heading_color": "rgba(0,0,0,0)",
+          "controls_color": "#ffffff"
+        }
+      },
+      "160382831484097d11": {
+        "type": "attribute-banner",
+        "blocks": {
+          "d7ef4347-b18a-4895-8d51-470fc73ccdea": {
+            "type": "text",
+            "settings": {
+              "attribute": "Grown for Flavor"
+            }
+          },
+          "cca517b8-32b8-4150-9c10-3adc705eb63c": {
+            "type": "text",
+            "settings": {
+              "attribute": "Rooted in Equity"
+            }
+          }
+        },
+        "block_order": [
+          "d7ef4347-b18a-4895-8d51-470fc73ccdea",
+          "cca517b8-32b8-4150-9c10-3adc705eb63c"
+        ],
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Group_816.png",
+          "image_m": "shopify:\/\/shop_images\/Group_515.png",
+          "top_margin": true,
+          "bottom_margin": false
+        }
+      },
+      "bundler": {
+        "type": "bundler",
+        "settings": {
+          "collection": "build-your-pack",
+          "jar_illustration": "shopify:\/\/shop_images\/Small_Jar.png",
+          "product_related": true
+        }
+      },
+      "collab-slider": {
+        "type": "collab-slider",
+        "blocks": {
+          "d956150d-fa43-4044-a5de-f61c1a997c61": {
+            "type": "slide",
+            "settings": {
+              "product_image": "shopify:\/\/shop_images\/Diaspora_TurmericChai_MelatiCitrawireja_web_800x_8cd690e1-6b69-437f-a1ae-aac1c14a7b35.png",
+              "product_title": "One Stripe Chai's Haldi Doodh",
+              "product_description": "<p>So very proud to be partnering with a fellow desi woman led biz like <a href=\"https:\/\/www.onestripechai.com\" title=\"one strip website\">One Stripe Chai Co.<\/a> to reclaim the drink that started it all - the turmeric latte ft. our gorgeous Pragati Turmeric!<\/p>",
+              "button_text": "Shop on one stripe chai",
+              "button_link": "https:\/\/www.onestripechai.com\/buychai\/itshaldidoodh"
+            }
+          },
+          "9b22f0c5-3cc5-4903-a5a3-b26401734dab": {
+            "type": "slide",
+            "settings": {
+              "product_image": "shopify:\/\/shop_images\/2_800x_aeb3de53-91fd-4b69-99ab-84222d489e26.png",
+              "product_title": "Shaquanda's Turmeric Hot Pepper Sauce",
+              "product_description": "<p>It wouldn&#x27;t be an exaggeration to say that this might be our favorite hot sauce on earth. Made with our Pragati Turmeric, this hot sauce is Brooklyn, Barbados and Bombay rolled into one!<\/p>",
+              "button_text": "Shop on Shaquanda Will Feed You",
+              "button_link": "https:\/\/shaquandawillfeedyou.com\/collections\/frontpage\/products\/hot-pepper-sauce"
+            }
+          },
+          "3c1fcba5-6ae6-47d0-a8c0-38681d3c3b5e": {
+            "type": "slide",
+            "settings": {
+              "product_image": "shopify:\/\/shop_images\/Diaspora_CurryBrick_Melati_1_800x_2aa03dba-2f1e-4bca-a68d-5f4337dc5fdb.png",
+              "product_title": "Sonoko's Japanese Curry Brick Kit",
+              "product_description": "<p>Our friend Sonoko is a phenomenal Japanese cooking teacher, <a href=\"https:\/\/bookshop.org\/a\/7267\/9781611806168\" title=\"Sonoko&#x27;s Cookbook\" target=\"_blank\">author<\/a> and creator of the homemade curry brick that the NYT calls &quot;<a href=\"https:\/\/www.nytimes.com\/2019\/09\/11\/magazine\/japanese-curry-bricks-recipe.html\" title=\"Tejal Rao on Sonoko&#x27;s Curry Bricks\" target=\"_blank\">the secret to Japanese comfort food on demand<\/a>&quot;. The hardest part of which is procuring all the spices, so we did that for you!<\/p>",
+              "button_text": "Shop on Sonoko Sakai",
+              "button_link": "https:\/\/www.sonokosakai.com\/shop\/curry-brick-kit"
+            }
+          },
+          "5c81be1e-6d7a-42f3-9aac-13f43e7c7505": {
+            "type": "slide",
+            "settings": {
+              "product_image": "shopify:\/\/shop_images\/popcorn-seasoning_800x_83ee32c7-0af0-40e2-b07d-e99c70862c4d.png",
+              "product_title": "Turmeric Popcorn Spice",
+              "product_description": "<p>We came up with this recipe over a year ago whilst trying to find delicious ways to showcase our turmeric. It&#x27;s cheesy, earthy, salty goodness - and when popped in ghee (do it!), it&#x27;s truly perfect. <\/p>",
+              "button_text": "Shop on Jacobson Salt Co",
+              "button_link": "https:\/\/jacobsensalt.com\/products\/turmeric-popcorn-seasoning?_pos=1&_sid=6b6be1507&_ss=r"
+            }
+          }
+        },
+        "block_order": [
+          "d956150d-fa43-4044-a5de-f61c1a997c61",
+          "9b22f0c5-3cc5-4903-a5a3-b26401734dab",
+          "3c1fcba5-6ae6-47d0-a8c0-38681d3c3b5e",
+          "5c81be1e-6d7a-42f3-9aac-13f43e7c7505"
+        ],
+        "settings": {
+          "title": "Collaborations",
+          "description": "<p>We collaborate with BIPOC-led businesses on delicious food products that spotlight our spices and champion a new maker that we feel in community with! <\/p>"
+        }
       }
     },
     "content_for_index": [
       "slideshow",
       "rich-text",
-      "grid",
-      "featured-collection",
-      "newsletter",
       "featured-products",
-      "1553553135575",
-      "1594151474222",
-      "1556148712906"
+      "160382831484097d11",
+      "160382178644a243f6",
+      "1601326569693",
+      "1595346139127",
+      "1603821583a79f5e53",
+      "1603821549de9410c2",
+      "1594151474222"
     ]
   },
   "presets": {
@@ -1153,8 +1268,6 @@
             "color_nav_border": "#383838",
             "color_nav_text": "#ffffff",
             "nav_linklist": "main-menu",
-            "nav_linklist_2": "",
-            "nav_linklist_3": "",
             "logo_image": "",
             "logo_max_width": "300",
             "logo_transparent_image": "",
@@ -1542,8 +1655,6 @@
             "color_nav_drawer": "#1f1f1f",
             "color_nav_border": "#383838",
             "color_nav_text": "#ffffff",
-            "nav_linklist_2": "",
-            "nav_linklist_3": "",
             "logo_image": "",
             "logo_max_width": "300",
             "logo_transparent_image": "",

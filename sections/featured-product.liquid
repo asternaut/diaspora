@@ -26,120 +26,17 @@
 
     <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
     <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+    
+    {%- style -%}
+    .background-illustration:before {
+    background-image: url({{product.metafields.custom_fields["lefti_image"]}});
+    }
+    .background-illustration:after {
+    background-image: url({{product.metafields.custom_fields["right_image"]}});
+    }
+    {%- endstyle -%}
 
-    <div class="grid--inline product-single">
-
-      <div class="grid__item xxlarge--one-half xlarge--one-half large--one-half text-center" id="PhotoContent">
-
-        <div class="product-single__photos large--one-whole">
-          <div class="image-container">
-            {% if product.images != blank %}
-                {% for image in product.images %}
-                {% include "filter-rias-img-url" input: image %}
-                {% assign image_url = output %}
-
-                <img
-                  data-src="{{ image_url }}"
-                  data-sizes="auto"
-                  class="lazyload lazypreload lazyload-fade"
-                  id="ProductPhotoImg"
-                  alt="{{ image.alt | escape }}"
-                  {% unless forloop.first %}style="display: none;"{% endunless %}
-                  data-product-image
-                  data-image-id="{{ image.id }}">
-
-                <noscript>
-                  <img src="{{ image | img_url: '1000x' }}" alt="{{ image.alt }}" />
-                </noscript>
-              {% else %}
-                <img src="//cdn.shopify.com/s/images/themes/product-1.png">
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
-
-      </div>
-
-      <div class="grid__item xxlarge--one-half xlarge--one-half large--one-half" id='sidebarColumn'>
-        <div class="sidebarColumn-inner">
-          <div class="content-wrapper--title js-fix-on-scroll--target fix-on-scroll--large-only">
-
-            <h1 itemprop="name" class='medium-down--text-center product-title'>
-              <a href="{{ product.url }}">{{ product.title }}</a>
-            </h1>
-
-            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-              <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-              <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
-
-              <div class="product-form form-vertical">
-                {% form 'product', product, data-productid: product.id %}
-<!-- Begin ReCharge code -->
-{% if product.available %}{% include 'subscription-product' %}{% endif %}
-<!-- End ReCharge code -->
-
-                  <p class="medium-down--text-center">
-                    <span class='faded medium-down--text-center money' itemprop="price" data-product-price>
-                      {% if settings.currency_format == "money_format" %}
-                        {{ wh_v_price | money }}
-                      {% else %}
-                        {{ wh_v_price | money_with_currency }}
-                      {% endif %}
-                    </span>
-                    {% if wh_compare_at_price_max > wh_price %}
-                      <span class='strikethrough faded medium-down--text-center money' data-compare-price>
-                        {% if settings.currency_format == "money_format" %}
-                          {{ wh_v_compare_at_price | money }}
-                        {% else %}
-                          {{ wh_v_compare_at_price | money_with_currency }}
-                        {% endif %}
-                      </span>
-                    {% endif %}
-                  </p>
-
-                  <div class="product-selectors">
-                    <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="product-single__variants">
-                      {% for variant in product.variants %}
-{% include 'wh_variant' with variant, in_loop: true %}
-                        {% if variant.available %}
-                          <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">
-                            {{ variant.title }} - {{ loop_wh_v_price | money_with_currency }}
-                          </option>
-                        {% else %}
-                          <option disabled="disabled">
-                            {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                          </option>
-                        {% endif %}
-                      {% endfor %}
-                    </select>
-
-                    <label for="Quantity" class="quantity-selector">
-                      {{ 'products.product.quantity' | t }}
-                    </label>
-
-                    <input type="number" name="quantity" value="1" min="1" class="quantity-selector" autocomplete="off">
-
-                    <button type="submit" name="add" class="btn {% if section.settings.enable_payment_button %}btn-secondary{% endif %}">
-                      <span data-add-to-cart-text>{{ 'products.product.add_to_cart' | t }}</span>
-                    </button>
-
-                    {% if section.settings.enable_payment_button %}
-                      {{ form | payment_button }}
-                    {% endif %}
-                  </div>
-                {% endform %}
-              </div>
-            </div>
-
-            <div class="product-description-wrapper">
-              <div class="product-description rte" id="description" itemprop="description">
-                {{ product.description | strip_html }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% include 'featured-product-panel'%}
   </div>
 
 {% else %}
@@ -188,12 +85,34 @@
 {% schema %}
   {
     "name": "Featured product",
-    "class": "featured-product",
+    "class": "featured-product product-pages",
     "settings": [
       {
         "type": "product",
         "id": "product",
         "label": "Product"
+      },
+      {
+        "type": "text",
+        "id": "supertext",
+        "label": "Pre Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "page_text",
+        "label": "Short product description"
+      },
+      {
+        "type": "checkbox",
+        "id": "reverse",
+        "label": "Reverse layout on desktop",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "purchase",
+        "label": "Allow add to cart from page",
+        "default": true
       },
       {
         "type": "checkbox",

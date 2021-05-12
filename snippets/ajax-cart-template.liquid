@@ -8,80 +8,119 @@
 {% endcomment %}
   <script id="CartTemplate" type="text/template">
   {% raw %}
-
       <div class="ajaxcart__inner">
-        {% endraw %}
-        <div class='clearfix ajaxcart__header'>
-          <span class='floatL mobile-nav__header'>{{ 'cart.general.cart' | t }}</span>
-        </div>
-        {% raw %}
-        {{#items}}
-        <div class="ajaxcart__product">
-          <div class="ajaxcart__row" data-id="{{id}}" data-line="{{line}}">
-            <div class="grid">
-              <div class="grid__item one-third">
-                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+          {{#items}}
+          {{!-- AA: commented out
+            {{#if dabba }}
+              <div style="background: deeppink;
+                          padding: 0.5em 1em;
+                          font-size: 14px;
+                          font-weight: 500;
+                          line-height: 1.4em;">
+                <strong> Masala Dabbas must be preordered by themselves only. </strong> Please do not check out with anything else in your cart, or we will have to refund you.
               </div>
-              <div class="grid__item two-thirds table--full-height">
+             {{/if}}
+          --}}
+          <div class="ajaxcart__product">
+            <div class="ajaxcart__row {{#if preorder}} js-preorder-item {{/if}}" data-id="{{id}}" data-variant-id="{{variantId}}" data-line="{{line}}">
+              <div class="grid">
+                <div class="grid__item one-third">
+                  <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+                </div>
+                <div class="grid__item two-thirds table--full-height">
 
-                {{!-- We use one <p> tag here because we want the styling of one
-                multi-line paragraph, not three paragraphs.  It keeps our CSS much
-                more consistent to not make custom paragraph rules for the cart.--}}
+                  {{!-- We use one <p> tag here because we want the styling of one
+                  multi-line paragraph, not three paragraphs.  It keeps our CSS much
+                  more consistent to not make custom paragraph rules for the cart.--}}
 
-                <div class='display-table-cell '>
-                  <div class="cart-flex">
-                    <p class="cart-text"><a href="{{url}}" class='bold ajaxcart__product-title'>{{name}}</a>
+                  <div class='display-table-cell '>
+                    {{#if preorder}}
+                      <div class="preorder--badge">{{shippingMessage}}</div>
+                    {{ else }}
+                      <div class="instock--badge">{{shippingMessage}}</div>
+                    {{/if}}
+                    <div class="cart-flex">
+                      <p class="cart-text">
+                        <a href="{{url}}" class='bold ajaxcart__product-title'>{{name}}</a>
 
-                    <span class="ajaxcart__product-price">
-                      {{#if priceZero}}
-                        {{#if description}} {{description}} {{ else }} Free {{/if}}
-                      {{ else }}
-                        {{#if wholesale}} Price shown at checkout {{ else }} {{{price}}} {{/if}}
+                      <span class="ajaxcart__product-price">
+                        {{#if priceZero}}
+                          {{#if description}} {{description}} {{ else }} Free {{/if}}
+                        {{ else }}
+                          {{#if wholesale}} Price shown at checkout {{ else }} {{{price}}} {{/if}}
+                        {{/if}}
+                      </span>
+
+                      {{#if variation}}
+                        <span class="ajaxcart__product-meta">{{variation}}</span>
                       {{/if}}
-                    </span>
 
-                    {{#if variation}}
-                      <span class="ajaxcart__product-meta">{{variation}}</span>
-                    {{/if}}
-                    {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
-                      <span class="ajaxcart__product-meta">{{ vendor }}</span>
-                    {% endraw %}{% endif %}{% raw %}
+                      {{!-- Bundler Properties --}}
 
-                    {{#if promotion}}
-                    <div class="ajaxcart__qty">
-                      <input  class='faded' value={{itemQty}} disabled>
+                       {{#each bundlerProperties}}
+                         <span class="ajaxcart__product-price {{#if byot}} js-bundler-property {{/if}}">{{quantity}}x {{title}}</span>
+                       {{/each}}
+
+                      {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                        <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                      {% endraw %}{% endif %}{% raw %}
+
+                      {{#if promotion}}
+                      <div class="ajaxcart__qty">
+                        <input  class='faded' value={{itemQty}} disabled>
+                      </div>
+                      {{else}}
+                      <div class="ajaxcart__qty">
+                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemMinus}}">&minus;</button>
+                        <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{id}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                        <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemAdd}}">+</button>
+                      </div>
+                      {{/if}}
                     </div>
-                    {{else}}
-                    <div class="ajaxcart__qty">
-                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemMinus}}">&minus;</button>
-                      <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{id}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
-                      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus" data-id="{{id}}" data-line="{{line}}" data-qty="{{itemAdd}}">+</button>
-                    </div>
+               <!--     {{#if properties}}
+                        {{#each properties}}
+                          {{@key}}: {{this}}
+                          <br />
+                        {{/each}}
                     {{/if}}
+
+                    {{# unless properties}}
+                      <br />
+                    {{/unless}} -->
+                    {{!-- AA: commented out
+                    {{#if dabba}}
+                      <div>
+                        <label style="
+                            color: #f41f86;
+                            margin-bottom: 0;
+                            font-size: 0.9em;
+                            margin-top: 5px;
+                        "
+                        >Custom Engraving Text</label>
+                        <input type="text" name="attributes[engravingText]" maxlength="25" value="{{ attributes.engravingText }}" placeholder="Custom Engraving Text (Optional)" class="custom-engraving" />
+                        <div style="    color: #369988;
+                            line-height: 1.2em;
+                            font-weight: 500;
+                            font-size: 0.9em;
+                            margin-top: 5px;
+                            margin-bottom: 5px;"
+                            > Engraved orders cannot be cancelled or refunded except in extenuating circumstances (fire, job loss... it's 2020, we get it). </div>
+                      </div>
+                    {{/if}}
+                    --}}
+
+                    <a class='accent remove pointer js-remove-from-cart' data-id="{{id}}" data-line="{{line}}" href="javascript:void(0);">{% endraw %}{{ 'cart.general.remove' | t}}{% raw %} Item</a>
+                    </p>
                   </div>
-             <!--     {{#if properties}}
-                      {{#each properties}}
-                        {{@key}}: {{this}}
-                        <br />
-                      {{/each}}
-                  {{/if}}
-
-                  {{# unless properties}}
-                    <br />
-                  {{/unless}} -->
-
-                  <a class='accent remove pointer js-remove-from-cart' data-id="{{id}}" data-line="{{line}}" href="javascript:void(0);">{% endraw %}{{ 'cart.general.remove' | t}}{% raw %}</a>
-                  </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        {{/items}}
+          {{/items}}
 
         {{#unless items.length}}
           {% endraw %}
-            <div class="ajaxcart__empty">
+            <div class="ajaxcart__empty center">
               {{ 'cart.general.empty' | t }}
             </div>
           {% raw %}
@@ -90,9 +129,11 @@
       </div>
 
       <div class="ajaxcart__footer">
+        {{#if items}}
 
-        <div class="ajaxcart__promo">
-          {{#if promotions}} <h2 class="text-center">We appreciate you!</h2> <p class="text-center"> <small>  So now you can add these "optional" must-haves to your order for free! Go on, we know how cute our spice map would look on your fridge! :)</small></p>  {{/if}}
+      {{!-- TS: commented out
+      <div class="ajaxcart__promo">
+          {{#if promotions}} <h2 class="text-center">We appreciate you!</h2> <p class="text-center"> <small>  You can add these "optional" must-haves to your order for free! Go on, we know how cute our spice magnets would look on your fridge! :)</small></p>  {{/if}}
           {{#promotions}}
             <form method="post" action="/cart/add" data-productid="{{product}}" class="shopify-product-form">
               <div class="promo__item">
@@ -111,8 +152,25 @@
             </form>
           {{/promotions}}
         </div>
+      --}}
+          {{#if shippingMessage}}
+            <p class="ajaxcart__shipping-message">{{ shippingMessage }}</p>
+          {{/if}}
 
-      <div class="cart__bottom">
+          {{#if hasPreorderAndReady }}
+            {{#if preorderMonth }}
+              <div class="yellow ajaxcart__preorder-message">
+                <p class="pink-text">You have <strong>preorder</strong> and <strong>ready-to-ship</strong> items in your cart. Because of this, <strong>the entire order will not ship until {{ preorderMonth }} 2021</strong>. You cannot make any edits to preorders other than address changes. </p>
+                <button name="remove-pre" class="btn-outline bold btn--full js-remove-preorders">Ship Now: Remove Preorders </button>
+              </div>
+            {{/if}}
+          {{/if}}
+        <!-- /if items -->
+        {{/if}}
+
+
+      <div class="{{#if items}} cart__bottom {{/if}}">
+        {{#if items}}
         <div class="grid--full">
           <!-- <div class="grid__item two-thirds">
             <p><strong>{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</strong></p>
@@ -120,7 +178,7 @@
           <div class="grid__item one-third text-right js-total-price">
             <p><strong> {{{totalPrice}}}</strong></p>
           </div> -->
-          <div class=" cart-message grid__item">
+           <div class=" cart-message grid__item">
             <label class="check-container">
               <span>Would you like to add a handwritten limited edition card for $4 more?</span>
 
@@ -128,7 +186,7 @@
               <input type="checkbox" class="check-checkbox js-card" checked="checked">
               <span class="check-checkmark"></span>
               <div class=" js-message js-gift-toggle lead-half ajax-cart-message">
-                <textarea id="CartSpecialInstructions" class="gift-message js-message-string" name="note" placeholder="Your message (365 characters max)" maxlength="365" required>{{ cart.note }}</textarea>
+                <textarea id="CartSpecialInstructions" class="gift-message js-message-string" name="attributes[giftMessage]" placeholder="Your message (365 characters max)" maxlength="365" value="{{giftMessage}}" required>{{ giftMessage }}</textarea>
               </div>
               {{else}}
                 <input type="checkbox" class="check-checkbox js-card" >
@@ -140,10 +198,9 @@
         </div>
 
         <form action="/cart" method="post" novalidate class="cart js-checkout">
-          <input type="submit" name="checkout" class="btn btn--full cart__checkout {{#if cartHasSubscription }}js-recharge-redirect{{/if}}" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} - {{{totalPrice}}}" {{#unless items.length}}disabled{{/unless}}>
+          <input type="submit" name="checkout" class="btn btn--full cart__checkout {{#if cartHasSubscription }}js-recharge-redirect{{/if}}" value="{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %} • {{totalPrice}}"{{#unless items.length}}disabled{{/unless}} >
         </form>
-         <!-- {% endraw %}
-        <div class="cart__checkout-additional">{{ content_for_additional_checkout_buttons }}</div>{% raw %} -->
+        {{/if}}
 
 
         {% endraw %}

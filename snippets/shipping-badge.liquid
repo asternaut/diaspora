@@ -1,0 +1,22 @@
+{% assign in_stock = false %}
+
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign in_stock = true %}
+  {% endif %}
+{% endfor %}
+
+{% if product.metafields.custom_fields["pre-order"] == 1 and in_stock %}
+  <!-- if product is checked preorder -->
+  <div class="preorder--badge">{{ product.metafields.custom_fields["restock_date"] }} Preorder</div>
+{%- elsif in_stock -%}
+  <!-- if product is in stock / not preorder -->
+  <div class="instock--badge">Ready to Ship</div>
+
+{%- elsif product.metafields.custom_fields["coming_soon"] == 1 -%}
+  <!-- if product is not stock / not preorder -->
+    <div class="coming_soon--badge h6 js-shipping-badge {% unless current_variant.id == variant.id %}hide{% endunless %}" data-variant-id="{{ variant.id }}">Coming {% if restock_date == blank %} soon {% else %} in {{ restock_date }} {% endif %} </div>
+{%- else -%}
+  <!-- sold out -->
+  <div class="sold-out--badge">Sold Out {% if product.metafields.custom_fields["restock_date"] %} until {{ product.metafields.custom_fields["restock_date"] }} {% endif %} </div>
+{% endif %}

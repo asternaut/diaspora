@@ -1,59 +1,9 @@
 <div class="grid--full wrapper wholesale-form">
   <h1> Wholesale Signup </h1>
 
-  {% form 'contact' %}
+  <p> Interested in our wholesale program? Glad you asked! Just click "sign up" below to shoot us an introductory email. Don't worry, it's pre-populated with prompts to help you provide everything we need to know to get started.</p>
 
-  {% if form.posted_successfully? %}
-  <p class="note form-success">
-    {{ 'contact.form.post_success' | t }}
-  </p>
-  {% endif %}
+  <a class="btn" href="mailto:wholesale@diasporaco.com?subject=Lets%20talk%20wholesale&body=Hi%20Diaspora!%0d%0dI'm%20 reaching%20out%20about%20your%20wholesale%20program.%20Here%20are%20my%20details:%0d%0d1.%20Company:%20%0d%0d2.%20Link%20to%20my%20website%20and/or%20Instagram:%20%0d%0d3.%20Type%20of%20business:%20(Food%20service/restaurant/cafe,%20CPG%20business,%20retail%20store,%20other)%0d%0d4.%20Mailing%20address%20(location%20of%20store):%20%0d%0d5.%20Quantities%20and%20spices%20I'm%20interested%20in:%20%0d%0d6.%20Why%20Diaspora%20spices%20are%20a%20good%20fit:%20%0d%0d%0d%0dI'm%20excited%20to%20get%20in%20touch%20and%20explore%20your%20wholesale%20options!%20Thanks%20so%20much.%0d%0d" rel="EMAIL">Sign Up</a>
 
-  {{ form.errors | default_errors }}
 
-  <div>
-    {% assign name_attr = 'contact.form.name' | t | handle %}
-    <label >Name</label>
-    <label for="ContactFormName" class="hidden-label">{{ 'contact.form.name' | t }}</label>
-    <input required type="text" id="ContactFormName" class="input-full" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
-    <div>
-      <label >Email</label>
-      <label for="ContactFormEmail" class="hidden-label">{{ 'contact.form.email' | t }}</label>
-      <input required type="email" id="ContactFormEmail" class="input-full" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
-      <div>
-        <label for="ContactCompany">Company</label>
-        <input required type="text"
-               name="contact[company]"
-               id="contactCompany"
-               class="input-full">
-      </div>
-      <div>
-        <label >Type of Business</label>
-        <label for="ContactFormType" class="hidden-label"> Type of Business </label>
-        <select id="ContactFormType" name="contact[type]">
-          <option> Food Service (Restaurant/Cafe)</option>
-          <option>CPG Business</option>
-          <option> Retail Store </option>
-          <option> Other </option>
-        </select>
-      </div>
-
-      <div>
-        <label >Mailing Address (for us to ship samples to)</label>
-        <label for="ContactFormAddress" class="hidden-label">Mailing Address (for us to ship samples to)</label>
-        <input required type="text"
-               name="contact[address]"
-               id="ContactFormAddress"
-               class="input-full">
-    </div>
-
-    <div>
-      <label>How did you hear about us?</label>
-      <label  for="ContactFormMessage" class="hidden-label">How did you hear about us?</label>
-      <textarea rows="5" id="ContactFormMessage" class="input-full" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
-    </div>
-
-    <button type="submit" class="btn right">Sign Up!</button>
-
-    {% endform %}
   </div>

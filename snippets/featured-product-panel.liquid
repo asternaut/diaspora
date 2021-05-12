@@ -1,0 +1,181 @@
+{% include 'wh_calculate_discount' with product, hide_method: 'break' %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% include 'wh_variant' with current_variant %}
+
+
+{% assign on_sale = false %}
+{% if wh_v_compare_at_price > wh_v_price %}
+  {% unless hide_on_sale_badge %}
+    {% assign on_sale = true %}
+  {% endunless %}
+{% endif %}
+{% assign in_stock = false %}
+{% for variant in product.variants %}
+  {% if variant.available %}
+    {% assign in_stock = true %}
+  {% endif %}
+{% endfor %}
+
+{% assign spice = '' %}
+{% for tag in product.tags %}
+  {% if tag contains "spice_" %}
+
+    {% assign spice = tag | remove: "spice_" %}
+  {% endif %}
+{% endfor %}
+
+<div class="product-panel-background background-illustration {{spice}} {{product.handle}} dabba">
+  <div class="grid--inline product-single {% if section.settings.reverse == true %} row-reverse {% endif %}">
+    <div class="product__panel-item radial-gradient-bg-orange" >
+      <div class="sidebarColumn-inner">
+        <div class="content-wrapper--title">
+          <div class="flex--center-on-mobile">
+            {%- include 'shipping-badge' -%}
+          </div>
+
+          {% if block.settings.supertext != blank %}
+            <div class="supertext"> {{block.settings.supertext}} </div>
+          {% elsif section.settings.supertext != blank %}
+            <div class="supertext"> {{section.settings.supertext}} </div>
+          {% endif %}
+
+          <h1 itemprop="name" class='small--text-center product-title'>{{ product.title }}</h1>
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+            <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+            <div id="AddToCartForm" class="product-form form-vertical general-form ">
+              {% form 'product', product, data-productid: product.id %}
+                <div class="featured-product__price product__price">
+                  <div class="money-flex">
+                    <span class="money" itemprop="price" data-product-price>
+                      <span class="font-weight-regular">{{ wh_v_price |  money_without_trailing_zeros  }}</span>
+                    </span>
+                    {% if wh_compare_at_price_max > wh_price %}
+                      <span class='strikethrough faded money' data-compare-price>
+                        {{ wh_v_compare_at_price |  money_without_trailing_zeros }}
+                      </span>
+                    {% endif %}
+                  </div>
+                  <a href="{{product.url}}"> Learn More </a>
+                </div>
+                {% comment %}
+                  Add product variants as a dropdown.
+                  - By default, each variant (or combination of variants) will display as its own
+                  <option>
+                    - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+                    You can leverage jQuery to add a callback on page load and each time the select element changes:
+                    - Include option_selection.js (as seen at the bottom of this file)
+                    - This allows you to use JavaScript anytime the variant dropdown changes
+                    - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+                    For more information on products with multiple options, visit:
+                    - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+                {% endcomment %}
+                {% if block.settings.page_text != blank %}
+                  <div class="featured-product__description">
+                    {{ block.settings.page_text}}
+                  </div>
+                {% endif %}
+                {% if section.settings.page_text != blank %}
+                  <div class="featured-product__description">
+                    {{ section.settings.page_text}}
+                  </div>
+                {% endif %}
+                <div class="product-selectors">
+                    <div class="{% if product.has_only_default_variant %} sr-only {% else %} select-wrapper {% endif %} ">
+                      <select name="id" data-productid="{{ product.id }}" id="productSelect-{{ product.id }}" class="product-single__variants">
+                        {% for variant in product.variants %}
+                          {% include 'wh_variant' with variant, in_loop: true %}
+                          {% if variant.available %}
+                          {% comment %}
+                          Note: if you use option_selection.js, your
+                          <select>
+                            tag will be overwritten, meaning what you have inside
+                            <option> will not reflect what you coded below.
+                              {% endcomment %}
+                              <option {% if variant == current_variant %} selected="selected" {% endif %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {{ loop_wh_v_price | money }}</option>
+                            {% else %}
+                              <option disabled="disabled">
+                                {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                              </option>
+                            {% endif %}
+                          {% endfor %}
+                      </select>
+                    </div>
+
+                  <div class="product__button-quanity">
+                    {% if block.settings.purchase == true or section.settings.purchase == true  %}
+                      {% include 'add-to-cart-button' %}
+                    {% else %}
+                      <div class="organic-background">
+                        <a href="{{product.url}}"  class="btn rough-btn js addToCart"  >
+                          <svg width="259" height="61.538" viewBox="0 0 259 61.538">
+                            <defs>
+                              <clipPath id="clip-path">
+                                <rect width="259" height="61.538" fill="#f41f86"/>
+                              </clipPath>
+                            </defs>
+                            <g id="atc-button" transform="translate(5077 444)">
+                              <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
+                              <text
+                                        transform="translate(-5000 -405)"
+                                        style="font-size: 22px;"
+                                    >
+                                <tspan>
+                                  Shop Now
+                                </tspan>
+                              </text>
+                            </g>
+                          </svg>
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                  {% if in_stock == false %}
+                  <a class="btn" href="#" type="button" id="BIS_trigger" style="width: 100%; margin-top: 0.667em;">Email when available</a>
+                  {% endif %}
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if block.settings.button_link != blank %}
+      <a href='{{ block.settings.button_link }}' tabindex='0'>
+    {% endif %}
+    {% if section.settings.product != blank %}
+      <a href='{{ product.url }}' tabindex='0'>
+    {% endif %}
+    <div class="product__panel-item">
+      <div id="ProductGalleryStacked" class="product-single__photos large--one-whole product_photo">
+        {% if section.settings.arrow_text != blank %}
+          <div class="arrow-text">{{section.settings.arrow_text}}</div>
+        {% endif %}
+        {% for image in product.images  limit:1 %}
+          {% include "attribute-image-box-ratio" %}
+          {% include "filter-rias-img-url" input: image %}
+          {% assign image_url = output %}
+          <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};" data-image-id="{{ image.id }}">
+          <img
+               data-src="{{ image| product_img_url: '1000x' }}"
+               data-sizes="auto"
+               data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+               class="lazyload lazyload-fade"
+               alt="{{ image.alt | escape }}">
+          <noscript>
+            <img src="{{ image | img_url: '1000x' }}" alt="{{ image.alt }}" />
+          </noscript>
+        </div>
+        {% else %}
+          <img src="//cdn.shopify.com/s/images/themes/product-1.png">
+        {% endfor %}
+      </div>
+    </div>
+    {% if block.settings.button_link != blank %}
+      </a>
+    {% endif %}
+    {% if section.settings.product != blank %}
+      </a>
+    {% endif %}
+  </div>
+</div>

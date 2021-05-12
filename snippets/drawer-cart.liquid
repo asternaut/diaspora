@@ -1,13 +1,27 @@
 <div id="CartDrawer" class="drawer cart-drawer fixed-overlay">
   <div class="fixed-overlay--content">
-    <div class="drawer__header medium-down--hide">
-      <div class="drawer__close">
+    {% comment %}
+    <div style="
+                background: #f41f86;
+                padding: 10px;
+                font-size: 14px;
+                line-height: 1.3em;
+                font-weight: 500;
+                ">
+      We're moving!
+      All orders placed between Sat. Feb 6th - Sun. Feb 21st will ship when we've landed at our new fulfilment partner the week of Feb 22nd! Thanks for your patience while we grow to serve you better, and bring you SO many new spices!</div>
+      {% endcomment %}
+    <div class="drawer__header flex flex--align-center flex--space-between">
+      <div class='clearfix ajaxcart__header'>
+        <span class='floatL mobile-nav__header'>{{ 'cart.general.cart' | t }}</span>
+      </div>
+      <div class="drawer__close ipad-down--hide">
         <button type="button" class="icon-fallback-text js-drawer-close">
           <svg><use xlink:href="#icon-close"></use></svg>
           <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
         </button>
       </div>
     </div>
-    <div id="CartContainer"></div>
+    <div class="js-cartContainer cart__container flex flex--column"></div>
   </div>
 </div>

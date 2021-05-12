@@ -1,6 +1,11 @@
+<style>
+  .featured-products .grid__item {
+    padding-right: 30px;
+  }
+</style>
 {% assign hover_class = section.settings.collection_style %}
 {% assign fit_image_class = 'grid__item--variable-height grid__image' %}
-
+{% comment %}
 {% case section.settings.featured_products_per_row %}
   {% when "1" %}
     {% assign grid_item_width = "large--one-whole medium--one-whole" %}
@@ -13,7 +18,7 @@
   {% when "5" %}
     {% assign grid_item_width = "large--one-fifth medium--one-third" %}
 {% endcase %}
-
+{% endcomment %}
 {% assign collection = collections[section.settings.collection] | default: false %}
 
 {% assign limit = section.settings.featured_products_per_row | times: section.settings.featured_rows %}
@@ -25,8 +30,13 @@
 {% endif %}
 
 {% if collection and collection.products_count > 0 %}
-  <div class="grid--products grid--full grid--featured-products image-gutters--{{ settings.image_gutter }}">
-    {% for product in collection.products limit: limit %}
+  <!-- <div class="grid--products grid--full grid--featured-products {% if section.settings.marigold == true %} show-marigold {% endif %} image-gutters--{{ settings.image_gutter }} "> -->
+  <div class="{% if section.settings.marigold == true %} show-marigold {% endif %} slick-slider">
+    {% for product in collection.products %}
+{%- comment -%} Wholesale Gorilla: do not delete unless app is uninstalled{%- endcomment -%}
+{%- assign wsgTempProd = product -%}{%- assign wsgExclude = false -%}{%- if forloop.first == true -%}{%- assign wsgActive = false -%}{%- assign wsgActiveCustomer = false -%}
+{%- include 'wsg-status' wsgStatusAction: 'init' | strip -%}{%- endif -%}{%- if wsgActive -%}{%- include 'wsg-status' wsgStatusAction: 'col-item' | strip -%}{%- endif -%}{%- if wsgExclude -%} {%- continue -%} {%- endif -%}
+{%- comment -%} end WSG {%- endcomment -%}
 {% include 'wh_calculate_discount' with product, hide_method: 'skip' %}
       {% include 'product-grid-item' %}
     {% endfor %}
@@ -42,6 +52,27 @@
   </div>
 {% endif %}
 
+<script>
+$(document).ready(function(){
+    $('.slick-slider').slick({
+      slidesToShow: 1,
+      infinite: true,
+      arrows: true,
+      slidesToScroll: 1,
+      autoplay: true,
+      speed: 300,
+      mobileFirst:true,
+      responsive: [{
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 4,
+          autoplay: false
+        }
+      }]
+    });
+});
+</script>
+
 {% schema %}
   {
     "name": "Featured collection",
@@ -56,6 +87,11 @@
         "type": "checkbox",
         "id": "collection_title",
         "label": "Show collection title"
+      },
+  	  {
+        "type": "checkbox",
+        "id": "marigold",
+        "label": "Show rotating marigold"
       },
       {
         "type": "select",

@@ -3,10 +3,21 @@
   THIS FILE WILL BE OVERWRITTEN.
 {% endcomment %}
 <div class="custom-fields-wrapper">
-  {% include 'custom_fields.products.left_column' %}
-  {% include 'custom_fields.products.center_column' %}
-  {% include 'custom_fields.products.right_column' %}
-  {% include 'custom_fields.products.row_2_column_1' %}
-  {% include 'custom_fields.products.row_2_column_2' %}
-  {% include 'custom_fields.products.row_2_column_3' %}
+  {% render 'custom_fields.products.product_quote' %}
+  {% render 'custom_fields.products.product_description_image' %}
+  {% render 'custom_fields.products.show_harvest_notes_and_size_gu' %}
+  {% render 'custom_fields.products.origin' %}
+  {% render 'custom_fields.products.harvest_year' %}
+  {% render 'custom_fields.products.heirloom_seed_variety' %}
+  {% render 'custom_fields.products.seed_licensing' %}
+  {% render 'custom_fields.products.harvest_image' %}
+  {% render 'custom_fields.products.size_guide' %}
+  {% render 'custom_fields.products.equity_pledge_image' %}
+  {% render 'custom_fields.products.spice_card_details' %}
+  {% render 'custom_fields.products.banner_text' %}
+  {% render 'custom_fields.products.banner_button_text' %}
+  {% render 'custom_fields.products.testing_results_link' %}
+  {% render 'custom_fields.products.pre-order' %}
+  {% render 'custom_fields.products.restock_date' %}
+  {% render 'custom_fields.products.fine_print' %}
 </div>

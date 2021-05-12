@@ -1,0 +1,95 @@
+<!-- collection-featured-product -->
+
+{% assign slide_timeout = 10 %}
+{% assign slide_timeout_ms = slide_timeout | times: 1000 %}
+{% include "attribute-product-image-box-ratio-max" %}
+
+<div class="collection-featured-products" id="carousel-{{ section.id }}" data-ken-burns="{{ section.settings.enable_ken_burns }}" data-slide-timeout="{{ slide_timeout_ms }}">
+  <div class="featured-slider ">
+    {% for block in section.blocks %}
+      {%- assign product = all_products[block.settings.product] -%}
+      {% include 'featured-product-panel' %}
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<style>
+
+  #carousel-{{ section.id }} .slick-active .carousel-slide-progress-bar {
+    -webkit-animation: progress-expand {{ slide_timeout_ms }}ms linear;
+    -moz-animation: progress-expand {{ slide_timeout_ms }}ms linear;
+    -o-animation: progress-expand {{ slide_timeout_ms }}ms linear;
+    animation: progress-expand {{ slide_timeout_ms }}ms linear;
+  }
+
+  #carousel-{{ section.id }} .slick-dots button:before {
+    color: #f41f86;
+  }
+  .slick-slider {
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+$('.featured-slider').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 10000,
+  arrows: true
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Featured Products",
+    "class": "carousel",
+    "max_blocks": 9,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_ken_burns",
+        "label": "Enable zoom animation",
+        "default": false
+      }
+
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "supertext",
+            "label": "Pre Heading"
+          },
+          {
+            "type": "text",
+            "id": "page_text",
+            "label": "Subheading",
+            "default": "This is your new slideshow. There are many like it, but this one is yours. It's perfect for product promotions or announcements."
+          },
+          {
+            "type": "checkbox",
+            "id": "purchase",
+            "label": "Allow add to cart from page",
+            "default": true
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Slide link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

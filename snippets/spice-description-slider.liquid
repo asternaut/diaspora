@@ -1,0 +1,90 @@
+<div class="spice-description-slider">
+
+  {%- for block in section.blocks -%}
+    {%- assign block_product = all_products[block.settings.spice_product] -%}
+
+    <div>
+      <div class="spice-description__slide">
+        <div class="s-d__image">
+          {% for image in block_product.images  limit:1 %}
+            {% include "attribute-image-box-ratio" %}
+            {% include "filter-rias-img-url" input: image %}
+            {% assign image_url = output %}
+
+            {% if block.settings.spice_product != blank %}
+              <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};" data-image-id="{{ image.id }}">
+                <img  data-src="{{block.settings.spice_image | img_url: '500x'}}" class="lazyload spice-illustration" alt="{{block.settings.spice_iamge.alt}}">
+                <img
+                     data-src="{{ image| product_img_url: '1000x' }}"
+                     data-sizes="auto"
+                     data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                     class="lazyload lazyload-fade main-image"
+                     alt="{{ image.alt | escape }}">
+                <noscript>
+                  <img src="{{ image | img_url: '1000x' }}" alt="{{ image.alt }}" />
+                </noscript>
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};" data-image-id="{{ image.id }}">
+                <img
+                     data-src="{{ block.settings.spice_image | img_url:  '1000x' }}"
+                     data-sizes="auto"
+                     data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+                     class="lazyload lazyload-fade main-image"
+                     alt="{{ block.settings.spice_image.alt | escape }}">
+              <noscript>
+                <img src="{{ image | img_url: '1000x' }}" alt="{{ image.alt }}" />
+              </noscript>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="s-d__content">
+          <div class="flex">
+            {% if block.settings.spice_product != blank %}
+              <h2 class="s-d__title"> {{block_product.title}}</h2>
+            {% else %}
+              <h2 class="s-d__title">  {{ block.settings.spice_title | strip_html }} </h2>
+            {% endif %}
+            {% if block_product.template_suffix != "no-show"  %}
+              <a href="{{block_product.url}}" class="underline">
+                 shop {{block_product.handle | replace: "-", " "}}
+               </a>
+             {% endif %}
+          </div>
+
+          <div class="s-d__table two-column">
+            <div class="column">
+              <div class="header"> Origin</div>
+              <div class="">
+                {% if block_product.metafields.custom_fields["origin"] != blank %}
+                  {{ block_product.metafields.custom_fields["origin"] }}
+                {% endif %}
+              </div>
+            </div>
+            <div class="column">
+              <div class="header"> Tasting Notes </div>
+              <div class="">
+                {% if block.settings.flavors != blank %}
+                    {{block.settings.flavors}}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <div class="s-d__table">
+            <div class="column">
+              <div class="header"> Farm Story </div>
+              <div>
+                {{block.settings.spice_description}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {%- endfor -%}
+
+</div>

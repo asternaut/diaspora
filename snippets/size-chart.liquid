@@ -3,7 +3,34 @@
 <div>Not sure what size you need or how long it’ll last you? Our spice size guide can help!</div>
 </div>
 <div class="chart-table">
-{{ product.metafields.custom_fields["size_guide"] }}
+{% if product.metafields.custom_fields["spice_guide"] != blank %}
+      {% for item in product.metafields.custom_fields["spice_guide"] %}
+      
+           {% if item["spice_row"] != blank %}
+             <div class="spice__row">
+         
+              
+                 {% for spice_row_item in item["spice_row"] %}
+                   <div class="{% if forloop.first %} spice_name {% else %} spice_cell {% endif %}">
+                     {% if spice_row_item["illustration"] != blank %}                       
+                       <img src="{{ spice_row_item["illustration"] }}">                 
+                     {% endif %}
+                     {% if spice_row_item["text"] != blank %}
+                       <span >
+                         {{ spice_row_item["text"] }}
+                       </span>
+                     {% endif %}
+                   </div>
+                 {% endfor %}
+               
+             </div>
+           {% endif %}
+         
+       {% endfor %}
+
+{% elsif product.metafields.custom_fields["size_guide"] != blank  %}  
+	{{ product.metafields.custom_fields["size_guide"] }}
+{% endif %}
 </div>
 {% comment %}
   <div class="spice__row">

@@ -1,0 +1,67 @@
+<!-- attribute-banner -->
+{%- if section.settings.image_m -%}
+  <div class="attribute-icon small"><img data-src="{{section.settings.image_m | img_url: '800x' }}" alt="{{section.settings.image_m.alt}}" class="lazyload"></div>
+{%- endif -%}
+<div class="attribute-banner pink {% if section.settings.top_margin == true %} top-margin {% endif %}{% if section.settings.bottom_margin == true %} bottom-margin {% endif %}">
+
+    <div class="flex-all-center banner">
+    {%- for block in section.blocks limit: section.blocks.size -%}
+      <h5>{{block.settings.attribute}} </h5>
+      {%- unless forloop.last -%}<h5 class="spacer"> &#x2B26; </h5>{%- endunless -%}
+    {%- endfor -%}
+    </div>
+    {%- if section.settings.image -%}
+    <div class="attribute-icon large"><img data-src="{{section.settings.image | img_url: '600x' }}" alt="{{section.settings.image.alt}}" class="lazyload"></div>
+    {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Attribute Banner",
+    "class": "top-index",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Desktop image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_m",
+        "label": "Mobile image"
+      },
+      {
+        "type": "checkbox",
+        "id": "top_margin",
+        "label": "Top margin",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "bottom_margin",
+        "label": "Bottom margin",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Attribute",
+        "settings": [
+          {
+            "type": "text",
+            "id": "attribute",
+            "label": "Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Attribute Banner",
+        "category": "Text"
+      }
+    ]
+  }
+{% endschema %}

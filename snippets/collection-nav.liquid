@@ -1,0 +1,10 @@
+<div class="scrolling-navigation">
+  <ul class="">
+   {%- for block in section.blocks -%}
+      {%- assign category = collections[block.settings.collection] -%}
+      <li class="js-scrollnav-link {% if link.active == true %} active {% endif %}" data-id="#{{category.title | handleize | downcase }}">
+        <a href="#{{category.title | handleize | downcase }}"> {{ category.title }} </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

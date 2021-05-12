@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/diaspora-co-spices.myshopify.com/products/configure/211146/edit
+{% endcomment %}
+{% if product.metafields.custom_fields["restock_date"] != blank %}
+  <div class="custom-field custom-field__restock-date custom-field__type--text">
+    <h3 class="custom-field--title">Restock date</h3>
+    <div class="custom-field--value">
+      {{ product.metafields.custom_fields["restock_date"] }}
+    </div>
+  </div>
+{% endif %}

@@ -3,7 +3,7 @@
   There are currently 2 different layouts, but it's intentionally extensible for future designs.
 {% endcomment %}
 
-<div class="grid--full grid--story image-gutters--{{ settings.image_gutter }}" id="story-grid" data-section-id="{{ section.id }}" style="color:{{ section.settings.text_color }};">
+<div class="grid--full grid--story" id="story-grid" data-section-id="{{ section.id }}" style="color:{{ section.settings.text_color }}; background-color:{{ section.settings.background_color }};">
   {% for block in section.blocks limit: section.blocks.size %}
     {% assign imageCellWidth = 'half-half' %}
     {% assign textCellWidth = 'half-half' %}

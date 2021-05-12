@@ -20,18 +20,15 @@
 
 {% assign count = 0 %}
 {% for article in blogs.recipes.articles %}
-  {% if article.tags contains product.handle %}
-  {% assign count = count | plus: 1 %}
+  {% if article.tags contains spice %}
+  	{% assign count = count | plus: 1 %}
   {% endif %}
 {% endfor %}
 
-{% assign related_items = related_items | trim %}
-
-{% unless related_items == blank %}
 <section class="product-recipes">
   {% assign counts = 0 %}
   {% for article in blogs.recipes.articles %}
-    {% if article.tags contains product.handle %}
+    {% if article.tags contains spice %}
       {% assign counts = counts | plus: 1 %}
       {% if counts > 1 %}
         {% break %}
@@ -42,8 +39,8 @@
   {% endfor %}
 
   <div class="grid--products grid--full image-gutters--{{ settings.image_gutter }} {% if count > 4 %}slick-slider {% endif %}">
-    {% for article in blogs.recipes.articles limit: 10 %}
-    {% if article.tags contains product.handle %}
+    {% for article in blogs.recipes.articles %}
+    {% if article.tags contains spice %}
 
     <div class="grid__item large--one-quarter medium--one-quarter small--one-whole animation-sequence-{{ forloop.index0 }}                ">
       {% if article.image %}
@@ -83,4 +80,3 @@
     {% endfor %}
   </div>
 </section>
-{% endunless %}

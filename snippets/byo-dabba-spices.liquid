@@ -1,0 +1,155 @@
+<!-- dabba-spices -->
+<div id="spice-rack" class="spice-rack">
+  <div class="spice-rack__title">Add Spices</div>
+
+  <svg class="mound first-mound" xmlns="http://www.w3.org/2000/svg" width="501.118" height="43.937" viewBox="0 0 501.118 43.937">
+    <path id="mound" d="M865.529,514.538h32.515c68.254,0,108.357-43.937,212.585-43.937s137.9,43.937,204.327,43.937h34.832" transform="translate(-856.178 -470.601)" fill="#fb0"/>
+  </svg>
+
+  <div class="product-panel-background dabba-section">
+    <div class="product-single bundler">
+      <div class="dabba__build-panel">
+          <!-- @arren bundler items -->
+          <div class="dabba__items">
+            {% assign collection = collections[section.settings.collection] | default: false %}
+
+            {%- for col_product in collection.products -%}
+              {% assign variant = col_product.variants[0] %}
+              {% assign productSize = "" %}
+
+              {% if variant.metafields.custom_fields["product_size"] != blank %}
+                {% assign productSize = variant.metafields.custom_fields["product_size"] %}
+              {% else %}
+                {% assign productSize = col_product.metafields.custom_fields["product_size"] %}
+              {% endif %}
+
+              {%- unless col_product.handle == 'kashmiri-saffron' -%}
+                <div
+                  class="bundler__product js-bundler-card {% unless variant.available %} out-of-stock {% endunless %}"
+                  data-title="{{col_product.title}}"
+                  data-variant-id="{{ variant.id }}"
+                  data-price="{{ bundle_price }}"
+                  data-jar-image="
+                    {%- if col_product.metafields.custom_fields['jar_image_for_bundler'] -%}
+                      {{ col_product.metafields.custom_fields['jar_image_for_bundler'] }}
+                    {%- elsif variant.metafields.custom_fields['jar_image_for_bundler'] -%}
+                      {{ variant.metafields.custom_fields['jar_image_for_bundler'] }}
+                    {%- endif -%}"
+                  >
+                  <div class="bundler__product-details">
+                    {%- if col_product.metafields.custom_fields["spice_illustration"] != blank -%}
+                      <div class="bundler__product-image">
+                        <div class="bundler__product-count js-bundler-count">1</div>
+                        <img data-src="{%- if variant.metafields.custom_fields['spice_illustration'] -%} {{variant.metafields.custom_fields['spice_illustration']}} {%- else -%} {{ col_product.metafields.custom_fields['spice_illustration'] }} {%- endif -%}" alt="illustration of whole spice" class="lazyload">
+                      </div>
+                    {%- endif -%}
+
+                    {% comment %}
+                    {%- if in_stock -%}
+                      <div class="title-text font-weight-medium" style="margin-top: 2em;">In Stock</div>
+                    {%- else -%}
+                      <div class="title-text font-weight-medium" style="margin-top: 2em;">Preorder</div>
+                    {%- endif -%}
+                    {% endcomment %}
+
+                    <div class="bold"> {{productSize}}</div>
+                    <div class="h4">{{ col_product.title }}</div>
+
+                    {% if variant.available %}
+                    <div class="bundler__product-quantity">
+                      <div class="bundler quantity-input js-bundler-quantity organic-background">
+                        <img data-src="{{'quantity-bg.png' | asset_img_url: 'master' }}" alt="" class="not-spice lazyload lazyload-fade">
+                        <input type='button' value='-' class='qtyminus qtyadjust-bundler' field='quantity' />
+                        <input type="number" id="Quantity" name="quantity" value="0" min="0" class="quantity-selector js-quantityInput" autocomplete="off" readonly>
+                        <input type='button' value='+' class='qtyplus qtyadjust-bundler' field='quantity' />
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+
+                </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="wave-hr ipad-down--hide"></div>
+
+      <!-- Desktop Empty Jars -->
+      <div class="dabba__spices ipad-down--hide">
+        <h2 class="serif-title">Spices In Your Dabba</h2>
+        <p class="uppercase"><span class="js-dabba-count">0</span>/7 Selected</p>
+        <div class="dabba__product-jars jars-7">
+          <!-- PRODUCT PHOTOS -->
+          {%- for i in (1..7) -%}
+            <div class="bundler__empty-jar js image-{{i}} js-bundler-images">
+              <img src="{{ section.settings.jar_illustration | img_url: '800x'}}" data-src="{{ section.settings.jar_illustration | img_url: '800x'}}" class="lazyload" alt="">
+              <div class="js-stock-message"></div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dabba Drawer -->
+    <div class="product__panel-item bundler__mobile-drawer js-mobile-drawer desktop-up--hide">
+      <div class="bundler__mobile-drawer-tab js desktop-up--hide js-mobile-tab">
+        <div class="tab-text">
+          <img src="{{ 'dropdown-arrow.svg' | asset_url }}" alt="open/close arrow" class="arrow">
+          <div class="h4 pink-text js-tab-title">Spices In Your Dabba</div>
+        </div>
+
+        <svg class="mound" xmlns="http://www.w3.org/2000/svg" width="501.118" height="43.937" viewBox="0 0 501.118 43.937">
+          <path id="mound" d="M865.529,514.538h32.515c68.254,0,108.357-43.937,212.585-43.937s137.9,43.937,204.327,43.937h34.832" transform="translate(-856.178 -470.601)" fill="#fb0"/>
+        </svg>
+      </div>
+      <div class="dabba__product-jars bundler__product-photos">
+        <!-- PRODUCT PHOTOS -->
+        {%- for i in (1..7) -%}
+          <div class="bundler__empty-jar js image-{{i}} js-bundler-images">
+            <img src="{{ section.settings.jar_illustration | img_url: '800x'}}" data-src="{{ section.settings.jar_illustration | img_url: '800x'}}" class="lazyload" alt="">
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="organic-background">
+        <button type="submit" id="AddToCart" name="add" class="btn bundler-btn rough-btn js addToCart js-bundler-button js-modal-trigger" data-modal="preorder" disabled data-id="{{ current_variant.id }}">
+          <svg width="259" height="61.538" viewBox="0 0 259 61.538">
+            <defs>
+              <clipPath id="clip-path">
+                <rect width="259" height="61.538" fill="#f41f86"/>
+              </clipPath>
+            </defs>
+            <g id="atc-button" transform="translate(5077 444)">
+              <path id="Path_292" data-name="Path 292" d="M65.151,60.59c-9.553.084-19.078-.231-28.629-.175-7.99.047-17.315.187-24.119-1.555C3.509,56.582,2.112,51.747,1.717,48.2c-.523-4.693.554-9.39.572-14.084C2.31,29.079.383,24.082.07,19.049-.309,12.936.086,2.153,21.528.334c8.89-.755,18.394.253,27.307.479,27,.686,53.416-.677,80.328-.811,17.382-.085,34.369,1.555,51.715,1.676,10.908.076,21.564-.883,32.369-1.24,5-.166,10-.137,15.015-.062,8.812.13,19.364.012,22.927,3.482a7.23,7.23,0,0,1,1.6,2.459,82.733,82.733,0,0,1,4.089,10.219,30.567,30.567,0,0,1,.791,5.7,36.022,36.022,0,0,1,.1,5.452A13.589,13.589,0,0,0,258.7,32.8a8.08,8.08,0,0,1,.023,4.274c-.611,2.92-1.966,5.812-2.494,8.732a9.427,9.427,0,0,0,.655,6.345,4.544,4.544,0,0,1,.25,3.372c-.315,1.216-1.568,2.477-4.146,3.353-6.6,2.242-17.744,2.239-26.335,2.259-3.418.006-6.822-.09-10.23-.161-7.322-.155-14.685-.086-22.007.07-14.128.3-28,.634-42.182.433-14.193-.2-28.345-.65-42.531-.9-12.172-.213-24.36-.258-36.546-.348" transform="translate(-5077 -444)" />
+
+              <!-- you'll need to change the transform on the <text> tag depending on the text length -ss -->
+              <text
+                data-button-text="Add 7 More"
+                transform="translate(-5005 -405)"
+                style="font-size: 20px; color: #fff;"
+                id="Add_To_Cart" data-name="Preorder"
+              >
+                <tspan>
+                  Add 7 More
+                </tspan>
+              </text>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="dabba__button-sticky js-sticky-btn ipad-down--hide">
+      <button type="submit" id="AddToCart" name="add" class="btn bundler-btn js addToCart js-bundler-button js-modal-trigger" data-modal="preorder" disabled data-id="{{ current_variant.id }}">
+        <text
+          data-button-text="Add 7 More"
+          style="font-size: 20px; color: #fff;"
+          id="Add_To_Cart" data-name="Add To Cart"
+        >
+          <tspan>Add 7 More</tspan>
+          <span>• {{ product.price | money }}</span>
+        </text>
+      </button>
+    </div>
+</div>
